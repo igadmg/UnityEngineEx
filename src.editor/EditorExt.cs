@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngineEx;
 
 
 namespace UnityEditorEx
@@ -10,8 +10,8 @@ namespace UnityEditorEx
 		[MenuItem("File/Save All %&s")]
 		static void SaveAll()
 		{
-			EditorApplication.SaveAssets();
-			EditorApplication.SaveScene();
+			AssetDatabase.SaveAssets();
+			EditorSceneManager.SaveOpenScenes();
 		}
 
 	

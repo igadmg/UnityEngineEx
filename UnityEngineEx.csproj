@@ -37,11 +37,11 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine">
-      <HintPath>$(SolutionDir)Libraries\UnityAssemblies\UnityEngine.dll</HintPath>
+      <HintPath>$(UNITYEDITOR_PATH)\Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>$(SolutionDir)Libraries\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(UNITYEDITOR_PATH)\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

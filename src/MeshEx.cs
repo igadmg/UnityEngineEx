@@ -178,7 +178,6 @@ namespace UnityEngineEx
 
 		public static Mesh Apply(this Mesh mesh)
 		{
-			mesh.Optimize();
 			mesh.RecalculateBounds();
 			return mesh;
 		}

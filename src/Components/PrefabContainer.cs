@@ -6,7 +6,7 @@ namespace UnityEngineEx
 	[ExecuteInEditMode]
 	public class PrefabContainer : MonoBehaviour
 	{
-		[SerializeField] GameObject prefab;
+		[SerializeField] GameObject prefab = null;
 
 		void Awake()
 		{

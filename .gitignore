@@ -1,7 +1,8 @@
-bin/
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
+/.vs
+/bin/
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
 
 doc
 
@@ -13,6 +14,4 @@ doc
 /*.pidb
 /*.booproj
 Assembly-*.csproj
-UnityEngineEx-csharp.sln
-UnityEngineEx.sln
 .project
