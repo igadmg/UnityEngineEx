@@ -46,7 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.UnityEditor.cs" />
     <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
-    <Compile Include="src.editor\Components\PrefabContainerEditor.cs" />
     <Compile Include="src.editor\Components\TransformEditor.cs" />
     <Compile Include="src.editor\Editor.cs" />
     <Compile Include="src.editor\EditorExt.cs" />
@@ -72,6 +71,14 @@
       <Project>{0271E27F-E614-4B0F-AF16-05D2D2781B7F}</Project>
       <Name>SystemEx</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)Libraries\UnityDissolve\UnityDissolve.csproj">
+      <Project>{5ddef78f-3298-4583-adf8-21421e4b29f9}</Project>
+      <Name>UnityDissolve</Name>
+    </ProjectReference>
+    <ProjectReference Include="$(SolutionDir)Libraries\UnityDissolve\UnityDissolve.Editor.csproj">
+      <Project>{db11460f-9b28-4775-a1cc-348504748721}</Project>
+      <Name>UnityDissolve.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngineEx.csproj">
       <Project>{5DDEF78F-3298-4583-ADF8-21421E4B29F9}</Project>

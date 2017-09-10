@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using SystemEx;
+using UnityDissolve;
 using UnityEngine;
 
 namespace UnityEngineEx

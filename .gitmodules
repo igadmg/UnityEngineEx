@@ -4,3 +4,6 @@
 [submodule "Libraries/SystemEx"]
 	path = Libraries/SystemEx
 	url = git@github.com:yatagarasu25/SystemEx.git
+[submodule "Libraries/UnityDissolve"]
+	path = Libraries/UnityDissolve
+	url = git@github.com:yatagarasu25/UnityDissolve.git

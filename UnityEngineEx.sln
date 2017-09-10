@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemEx", "Libraries\Syste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathEx.UnityEngine", "Libraries\MathEx\MathEx.UnityEngine.csproj", "{D707C31E-1C84-42A1-9790-3EBBF75EA645}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityDissolve", "Libraries\UnityDissolve\UnityDissolve.csproj", "{5DDEF78F-3298-4583-ADF8-21421E4B29F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityDissolve.Editor", "Libraries\UnityDissolve\UnityDissolve.Editor.csproj", "{DB11460F-9B28-4775-A1CC-348504748721}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Net 3.5|Any CPU = Debug Net 3.5|Any CPU
@@ -127,6 +131,46 @@ Global
 		{D707C31E-1C84-42A1-9790-3EBBF75EA645}.Release Unity|Any CPU.Build.0 = Release|Any CPU
 		{D707C31E-1C84-42A1-9790-3EBBF75EA645}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D707C31E-1C84-42A1-9790-3EBBF75EA645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Net 3.5|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Net 3.5|Any CPU.Build.0 = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Net 4.0|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Net 4.0|Any CPU.Build.0 = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Unity Net 3.5|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Unity Net 3.5|Any CPU.Build.0 = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Unity|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug Unity|Any CPU.Build.0 = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Net 3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Net 3.5|Any CPU.Build.0 = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Net 4.0|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Net 4.0|Any CPU.Build.0 = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Unity Net 3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Unity Net 3.5|Any CPU.Build.0 = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Unity|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release Unity|Any CPU.Build.0 = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDEF78F-3298-4583-ADF8-21421E4B29F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Net 3.5|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Net 3.5|Any CPU.Build.0 = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Net 4.0|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Net 4.0|Any CPU.Build.0 = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Unity Net 3.5|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Unity Net 3.5|Any CPU.Build.0 = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Unity|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug Unity|Any CPU.Build.0 = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Net 3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Net 3.5|Any CPU.Build.0 = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Net 4.0|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Net 4.0|Any CPU.Build.0 = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Unity Net 3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Unity Net 3.5|Any CPU.Build.0 = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Unity|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release Unity|Any CPU.Build.0 = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11460F-9B28-4775-A1CC-348504748721}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

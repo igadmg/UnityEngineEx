@@ -1,7 +1,8 @@
-﻿using System;
+﻿using MathEx;
+using System;
 using System.Collections.Generic;
 using SystemEx;
-using MathEx;
+using UnityDissolve;
 using UnityEngine;
 
 namespace UnityEngineEx
@@ -60,41 +61,6 @@ namespace UnityEngineEx
 				}
 			}
 			yield break;
-		}
-
-		#endregion
-
-		#region Dissolve
-
-		public static GameObject Dissolve<T>(this GameObject o, Action<T> i)
-		{
-			i((T)o.GetComponentOrThis(typeof(T)));
-			return o;
-		}
-
-		public static GameObject Dissolve(this GameObject o, ActionContainer i)
-		{
-			var prms = new object[i.args.Length];
-
-			for (int ai = 0; ai < i.args.Length; ai++)
-				prms[ai] = o.GetComponentOrThis(i.args[ai]);
-
-			i.DynamicInvoke(prms);
-
-			return o;
-		}
-
-		public static GameObject Dissolve(this GameObject o, params ActionContainer[] i)
-		{
-			for (int ii = 0; ii < i.Length; ii++)
-				o.Dissolve(i[ii]);
-
-			return o;
-		}
-
-		public static T Dissolve<T>(this GameObject c, T o)
-		{
-			return c.transform.Dissolve(o);
 		}
 
 		#endregion
