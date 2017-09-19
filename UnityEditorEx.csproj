@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug.UnityEditorEx\</OutputPath>
+    <OutputPath>$(SolutionDir)bin\Debug.UnityEditor\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release.UnityEditorEx\</OutputPath>
+    <OutputPath>$(SolutionDir)bin\Release.UnityEditor\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -75,10 +75,12 @@
     <ProjectReference Include="$(SolutionDir)Libraries\UnityDissolve\UnityDissolve.csproj">
       <Project>{5ddef78f-3298-4583-adf8-21421e4b29f9}</Project>
       <Name>UnityDissolve</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="$(SolutionDir)Libraries\UnityDissolve\UnityDissolve.Editor.csproj">
       <Project>{db11460f-9b28-4775-a1cc-348504748721}</Project>
       <Name>UnityDissolve.Editor</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="UnityEngineEx.csproj">
       <Project>{5DDEF78F-3298-4583-ADF8-21421E4B29F9}</Project>
