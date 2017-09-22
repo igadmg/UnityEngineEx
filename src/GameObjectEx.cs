@@ -580,6 +580,21 @@ namespace UnityEngineEx
 		}
 
 		/// <summary>
+		/// Traverse GameObject hierarchy until find "root" object.
+		/// Root object is first parent object not marked with tag SubObject.
+		/// </summary>
+		/// <param name="o"></param>
+		/// <returns></returns>
+		public static GameObject GetRootObject(this GameObject o)
+		{
+			GameObject go = o;
+			while (go != null && go.tag == "SubObject")
+				go = go.transform.parent.gameObject;
+
+			return go;
+		}
+
+		/// <summary>
 		/// Apply some Action recursively to GameObject and all its child objects.
 		/// </summary>
 		/// <param name="o"></param>

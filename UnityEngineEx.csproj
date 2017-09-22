@@ -64,6 +64,7 @@
     <Compile Include="src\MonoBehaviourEx.cs" />
     <Compile Include="src\PlayerPrefsEx.cs" />
     <Compile Include="src\RandomEx.cs" />
+    <Compile Include="src\RaycastHitEx.cs" />
     <Compile Include="src\RendererEx.cs" />
     <Compile Include="src\ResolutionEx.cs" />
     <Compile Include="src\ResourcesEx.cs" />
