@@ -536,12 +536,34 @@ namespace UnityEngineEx
 			return parent.transform.Add(o).gameObject;
 		}
 
+		/// <summary>
+		/// Set parent of GameObject short way.
+		/// </summary>
+		/// <param name="o"></param>
+		/// <param name="parent"></param>
+		/// <returns></returns>
 		public static GameObject SetParent(this GameObject o, GameObject parent)
 		{
 			parent.transform.Add(o);
 			return o;
 		}
 		
+		/// <summary>
+		/// SetActive only if needed and return ture if active state was changed.
+		/// </summary>
+		/// <param name="o"></param>
+		/// <param name="active"></param>
+		/// <returns></returns>
+		public static bool ChangeActive(this GameObject o, bool active)
+		{
+			if (o.activeSelf != active)
+			{
+				o.SetActive(active);
+				return true;
+			}
+
+			return false;
+		}
 
 		/// <summary>
 		/// Get most accurate Bounds of the GameObject.

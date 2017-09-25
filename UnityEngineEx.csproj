@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\AnimationStateEx.cs" />
     <Compile Include="src\ColorBlockEx.cs">
       <SubType>Code</SubType>
     </Compile>
