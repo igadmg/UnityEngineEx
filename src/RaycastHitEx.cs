@@ -10,6 +10,19 @@ namespace UnityEngineEx
 	public static class RaycastHitEx
 	{
 		/// <summary>
+		/// Returns game object short way.
+		/// </summary>
+		/// <param name="hit"></param>
+		/// <returns></returns>
+		public static GameObject GetGameObject(this RaycastHit hit)
+		{
+			if (hit.transform == null || hit.transform.gameObject == null)
+				return null;
+
+			return hit.transform.gameObject;
+		}
+
+		/// <summary>
 		/// Returns root object in hit hierarchy.
 		/// Root object is first parent object not marked with tag SubObject.
 		/// </summary>
