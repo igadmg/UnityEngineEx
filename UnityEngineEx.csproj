@@ -74,6 +74,8 @@
     <Compile Include="src\TextAnchorEx.cs" />
     <Compile Include="src\TextureEx.cs" />
     <Compile Include="src\TransformEx.cs" />
+    <Compile Include="src\UI\DragHandlerProxy.cs" />
+    <Compile Include="src\UI\SelectHandlerProxy.cs" />
     <Compile Include="src\Watch.cs" />
   </ItemGroup>
   <ItemGroup>

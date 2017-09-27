@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Internal;
+
+
 
 namespace UnityEngineEx
 {
@@ -31,6 +31,16 @@ namespace UnityEngineEx
 			result[3] = c.ScreenPointToRay(new Vector2(c.pixelWidth, 0));
 			
 			return result;
+		}
+
+		public static bool Raycast(this Camera c, out RaycastHit hit)
+		{
+			return Physics.Raycast(c.transform.Ray(), out hit);
+		}
+
+		public static bool Raycast(this Camera c, out RaycastHit hit, [DefaultValue("Mathf.Infinity")] float maxDistance = Mathf.Infinity, [DefaultValue("Physics.DefaultRaycastLayers")] int layerMask = Physics.DefaultRaycastLayers, [DefaultValue("QueryTriggerInteraction.UseGlobal")] QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+		{
+			return Physics.Raycast(c.transform.Ray(), out hit, maxDistance, layerMask, queryTriggerInteraction);
 		}
 	}
 }

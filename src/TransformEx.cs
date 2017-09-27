@@ -8,6 +8,11 @@ namespace UnityEngineEx
 {
 	public static class TransformEx
 	{
+		public static Ray Ray(this Transform transfrom)
+		{
+			return new Ray(transfrom.position, transfrom.forward);
+		}
+
 		/// <summary>
 		/// Adds GameObject as a child to a transform.
 		/// Objects position and rotation are set to localPosition and localrotation.
