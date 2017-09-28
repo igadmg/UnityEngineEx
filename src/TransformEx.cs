@@ -1,16 +1,38 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using SystemEx;
 using UnityEngine;
+
+
 
 namespace UnityEngineEx
 {
+	/// <summary>
+	/// Transfrom extensionf functions.
+	/// </summary>
 	public static class TransformEx
 	{
+		/// <summary>
+		/// Cast a Ray from transform position in transform's forward direction.
+		/// </summary>
+		/// <param name="transfrom"></param>
+		/// <returns></returns>
 		public static Ray Ray(this Transform transfrom)
 		{
 			return new Ray(transfrom.position, transfrom.forward);
+		}
+
+		/// <summary>
+		/// Align transform wit otherTransform. 
+		/// Synchronize transfrom positions and rotations.
+		/// </summary>
+		/// <param name="transform"></param>
+		/// <param name="otherTransform"></param>
+		/// <returns></returns>
+		public static Transform Align(this Transform transform, Transform otherTransform)
+		{
+			transform.position = otherTransform.position;
+			transform.rotation = otherTransform.rotation;
+			return transform;
 		}
 
 		/// <summary>

@@ -8,6 +8,19 @@ namespace UnityEngineEx
 {
 	public static class ComponentEx
 	{
+		/// <summary>
+		/// Adds GameObject as a child to another GameObject.
+		/// Objects position and rotation are set to localPosition and localrotation.
+		/// <seealso cref="TransformEx.Add"/>
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="o"></param>
+		/// <returns></returns>
+		public static GameObject Add(this Component parent, GameObject o)
+		{
+			return parent.transform.Add(o).gameObject;
+		}
+
 		public static T AddComponent<T>(this Component c) where T : Component
 		{
 			return c.gameObject.AddComponent<T>();

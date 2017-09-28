@@ -141,6 +141,19 @@ namespace UnityEngineEx
 
 		#region Instantiation
 
+		public static GameObject New(this GameObject instance)
+		{
+			GameObject go = null;
+
+			try
+			{
+				go = GameObject.Instantiate(instance) as GameObject;
+			}
+			catch (Exception e) { Debug.LogException(e); }
+
+			return go;
+		}
+
 		public static GameObject New(this GameObject instance, params Tuple<Type, object>[] initializers)
 		{
 			GameObject go = null;
