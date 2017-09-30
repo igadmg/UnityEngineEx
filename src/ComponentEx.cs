@@ -1,13 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using SystemEx;
 using UnityEngine;
 
+
+
 namespace UnityEngineEx
 {
+	/// <summary>
+	/// Component extension functions.
+	/// </summary>
 	public static class ComponentEx
 	{
+		/// <summary>
+		/// Construct prefab of given component type.
+		/// Initialize component with fields from initializer object.
+		/// </summary>
+		/// <typeparam name="C"></typeparam>
+		/// <param name="prefab"></param>
+		/// <param name="initializer"></param>
+		/// <returns></returns>
+		public static C Construct<C>(this C prefab, object initializer)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.New(Tuple.Create(typeof(C), initializer));
+			return go.GetComponent<C>();
+		}
+
 		/// <summary>
 		/// Adds GameObject as a child to another GameObject.
 		/// Objects position and rotation are set to localPosition and localrotation.
