@@ -14,6 +14,33 @@ namespace UnityEngineEx
 	{
 		/// <summary>
 		/// Construct prefab of given component type.
+		/// </summary>
+		/// <typeparam name="C"></typeparam>
+		/// <param name="prefab"></param>
+		/// <returns></returns>
+		public static C Construct<C>(this C prefab)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct();
+			return go.GetComponent<C>();
+		}
+
+		public static C Construct<C>(this C prefab, Transform parent)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct(parent.gameObject);
+			return go.GetComponent<C>();
+		}
+
+		public static C Construct<C>(this C prefab, GameObject parent)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct(parent);
+			return go.GetComponent<C>();
+		}
+
+		/// <summary>
+		/// Construct prefab of given component type.
 		/// Initialize component with fields from initializer object.
 		/// </summary>
 		/// <typeparam name="C"></typeparam>

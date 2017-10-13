@@ -141,7 +141,7 @@ namespace UnityEngineEx
 
 		#region Instantiation
 
-		public static GameObject New(this GameObject instance)
+		public static GameObject Construct(this GameObject instance)
 		{
 			GameObject go = null;
 
@@ -152,6 +152,13 @@ namespace UnityEngineEx
 			catch (Exception e) { Debug.LogException(e); }
 
 			return go;
+		}
+
+		public static GameObject Construct(this GameObject instance, GameObject parent)
+		{
+			return instance.New(_.a((Transform t) => {
+				parent.Add(t);
+			}));
 		}
 
 		public static GameObject New(this GameObject instance, params Tuple<Type, object>[] initializers)
@@ -516,29 +523,9 @@ namespace UnityEngineEx
 			}
 		}
 
-		public static object GetComponentOrThis(this GameObject o, Type type)
-		{
-			if (type != typeof(GameObject))
-				return o.GetComponent(type);
-			else
-				return o;
-		}
-
-		public static object GetComponentOrAdd(this GameObject o, Type type)
-		{
-			if (type != typeof(GameObject)) {
-				var c = o.GetComponent(type);
-				if (c == null)
-					c = o.AddComponent(type);
-				return c;
-			}
-			else
-				return o;
-		}
-
 		/// <summary>
 		/// Adds GameObject as a child to another GameObject.
-		/// Objects position and rotation are set to localPosition and localrotation.
+		/// Objects position and rotation are set to localPosition and localRotation.
 		/// <seealso cref="TransformEx.Add"/>
 		/// </summary>
 		/// <param name="parent"></param>
@@ -547,6 +534,19 @@ namespace UnityEngineEx
 		public static GameObject Add(this GameObject parent, GameObject o)
 		{
 			return parent.transform.Add(o).gameObject;
+		}
+
+		/// <summary>
+		/// Adds Transform as a child to another GameObject.
+		/// Objects position and rotation are set to localPosition and localRotation.
+		/// <seealso cref="TransformEx.Add"/>
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="child"></param>
+		/// <returns></returns>
+		public static GameObject Add(this GameObject parent, Transform child)
+		{
+			return parent.transform.Add(child).gameObject;
 		}
 
 		/// <summary>

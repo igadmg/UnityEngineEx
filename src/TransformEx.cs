@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityDissolve;
 using UnityEngine;
 
 
@@ -36,24 +37,43 @@ namespace UnityEngineEx
 		}
 
 		/// <summary>
-		/// Adds GameObject as a child to a transform.
-		/// Objects position and rotation are set to localPosition and localrotation.
+		/// Adds GameObject as a child to the Transform.
+		/// Objects position and rotation are set to localPosition and localRotation.
 		/// </summary>
 		/// <param name="transform"></param>
-		/// <param name="o"></param>
+		/// <param name="child"></param>
 		/// <returns></returns>
-		public static Transform Add(this Transform transform, GameObject o)
+		public static Transform Add(this Transform transform, GameObject child)
 		{
-			var po = o.transform.position;
-			var ro = o.transform.rotation;
-			var sc = o.transform.localScale;
-			o.transform.parent = transform;
-			o.transform.localPosition = po;
-			o.transform.localRotation = ro;
-			o.transform.localScale = sc;
+			var po = child.transform.position;
+			var ro = child.transform.rotation;
+			var sc = child.transform.localScale;
+			child.transform.parent = transform;
+			child.transform.localPosition = po;
+			child.transform.localRotation = ro;
+			child.transform.localScale = sc;
 			return transform;
 		}
-		
+
+		/// <summary>
+		/// Adds Transform as a child to the Transform.
+		/// Objects position and rotation are set to localPosition and localRotation.
+		/// </summary>
+		/// <param name="transform"></param>
+		/// <param name="child"></param>
+		/// <returns></returns>
+		public static Transform Add(this Transform transform, Transform child)
+		{
+			var po = child.position;
+			var ro = child.rotation;
+			var sc = child.localScale;
+			child.parent = transform;
+			child.localPosition = po;
+			child.localRotation = ro;
+			child.localScale = sc;
+			return transform;
+		}
+
 		/// <summary>
 		/// Removes all child GameObjects.
 		/// </summary>
