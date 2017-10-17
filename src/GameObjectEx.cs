@@ -686,5 +686,20 @@ namespace UnityEngineEx
 
 			return o;
 		}
+
+		/// <summary>
+		/// Calculated adequate instance id of multiple objects.
+		/// </summary>
+		/// <param name="oa"></param>
+		/// <returns></returns>
+		public static int GetInstanceID(this UnityEngine.Object[] oa)
+		{
+			int result = 0;
+
+			for (int i = 0; i < oa.Length; i++)
+				result = 37 * result + oa[i].GetInstanceID();
+
+			return result;
+		}
 	}
 }
