@@ -161,7 +161,7 @@ namespace UnityEngineEx
 			}));
 		}
 
-		public static GameObject New(this GameObject instance, params Tuple<Type, object>[] initializers)
+		public static GameObject Construct(this GameObject instance, params Tuple<Type, object>[] initializers)
 		{
 			GameObject go = null;
 			bool a = instance.activeSelf;
@@ -179,6 +179,32 @@ namespace UnityEngineEx
 				go.SetActive(a);
 			} catch (Exception e) { Debug.LogException(e); }
 			
+			instance.SetActive(a);
+			return go;
+		}
+
+		public static GameObject Construct(this GameObject instance, GameObject parent, params Tuple<Type, object>[] initializers)
+		{
+			GameObject go = null;
+			bool a = instance.activeSelf;
+			instance.SetActive(false);
+
+			try
+			{
+				go = GameObject.Instantiate(instance) as GameObject;
+				parent.Add(go);
+
+				foreach (var i in initializers) try	{
+					var c = go.GetComponent(i.Item1);
+					if (c != null)
+						c.Setup(i.Item2);
+				}
+				catch (Exception e) { Debug.LogException(e); }
+
+				go.SetActive(a);
+			}
+			catch (Exception e) { Debug.LogException(e); }
+
 			instance.SetActive(a);
 			return go;
 		}

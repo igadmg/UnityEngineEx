@@ -50,7 +50,21 @@ namespace UnityEngineEx
 		public static C Construct<C>(this C prefab, object initializer)
 			where C : Component
 		{
-			GameObject go = prefab.gameObject.New(Tuple.Create(typeof(C), initializer));
+			GameObject go = prefab.gameObject.Construct(Tuple.Create(typeof(C), initializer));
+			return go.GetComponent<C>();
+		}
+
+		public static C Construct<C>(this C prefab, Transform parent, object initializer)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct(parent.gameObject, Tuple.Create(typeof(C), initializer));
+			return go.GetComponent<C>();
+		}
+
+		public static C Construct<C>(this C prefab, GameObject parent, object initializer)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct(parent, Tuple.Create(typeof(C), initializer));
 			return go.GetComponent<C>();
 		}
 

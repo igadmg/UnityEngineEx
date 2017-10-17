@@ -13,16 +13,6 @@ namespace UnityEngineEx
 	public static class TransformEx
 	{
 		/// <summary>
-		/// Cast a Ray from transform position in transform's forward direction.
-		/// </summary>
-		/// <param name="transfrom"></param>
-		/// <returns></returns>
-		public static Ray Ray(this Transform transfrom)
-		{
-			return new Ray(transfrom.position, transfrom.forward);
-		}
-
-		/// <summary>
 		/// Align transform wit otherTransform. 
 		/// Synchronize transfrom positions and rotations.
 		/// </summary>
