@@ -7,13 +7,13 @@ using UnityEngine;
 namespace UnityEditorEx.Components
 {
 	[CustomEditor(typeof(MeshRenderer))]
-	class MeshRendererEditor : Editor
+	class MeshRendererEditor : Editor<MeshRenderer>
 	{
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
 
-			Renderer t = target as Renderer;
+			Renderer t = target;
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Sorting Layer");

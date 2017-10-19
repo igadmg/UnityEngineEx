@@ -5,12 +5,12 @@ using UnityEngineEx;
 namespace UnityEditorEx.Components
 {
 	[CustomEditor(typeof(PrefabContainer))]
-	class PrefabContainerEditor : Editor
+	class PrefabContainerEditor : Editor<PrefabContainer>
 	{
 		public override void OnInspectorGUI()
 		{
 			if (GUILayout.Button("Reset")) {
-				((PrefabContainer)target).DoReset();
+				target.DoReset();
 			}
 
 			base.OnInspectorGUI();
