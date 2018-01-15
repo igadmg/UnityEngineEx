@@ -30,7 +30,7 @@ public class Inspector_Transform : Editor<Transform>
 
 	private static string LocalString(string text)
 	{
-		return LocalizationDatabase.GetLocalizedString(text);
+        return text;//LocalizationDatabase.GetLocalizedString(text);
 	}
 
 	public void OnEnable()
