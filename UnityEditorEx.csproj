@@ -52,6 +52,7 @@
     <Compile Include="src.editor\ProjectExt.cs" />
     <Compile Include="src.editor\Refactoring\RefactorAttribute.cs" />
     <Compile Include="src.editor\SpriteExt.cs" />
+    <Compile Include="src.editor\RectTransformExt.cs" />
     <Compile Include="src.editor\TransformEx.cs" />
     <Compile Include="src.editor\TransformExt.cs" />
   </ItemGroup>

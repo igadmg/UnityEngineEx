@@ -45,14 +45,26 @@ namespace UnityEngineEx
 			return transform;
 		}
 
-		/// <summary>
-		/// Adds Transform as a child to the Transform.
+        /// <summary>
+		/// Adds GameObject as a child to the Transform.
 		/// Objects position and rotation are set to localPosition and localRotation.
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <param name="child"></param>
 		/// <returns></returns>
-		public static Transform Add(this Transform transform, Transform child)
+		public static Transform Add(this Transform transform, Component child)
+        {
+            return transform.Add(child.gameObject);
+        }
+
+        /// <summary>
+        /// Adds Transform as a child to the Transform.
+        /// Objects position and rotation are set to localPosition and localRotation.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="child"></param>
+        /// <returns></returns>
+        public static Transform Add(this Transform transform, Transform child)
 		{
 			var po = child.position;
 			var ro = child.rotation;
