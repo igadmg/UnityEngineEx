@@ -38,7 +38,7 @@ namespace UnityEngineEx
 			var po = child.transform.position;
 			var ro = child.transform.rotation;
 			var sc = child.transform.localScale;
-			child.transform.parent = transform;
+			child.transform.SetParent(transform);
 			child.transform.localPosition = po;
 			child.transform.localRotation = ro;
 			child.transform.localScale = sc;
@@ -69,7 +69,7 @@ namespace UnityEngineEx
 			var po = child.position;
 			var ro = child.rotation;
 			var sc = child.localScale;
-			child.parent = transform;
+			child.SetParent(transform);
 			child.localPosition = po;
 			child.localRotation = ro;
 			child.localScale = sc;
@@ -140,7 +140,7 @@ namespace UnityEngineEx
 		public static Transform Unlink(this Transform transform)
 		{
 			foreach (Transform child in transform) {
-				child.parent = null;
+				child.SetParent(null);
 			}
 
 			return transform;

@@ -40,19 +40,37 @@
       <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(UNITYEDITORDATA_PATH)\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.UnityEditor.cs" />
+    <Compile Include="src.editor\ComponentExt.cs" />
+    <Compile Include="src.editor\Components\Inspector_PrefabPanel.cs" />
+    <Compile Include="src.editor\Components\Inspector_PrefabPanelList.cs" />
     <Compile Include="src.editor\Components\Inspector_Transform.cs" />
     <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
     <Compile Include="src.editor\Editor.cs" />
     <Compile Include="src.editor\EditorExt.cs" />
+    <Compile Include="src.editor\EditorProgressBar.cs" />
     <Compile Include="src.editor\InspectorExt.cs" />
     <Compile Include="src.editor\ProjectExt.cs" />
     <Compile Include="src.editor\Refactoring\RefactorAttribute.cs" />
     <Compile Include="src.editor\SpriteExt.cs" />
     <Compile Include="src.editor\RectTransformExt.cs" />
+    <Compile Include="src.editor\Templates\ComponentEditor_cs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComponentEditor_cs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="src.editor\Templates\StateMachineState_cs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StateMachineState_cs.tt</DependentUpon>
+    </Compile>
     <Compile Include="src.editor\TransformEx.cs" />
     <Compile Include="src.editor\TransformExt.cs" />
   </ItemGroup>
@@ -87,9 +105,27 @@
       <Name>UnityDissolve</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="UnityEngineEx.csproj">
+      <Project>{e323793c-989d-4e1e-8f78-96c6d5ed6caa}</Project>
+      <Name>UnityEngineEx</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="src.editor\EventLog.tcs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src.editor\Templates\ComponentEditor_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ComponentEditor_cs.cs</LastGenOutput>
+    </Content>
+    <Content Include="src.editor\Templates\StateMachineState_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StateMachineState_cs.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

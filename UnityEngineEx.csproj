@@ -49,6 +49,10 @@
     <Compile Include="src\ColorBlockEx.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\Components\BaseStateMachine.cs" />
+    <Compile Include="src\Components\BaseState.cs" />
+    <Compile Include="src\Components\PrefabPanel.cs" />
+    <Compile Include="src\Components\PrefabPanelList.cs" />
     <Compile Include="src\IConstructable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\AnimationEx.cs" />

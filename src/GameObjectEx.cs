@@ -306,7 +306,7 @@ namespace UnityEngineEx
 		{
 			return instance.New(
 				ArrayEx.Concat(
-					_.a((Transform t) => { t.parent = parent.transform; })
+					_.a((Transform t) => { t.SetParent(parent.transform); })
 					, initializers));
 		}
 
@@ -314,7 +314,7 @@ namespace UnityEngineEx
 		{
 			return instance.New(
 				ArrayEx.Concat(
-					_.a((Transform t) => { t.parent = parent.transform; t.localPosition = po; })
+					_.a((Transform t) => { t.SetParent(parent.transform); t.localPosition = po; })
 					, initializers));
 		}
 

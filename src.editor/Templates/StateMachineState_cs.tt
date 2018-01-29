@@ -1,0 +1,23 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ parameter name="namespacename" type="System.String" #>
+<#@ parameter name="statename" type="System.String" #>
+<#@ parameter name="statemachinetype" type="System.String" #>
+<#@ parameter name="controllertype" type="System.String" #>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngineEx;
+
+
+
+namespace <#= this.namespacename #>
+{
+    public class <#= this.statename #> : BaseState<<#= this.statemachinetype #>, <#= this.controllertype #>>
+    {
+    }
+}
