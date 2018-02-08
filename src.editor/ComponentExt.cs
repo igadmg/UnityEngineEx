@@ -18,7 +18,7 @@ namespace UnityEditorEx
 
             if (component != null)
             {
-                string editorPath = Path.Combine(Application.dataPath, "Editor");
+                string editorPath = Path.Combine("Assets", "Editor");
                 if (!Directory.Exists(editorPath))
                 {
                     Directory.CreateDirectory(editorPath);
@@ -31,9 +31,13 @@ namespace UnityEditorEx
                 };
 
                 string editorScriptPath = Path.Combine(editorPath, componentTypeName + "Editor.cs");
-                if (!File.Exists(editorScriptPath))
+                string editorScriptFullPath = Path.GetFullPath(editorScriptPath);
+                if (!File.Exists(editorScriptFullPath))
                 {
-                    File.WriteAllText(editorScriptPath, Template.TransformToText<ComponentEditor_cs>(parameters));
+                    File.WriteAllText(editorScriptFullPath, Template.TransformToText<ComponentEditor_cs>(parameters));
+
+                    AssetDatabase.ImportAsset(editorScriptFullPath);
+                    AssetDatabase.Refresh();
                 }
             }
         }

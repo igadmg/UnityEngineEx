@@ -49,7 +49,7 @@ namespace UnityEditorEx.Components
 
                     canvas.renderMode = RenderMode.WorldSpace;
                     RectTransform rectTransform = canvas.GetComponent<RectTransform>();
-                    rectTransform.sizeDelta = new Vector2(640, 480);
+                    rectTransform.sizeDelta = panel.uiCanvasSize;
                 }
                 go.transform.SetParent(item.transform, false);
                 panel.Add(item);
@@ -57,7 +57,7 @@ namespace UnityEditorEx.Components
                 Bounds itemb = item.GetBounds();
                 if (panel.isUIPrefabs)
                 {
-                    itemb = new Bounds(Vector3.zero, new Vector3(640, 480, 0));
+                    itemb = new Bounds(Vector3.zero, panel.uiCanvasSize.xyz(0));
                 }
 
                 float shift = itemb.IsEmpty() ? 0.0f : (Vector3.right.Mul(itemb.size).magnitude / 2.0f);

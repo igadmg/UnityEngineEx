@@ -61,10 +61,20 @@
     <Compile Include="src.editor\Refactoring\RefactorAttribute.cs" />
     <Compile Include="src.editor\SpriteExt.cs" />
     <Compile Include="src.editor\RectTransformExt.cs" />
+    <Compile Include="src.editor\Templates\AnimatorController_cs.cs">
+      <DependentUpon>AnimatorController_cs.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="src.editor\Templates\ComponentEditor_cs.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ComponentEditor_cs.tt</DependentUpon>
+    </Compile>
+    <Compile Include="src.editor\Templates\StateMachine_cs.cs">
+      <DependentUpon>StateMachine_cs.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="src.editor\Templates\StateMachineState_cs.cs">
       <AutoGen>True</AutoGen>
@@ -115,9 +125,17 @@
     <None Include="src.editor\EventLog.tcs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="src.editor\Templates\AnimatorController_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>AnimatorController_cs.cs</LastGenOutput>
+    </Content>
     <Content Include="src.editor\Templates\ComponentEditor_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ComponentEditor_cs.cs</LastGenOutput>
+    </Content>
+    <Content Include="src.editor\Templates\StateMachine_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StateMachine_cs.cs</LastGenOutput>
     </Content>
     <Content Include="src.editor\Templates\StateMachineState_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
