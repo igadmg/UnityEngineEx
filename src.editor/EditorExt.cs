@@ -16,7 +16,7 @@ namespace UnityEditorEx
 
 	
 		[MenuItem("GameObject/Copy path to clipboard %&c", true)]
-		static bool CopyPathToClipboardCheck()
+		static bool ValidateCopyPathToClipboard()
 		{
 			return Selection.activeGameObject != null;
 		}

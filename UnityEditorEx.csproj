@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)bin\Debug.UnityEditor\</OutputPath>
+    <OutputPath>$(SolutionDir)bin\Debug.UnityEx\Editor\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)bin\Release.UnityEditor\</OutputPath>
+    <OutputPath>$(SolutionDir)bin\Release.UnityEx\Editor\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,10 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="UnityEditor">
-      <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEditor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
@@ -44,9 +40,20 @@
       <HintPath>$(UNITYEDITORDATA_PATH)\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEditor.Graphs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.UnityEditor.cs" />
+    <Compile Include="src.editor\AnimatorControllerEx.cs" />
+    <Compile Include="src.editor\AnimatorControllerExt.cs" />
+    <Compile Include="src.editor\AnimatorExt.cs" />
     <Compile Include="src.editor\ComponentExt.cs" />
     <Compile Include="src.editor\Components\Inspector_PrefabPanel.cs" />
     <Compile Include="src.editor\Components\Inspector_PrefabPanelList.cs" />
@@ -55,8 +62,13 @@
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
     <Compile Include="src.editor\Editor.cs" />
     <Compile Include="src.editor\EditorExt.cs" />
+    <Compile Include="src.editor\EditorGUIEx.cs" />
+    <Compile Include="src.editor\EditorGUILayoutEx.cs" />
     <Compile Include="src.editor\EditorProgressBar.cs" />
+    <Compile Include="src.editor\Editors\AnimationControllerEditor.cs" />
+    <Compile Include="src.editor\Editors\GameObjectEditor.cs" />
     <Compile Include="src.editor\InspectorExt.cs" />
+    <Compile Include="src.editor\ProjectBrowserExt.cs" />
     <Compile Include="src.editor\ProjectExt.cs" />
     <Compile Include="src.editor\Refactoring\RefactorAttribute.cs" />
     <Compile Include="src.editor\SpriteExt.cs" />
@@ -83,6 +95,10 @@
     </Compile>
     <Compile Include="src.editor\TransformEx.cs" />
     <Compile Include="src.editor\TransformExt.cs" />
+    <Compile Include="src.editor\UndoEx.cs" />
+    <Compile Include="src.editor\Windows\AnimatorWindow.cs" />
+    <Compile Include="src.editor\Windows\ButtonDropWindow.cs" />
+    <Compile Include="src.editor\Windows\SceneWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)Libraries\MathEx\MathEx.csproj">

@@ -39,7 +39,7 @@ namespace UnityEditorEx
 
 		static int skipDistributeObjects = 0;
 		[MenuItem("CONTEXT/Transform/Distribute Objects", true)]
-		public static bool DistributeObjectsCheck(MenuCommand command)
+		public static bool ValidateDistributeObjects(MenuCommand command)
 		{
 			if (Selection.gameObjects.Length <= 1)
 				return false;
@@ -71,7 +71,7 @@ namespace UnityEditorEx
 		}
 
 		[MenuItem("CONTEXT/Transform/Pack Objects", true)]
-		public static bool PackObjectsCehck(MenuCommand command)
+		public static bool ValidatePackObjects(MenuCommand command)
 		{
 			if (Selection.gameObjects.Length <= 1)
 				return false;

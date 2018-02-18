@@ -22,22 +22,22 @@ namespace UnityEngineEx
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct();
-			return go.GetComponent<C>();
+			return (C)go.GetComponent(prefab.GetType());
 		}
 
 		public static C Construct<C>(this C prefab, Transform parent)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent.gameObject);
-			return go.GetComponent<C>();
-		}
+			return (C)go.GetComponent(prefab.GetType());
+        }
 
 		public static C Construct<C>(this C prefab, GameObject parent)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent);
-			return go.GetComponent<C>();
-		}
+			return (C)go.GetComponent(prefab.GetType());
+        }
 
 		/// <summary>
 		/// Construct prefab of given component type.
@@ -51,22 +51,22 @@ namespace UnityEngineEx
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(Tuple.Create(typeof(C), initializer));
-			return go.GetComponent<C>();
-		}
+			return (C)go.GetComponent(prefab.GetType());
+        }
 
 		public static C Construct<C>(this C prefab, Transform parent, object initializer)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent.gameObject, Tuple.Create(typeof(C), initializer));
-			return go.GetComponent<C>();
-		}
+			return (C)go.GetComponent(prefab.GetType());
+        }
 
 		public static C Construct<C>(this C prefab, GameObject parent, object initializer)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent, Tuple.Create(typeof(C), initializer));
-			return go.GetComponent<C>();
-		}
+			return (C)go.GetComponent(prefab.GetType());
+        }
 
 		/// <summary>
 		/// Adds GameObject as a child to another GameObject.
