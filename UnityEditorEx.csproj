@@ -61,6 +61,8 @@
     <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
     <Compile Include="src.editor\Editor.cs" />
+    <Compile Include="src.editor\EditorGUIUtilityEx.cs" />
+    <Compile Include="src.editor\MonoScriptEx.cs" />
     <Compile Include="src.editor\EditorExt.cs" />
     <Compile Include="src.editor\EditorGUIEx.cs" />
     <Compile Include="src.editor\EditorGUILayoutEx.cs" />
@@ -73,8 +75,8 @@
     <Compile Include="src.editor\Refactoring\RefactorAttribute.cs" />
     <Compile Include="src.editor\SpriteExt.cs" />
     <Compile Include="src.editor\RectTransformExt.cs" />
-    <Compile Include="src.editor\Templates\AnimatorController_cs.cs">
-      <DependentUpon>AnimatorController_cs.tt</DependentUpon>
+    <Compile Include="src.editor\Templates\BaseAnimatorController_cs.cs">
+      <DependentUpon>BaseAnimatorController_cs.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -83,8 +85,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ComponentEditor_cs.tt</DependentUpon>
     </Compile>
-    <Compile Include="src.editor\Templates\StateMachine_cs.cs">
-      <DependentUpon>StateMachine_cs.tt</DependentUpon>
+    <Compile Include="src.editor\Templates\BaseStateMachine_cs.cs">
+      <DependentUpon>BaseStateMachine_cs.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="src.editor\Templates\DerivedClass_cs.cs">
+      <DependentUpon>DerivedClass_cs.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -141,17 +148,21 @@
     <None Include="src.editor\EventLog.tcs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src.editor\Templates\AnimatorController_cs.tt">
+    <Content Include="src.editor\Templates\BaseAnimatorController_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>AnimatorController_cs.cs</LastGenOutput>
+      <LastGenOutput>BaseAnimatorController_cs.cs</LastGenOutput>
     </Content>
     <Content Include="src.editor\Templates\ComponentEditor_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ComponentEditor_cs.cs</LastGenOutput>
     </Content>
-    <Content Include="src.editor\Templates\StateMachine_cs.tt">
+    <Content Include="src.editor\Templates\BaseStateMachine_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>StateMachine_cs.cs</LastGenOutput>
+      <LastGenOutput>BaseStateMachine_cs.cs</LastGenOutput>
+    </Content>
+    <Content Include="src.editor\Templates\DerivedClass_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DerivedClass_cs.cs</LastGenOutput>
     </Content>
     <Content Include="src.editor\Templates\StateMachineState_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

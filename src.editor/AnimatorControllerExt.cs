@@ -6,6 +6,8 @@ using UnityEditor.Animations;
 using UnityEditorEx.src.editor.Templates;
 using UnityEngine;
 
+
+
 namespace UnityEditorEx
 {
     public static class AnimatorControllerExt
@@ -35,46 +37,71 @@ namespace UnityEditorEx
             var controller = Selection.activeObject as AnimatorController;
 
             string animatorControllerName = controller.name.Replace("AnimatorController", "");
-            List<string> floats = new List<string>();
-            List<string> ints = new List<string>();
-            List<string> bools = new List<string>();
-            List<string> triggers = new List<string>();
-
-            foreach (AnimatorControllerParameter parameter in controller.parameters)
-            {
-                switch (parameter.type)
-                {
-                    case AnimatorControllerParameterType.Float:
-                        floats.Add(parameter.name);
-                        break;
-                    case AnimatorControllerParameterType.Int:
-                        ints.Add(parameter.name);
-                        break;
-                    case AnimatorControllerParameterType.Bool:
-                        bools.Add(parameter.name);
-                        break;
-                    case AnimatorControllerParameterType.Trigger:
-                        triggers.Add(parameter.name);
-                        break;
-                }
-            }
-
-            Dictionary<string, object> parameters = new Dictionary<string, object>
-            {
-                { "animatorcontrollername", animatorControllerName },
-                { "floats", floats },
-                { "ints", ints },
-                { "bools", bools },
-                { "triggers", triggers },
-            };
-
             string animationControllerPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(controller));
-            string animationControllerScriptPath = Path.Combine(animationControllerPath, animatorControllerName + "AnimatorController.cs");
-            File.WriteAllText(Path.GetFullPath(animationControllerScriptPath), Template.TransformToText<AnimatorController_cs>(parameters));
-
-            AssetDatabase.ImportAsset(animationControllerScriptPath);
-            AssetDatabase.LoadAssetAtPath(animationControllerScriptPath, typeof(UnityEngine.Object));
-            AssetDatabase.Refresh();
+			CreateAnimatorControllerScript<BaseAnimatorController_cs>(controller, animatorControllerName, "AnimatorController", animationControllerPath, false);
         }
-    }
+
+		[MenuItem("CONTEXT/AnimatorController/Create State Machine Script")]
+		static void CreateAnimationControllerStateMachineScript()
+		{
+			var controller = Selection.activeObject as AnimatorController;
+
+			string animatorControllerName = controller.name.Replace("StateMachine", "");
+			string animationControllerPath = Path.GetDirectoryName(AssetDatabase.GetAssetPath(controller));
+			CreateAnimatorControllerScript<BaseStateMachine_cs>(controller, animatorControllerName, "StateMachine", animationControllerPath, false);
+		}
+
+		public static void CreateAnimatorControllerScript<TemplateType>(AnimatorController controller, string typeName, string postfix, string scriptPath, bool bNewScript)
+			 where TemplateType : new()
+		{
+			List<string> floats = new List<string>();
+			List<string> ints = new List<string>();
+			List<string> bools = new List<string>();
+			List<string> triggers = new List<string>();
+
+			foreach (AnimatorControllerParameter parameter in controller.parameters)
+			{
+				switch (parameter.type)
+				{
+					case AnimatorControllerParameterType.Float:
+						floats.Add(parameter.name);
+						break;
+					case AnimatorControllerParameterType.Int:
+						ints.Add(parameter.name);
+						break;
+					case AnimatorControllerParameterType.Bool:
+						bools.Add(parameter.name);
+						break;
+					case AnimatorControllerParameterType.Trigger:
+						triggers.Add(parameter.name);
+						break;
+				}
+			}
+
+			if (bNewScript)
+			{
+				File.WriteAllText(Path.GetFullPath(scriptPath)
+					, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object>
+						{
+							{ "namespacename", null },
+							{ "classname", typeName + postfix },
+							{ "baseclassname", "Base" + typeName + postfix },
+						}));
+			}
+
+			string baseScriptPath = Path.Combine(Path.GetDirectoryName(scriptPath), "Base" + typeName + postfix + ".cs");
+			File.WriteAllText(Path.GetFullPath(baseScriptPath)
+				, Template.TransformToText<TemplateType>(new Dictionary<string, object>
+					{
+						{ "typename", typeName },
+						{ "floats", floats },
+						{ "ints", ints },
+						{ "bools", bools },
+						{ "triggers", triggers },
+					}));
+			AssetDatabase.ImportAsset(baseScriptPath);
+			AssetDatabase.ImportAsset(scriptPath);
+			AssetDatabase.Refresh();
+		}
+	}
 }

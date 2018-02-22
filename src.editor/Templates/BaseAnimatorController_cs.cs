@@ -18,9 +18,9 @@ namespace UnityEditorEx.src.editor.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+    #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "15.0.0.0")]
-    public partial class StateMachine_cs : StateMachine_csBase
+    public partial class BaseAnimatorController_cs : BaseAnimatorController_csBase
     {
 #line hidden
         /// <summary>
@@ -28,255 +28,254 @@ namespace UnityEditorEx.src.editor.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing UnityEngine;\nusing UnityEngineEx;\n\r\n\r\n\r\n[ExecuteInEditMode]\r" +
-                    "\npublic class ");
+            this.Write("using System;\r\nusing UnityEngine;\n\r\n\r\n\r\n[ExecuteInEditMode]\r\npublic class Base");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.statemachinename));
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.typename));
             
             #line default
             #line hidden
-            this.Write("StateMachine : BaseStateMachine\n{");
+            this.Write("AnimatorController : MonoBehaviour\n{");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  if (floats.Count != 0) { foreach (System.String floatName in floats) { 
             
             #line default
             #line hidden
             this.Write("\n\tprivate static readonly int Float");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write("\");\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } if (ints.Count != 0) { foreach (System.String intName in ints) { 
             
             #line default
             #line hidden
             this.Write("\n\tprivate static readonly int Int");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write("\");\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } if (bools.Count != 0) { foreach (System.String boolName in bools) { 
             
             #line default
             #line hidden
             this.Write("\n\tprivate static readonly int Bool");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write("\");\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } if (triggers.Count != 0) { foreach (System.String triggerName in triggers) { 
             
             #line default
             #line hidden
             this.Write("\n\tprivate static readonly int Trigger");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write("\");\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } } 
             
             #line default
             #line hidden
             this.Write("\n\n\n\tprivate Animator m_Animator;\n\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  if (floats.Count != 0) { foreach (System.String floatName in floats) { 
             
             #line default
             #line hidden
             this.Write("\n\tpublic float ");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write(" { get { return m_Animator.GetFloat(Float");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write("); } set { m_Animator.SetFloat(Float");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write(", value); } }\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } if (ints.Count != 0) { foreach (System.String intName in ints) { 
             
             #line default
             #line hidden
             this.Write("\n\tpublic int ");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write(" { get { return m_Animator.GetInt(Int");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write("); } set { m_Animator.SetInt(Int");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write(", value); } }\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } if (bools.Count != 0) { foreach (System.String boolName in bools) { 
             
             #line default
             #line hidden
             this.Write("\n\tpublic bool ");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write(" { get { return m_Animator.GetBool(Bool");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write("); } set { m_Animator.SetBool(Bool");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write(", value); } }\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\n\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } if (triggers.Count != 0) { foreach (System.String triggerName in triggers) { 
             
             #line default
             #line hidden
             this.Write("\n\tpublic void ");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write("() { m_Animator.SetTrigger(Trigger");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write("); }\n");
             
-            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+            #line 17 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
  } } 
             
             #line default
@@ -285,18 +284,18 @@ namespace UnityEditorEx.src.editor.Templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachine_cs.tt"
+        #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseAnimatorController_cs.tt"
 
-private string _statemachinenameField;
+private string _typenameField;
 
 /// <summary>
-/// Access the statemachinename parameter of the template.
+/// Access the typename parameter of the template.
 /// </summary>
-private string statemachinename
+private string typename
 {
     get
     {
-        return this._statemachinenameField;
+        return this._typenameField;
     }
 }
 
@@ -360,18 +359,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool statemachinenameValueAcquired = false;
-if (this.Session.ContainsKey("statemachinename"))
+bool typenameValueAcquired = false;
+if (this.Session.ContainsKey("typename"))
 {
-    this._statemachinenameField = ((string)(this.Session["statemachinename"]));
-    statemachinenameValueAcquired = true;
+    this._typenameField = ((string)(this.Session["typename"]));
+    typenameValueAcquired = true;
 }
-if ((statemachinenameValueAcquired == false))
+if ((typenameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("statemachinename");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("typename");
     if ((data != null))
     {
-        this._statemachinenameField = ((string)(data));
+        this._typenameField = ((string)(data));
     }
 }
 bool floatsValueAcquired = false;
@@ -448,7 +447,7 @@ if ((triggersValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "15.0.0.0")]
-    public class StateMachine_csBase
+    public class BaseAnimatorController_csBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

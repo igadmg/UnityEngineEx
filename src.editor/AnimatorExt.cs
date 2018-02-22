@@ -11,102 +11,102 @@ using UnityEngine;
 
 namespace UnityEditorEx
 {
-    public static class AnimatorExt
-    {
-        [MenuItem("CONTEXT/Animator/Create And Set Animator Controller", true)]
-        static bool ValidateCreateAndSetAnimatorController(MenuCommand command)
-        {
-            Animator animator = command.context as Animator;
+	public static class AnimatorExt
+	{
+		[MenuItem("CONTEXT/Animator/Create And Set Animator Controller", true)]
+		static bool ValidateCreateAndSetAnimatorController(MenuCommand command)
+		{
+			Animator animator = command.context as Animator;
 
-            return animator != null
-                && animator.runtimeAnimatorController == null;
-        }
+			return animator != null
+				&& animator.runtimeAnimatorController == null;
+		}
 
-        [MenuItem("CONTEXT/Animator/Create And Set Animator Controller")]
-        static void CreateAndSetAnimatorController(MenuCommand command)
-        {
-            Animator animator = command.context as Animator;
-            string path = ProjectBrowserExt.GetSelectedPath();
-            string name = Selection.activeObject.name.Replace(" ", "") + "AnimatorController";
+		[MenuItem("CONTEXT/Animator/Create And Set Animator Controller")]
+		static void CreateAndSetAnimatorController(MenuCommand command)
+		{
+			Animator animator = command.context as Animator;
+			string path = ProjectBrowserExt.GetSelectedPath();
+			string name = Selection.activeObject.name.Replace(" ", "") + "AnimatorController";
 
-            path = Path.Combine(path, name + ".controller");
-            AnimatorController animatorController = new AnimatorController();
-            animatorController.name = Path.GetFileName(path);
-            AssetDatabase.CreateAsset(animatorController, path);
-            //animatorController.pushUndo = false;
-            animatorController.AddLayer("Base Layer");
-            //animatorController.pushUndo = true;
-            AssetDatabase.ImportAsset(path);
+			path = Path.Combine(path, name + ".controller");
+			AnimatorController animatorController = new AnimatorController();
+			animatorController.name = Path.GetFileName(path);
+			AssetDatabase.CreateAsset(animatorController, path);
+			//animatorController.pushUndo = false;
+			animatorController.AddLayer("Base Layer");
+			//animatorController.pushUndo = true;
+			AssetDatabase.ImportAsset(path);
 
-            animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(path);
-        }
+			animator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(path);
+		}
 
-        [MenuItem("CONTEXT/Animator/Create And Add or Update Animator Script", true)]
-        static bool ValidateCreateAndAddAnimatorScript(MenuCommand command)
-        {
-            Animator animator = command.context as Animator;
+		[MenuItem("CONTEXT/Animator/Create And Add or Update Animator Script", true)]
+		static bool ValidateCreateAndAddAnimatorScript(MenuCommand command)
+		{
+			Animator animator = command.context as Animator;
 
-            return animator != null
-                && animator.runtimeAnimatorController == null;
-        }
+			return animator != null
+				&& animator.runtimeAnimatorController != null;
+		}
 
-        [MenuItem("CONTEXT/Animator/Create And Add or Update Animator Script")]
-        static void CreateAndAddAnimatorScript(MenuCommand command)
-        {
-            var animator = command.context as Animator;
-            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GetAssetPath(animator.runtimeAnimatorController));
+		[MenuItem("CONTEXT/Animator/Create And Add or Update Animator Script")]
+		static void CreateAndAddAnimatorScript(MenuCommand command)
+		{
+			var animator = command.context as Animator;
+			var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GetAssetPath(animator.runtimeAnimatorController));
 
-            string animatorControllerName = controller.name.Replace("AnimatorController", "");
-            List<string> floats = new List<string>();
-            List<string> ints = new List<string>();
-            List<string> bools = new List<string>();
-            List<string> triggers = new List<string>();
+			MonoScript script;
+			string animatorControllerName = controller.name.Replace("AnimatorController", "");
+			if (CreateAnimatorScript<BaseAnimatorController_cs>(animator, controller, animatorControllerName, "AnimatorController", out script))
+			{
+				typeof(UnityEditorInternal.InternalEditorUtility).GetMethod("AddScriptComponentUncheckedUndoable", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { animator.gameObject, script });
+			}
+		}
 
-            foreach (AnimatorControllerParameter parameter in controller.parameters)
-            {
-                switch (parameter.type)
-                {
-                    case AnimatorControllerParameterType.Float:
-                        floats.Add(parameter.name);
-                        break;
-                    case AnimatorControllerParameterType.Int:
-                        ints.Add(parameter.name);
-                        break;
-                    case AnimatorControllerParameterType.Bool:
-                        bools.Add(parameter.name);
-                        break;
-                    case AnimatorControllerParameterType.Trigger:
-                        triggers.Add(parameter.name);
-                        break;
-                }
-            }
+		[MenuItem("CONTEXT/Animator/Create And Add or Update State Machine Script", true)]
+		static bool ValidateCreateAndAddStateMachineScript(MenuCommand command)
+		{
+			Animator animator = command.context as Animator;
 
-            Dictionary<string, object> parameters = new Dictionary<string, object>
-            {
-                { "animatorcontrollername", animatorControllerName },
-                { "floats", floats },
-                { "ints", ints },
-                { "bools", bools },
-                { "triggers", triggers },
-            };
+			return animator != null
+				&& animator.runtimeAnimatorController != null;
+		}
 
-            var animatorControllerBehaviour = animator.gameObject.GetComponent(animatorControllerName + "AnimatorController") as MonoBehaviour;
-            MonoScript animatorControllerScript = MonoScript.FromMonoBehaviour(animatorControllerBehaviour);
-            string animationControllerPath = animatorControllerScript == null
-                ? Path.GetDirectoryName(AssetDatabase.GetAssetPath(controller))
-                : Path.GetDirectoryName(AssetDatabase.GetAssetPath(animatorControllerScript));
-            string animationControllerScriptPath = Path.Combine(animationControllerPath, animatorControllerName + "AnimatorController.cs");
-            File.WriteAllText(Path.GetFullPath(animationControllerScriptPath), Template.TransformToText<AnimatorController_cs>(parameters));
+		[MenuItem("CONTEXT/Animator/Create And Add or Update State Machine Script")]
+		static void CreateAndAddStateMachineScript(MenuCommand command)
+		{
+			var animator = command.context as Animator;
+			var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GetAssetPath(animator.runtimeAnimatorController));
 
-            AssetDatabase.ImportAsset(animationControllerScriptPath);
-            MonoScript script = AssetDatabase.LoadAssetAtPath<MonoScript>(animationControllerScriptPath);
-            AssetDatabase.Refresh();
+			MonoScript script;
+			string stateMachineName = controller.name.Replace("StateMachine", "");
+			if (CreateAnimatorScript<BaseStateMachine_cs>(animator, controller, stateMachineName, "StateMachine", out script))
+			{
+				typeof(UnityEditorInternal.InternalEditorUtility).GetMethod("AddScriptComponentUncheckedUndoable", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { animator.gameObject, script });
+			}
+		}
 
-            script.GetType().GetMethod("SetScriptTypeWasJustCreatedFromComponentMenu", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(script, null);
-            if (animatorControllerBehaviour == null)
-            {
-                typeof(UnityEditorInternal.InternalEditorUtility).GetMethod("AddScriptComponentUncheckedUndoable", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { animator.gameObject, script });
-            }
-        }
-    }
+		public static bool CreateAnimatorScript<TemplateType>(Animator animator, AnimatorController controller, string typeName, string postfix, out MonoScript script)
+			 where TemplateType : new()
+		{
+			bool bNewScript = false;
+			string scriptPath = MonoScriptEx.GetComponentScriptPath(animator.gameObject.GetComponent(typeName + postfix) as MonoBehaviour);
+			if (scriptPath == null)
+			{
+				bNewScript = true;
+				scriptPath = Path.Combine(Path.GetDirectoryName(AssetDatabase.GetAssetPath(controller)), typeName + postfix + ".cs");
+			}
+
+			AnimatorControllerExt.CreateAnimatorControllerScript<TemplateType>(controller, typeName, postfix, scriptPath, bNewScript);
+			script = AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+
+			if (bNewScript)
+			{
+				script.SetScriptTypeWasJustCreatedFromComponentMenu();
+			}
+
+			return bNewScript;
+		}
+	}
 }

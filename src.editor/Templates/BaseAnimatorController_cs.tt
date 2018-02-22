@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-<#@ parameter name="animatorcontrollername" type="System.String" #>
+<#@ parameter name="typename" type="System.String" #>
 <#@ parameter name="floats" type="System.Collections.Generic.List<System.String>" #>
 <#@ parameter name="ints" type="System.Collections.Generic.List<System.String>" #>
 <#@ parameter name="bools" type="System.Collections.Generic.List<System.String>" #>
@@ -15,7 +15,7 @@ using UnityEngine;
 
 
 [ExecuteInEditMode]
-public class <#= this.animatorcontrollername #>AnimatorController : MonoBehaviour
+public class Base<#= this.typename #>AnimatorController : MonoBehaviour
 {<# if (floats.Count != 0) { foreach (System.String floatName in floats) { #>
 	private static readonly int Float<#= floatName #> = Animator.StringToHash("<#= floatName #>");
 <# } #>

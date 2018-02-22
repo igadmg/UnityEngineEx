@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-<#@ parameter name="statemachinename" type="System.String" #>
+<#@ parameter name="typename" type="System.String" #>
 <#@ parameter name="floats" type="System.Collections.Generic.List<System.String>" #>
 <#@ parameter name="ints" type="System.Collections.Generic.List<System.String>" #>
 <#@ parameter name="bools" type="System.Collections.Generic.List<System.String>" #>
@@ -16,7 +16,7 @@ using UnityEngineEx;
 
 
 [ExecuteInEditMode]
-public class <#= this.statemachinename #>StateMachine : BaseStateMachine
+public class Base<#= this.typename #>StateMachine : BaseStateMachine
 {<# if (floats.Count != 0) { foreach (System.String floatName in floats) { #>
 	private static readonly int Float<#= floatName #> = Animator.StringToHash("<#= floatName #>");
 <# } #>
