@@ -20,7 +20,8 @@ namespace UnityEditorEx
 			o.transform.localPosition = Vector3.zero;
 
 			o.transform.parent.position += objectPosition;
-			foreach (Transform child in o.transform.parent) {
+			foreach (Transform child in o.transform.parent)
+			{
 				if (child.gameObject == o)
 					continue;
 
@@ -31,7 +32,8 @@ namespace UnityEditorEx
 		[MenuItem("CONTEXT/Transform/Reset Z")]
 		public static void ResetZ(MenuCommand command)
 		{
-			Selection.activeGameObject.CallRecursive((GameObject o) => {
+			Selection.activeGameObject.CallRecursive((GameObject o) =>
+			{
 				if (o != Selection.activeGameObject)
 					o.transform.localPosition = o.transform.localPosition.Z(-0.0001f);
 			});
@@ -49,11 +51,13 @@ namespace UnityEditorEx
 		[MenuItem("CONTEXT/Transform/Distribute Objects")]
 		public static void DistributeObjects(MenuCommand command)
 		{
-			if (skipDistributeObjects == 0) {
+			if (skipDistributeObjects == 0)
+			{
 				skipDistributeObjects = Selection.gameObjects.Length;
 			}
 
-			if (skipDistributeObjects == Selection.gameObjects.Length) {
+			if (skipDistributeObjects == Selection.gameObjects.Length)
+			{
 				var os = SortByX(Selection.gameObjects);
 				Vector3 first = os[0].transform.localPosition;
 				Vector3 last = os[os.Count - 1].transform.localPosition;
@@ -61,7 +65,8 @@ namespace UnityEditorEx
 				float x = first.x;
 				float dx = (last.x - first.x) / (os.Count - 1);
 
-				foreach (var o in os) {
+				foreach (var o in os)
+				{
 					o.transform.localPosition = o.transform.localPosition.X(x);
 					x += dx;
 				}
@@ -82,17 +87,20 @@ namespace UnityEditorEx
 		[MenuItem("CONTEXT/Transform/Pack Objects")]
 		public static void PackObjects(MenuCommand command)
 		{
-			if (skipPackObjects == 0) {
+			if (skipPackObjects == 0)
+			{
 				skipPackObjects = Selection.gameObjects.Length;
 			}
 
-			if (skipPackObjects == Selection.gameObjects.Length) {
+			if (skipPackObjects == Selection.gameObjects.Length)
+			{
 				var os = Selection.gameObjects;
 				Array.Sort(os, (GameObject a, GameObject b) => a.name.CompareTo(b.name));
 				Vector3 sv = os[0].transform.localPosition;
 				Vector3 dv = os[1].transform.localPosition - os[0].transform.localPosition;
 
-				foreach (var o in os) {
+				foreach (var o in os)
+				{
 					o.transform.localPosition = sv;
 					sv += dv;
 				}
@@ -104,14 +112,16 @@ namespace UnityEditorEx
 
 		static IList<GameObject> SortByX(GameObject[] os)
 		{
-			var objects = new SortedList<Vector3, GameObject>(LambdaComparer.Create((Vector3 a, Vector3 b) => {
+			var objects = new SortedList<Vector3, GameObject>(LambdaComparer.Create((Vector3 a, Vector3 b) =>
+			{
 				if (a.y < b.y) return -1;
 				if (a.y == b.y && a.x < b.x) return -1;
 				if (a.y == b.y && a.x == b.x) return 0;
 				return 1;
 			}));
 
-			foreach (var o in Selection.gameObjects) {
+			foreach (var o in Selection.gameObjects)
+			{
 				objects.Add(o.transform.localPosition, o);
 			}
 

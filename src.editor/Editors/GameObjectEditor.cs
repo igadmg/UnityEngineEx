@@ -31,7 +31,7 @@ namespace UnityEditorEx
 
                     if (string.IsNullOrEmpty(m_Namespace))
                     {
-                        m_Namespace = Application.productName;
+                        m_Namespace = UnityEditorExSettings.instance.namespaceName;
                     }
                 }
 

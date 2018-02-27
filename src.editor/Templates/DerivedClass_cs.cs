@@ -29,14 +29,7 @@ namespace UnityEditorEx.src.editor.Templates
         public virtual string TransformText()
         {
             this.Write("using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nus" +
-                    "ing UnityEngineEx;\n\n\n\n");
-            
-            #line 10 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
- if (!string.IsNullOrEmpty(this.namespacename)) { 
-            
-            #line default
-            #line hidden
-            this.Write("\nnamespace ");
+                    "ing UnityEngineEx;\n\n\n\nnamespace ");
             
             #line 10 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.namespacename));
@@ -58,33 +51,6 @@ namespace UnityEditorEx.src.editor.Templates
             #line default
             #line hidden
             this.Write("\n    {\n    }\n}\n");
-            
-            #line 10 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write("\npublic class ");
-            
-            #line 10 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.classname));
-            
-            #line default
-            #line hidden
-            this.Write(" : ");
-            
-            #line 10 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.baseclassname));
-            
-            #line default
-            #line hidden
-            this.Write("\n{\n}\n");
-            
-            #line 10 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
- } 
-            
-            #line default
-            #line hidden
             return this.GenerationEnvironment.ToString();
         }
         

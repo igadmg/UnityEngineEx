@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.UnityEditor.cs" />
     <Compile Include="src.editor\AnimatorControllerEx.cs" />
     <Compile Include="src.editor\AnimatorControllerExt.cs" />
+    <Compile Include="src.editor\InternalEditorUtilityEx.cs" />
     <Compile Include="src.editor\AnimatorExt.cs" />
     <Compile Include="src.editor\ComponentExt.cs" />
     <Compile Include="src.editor\Components\Inspector_PrefabPanel.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="src.editor\Components\Inspector_Transform.cs" />
     <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
+    <Compile Include="src.editor\UnityEditorExSettings.cs" />
     <Compile Include="src.editor\Editor.cs" />
     <Compile Include="src.editor\EditorGUIUtilityEx.cs" />
     <Compile Include="src.editor\MonoScriptEx.cs" />

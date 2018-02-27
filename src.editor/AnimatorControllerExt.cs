@@ -83,7 +83,7 @@ namespace UnityEditorEx
 				File.WriteAllText(Path.GetFullPath(scriptPath)
 					, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object>
 						{
-							{ "namespacename", null },
+							{ "namespacename", UnityEditorExSettings.instance.namespaceName },
 							{ "classname", typeName + postfix },
 							{ "baseclassname", "Base" + typeName + postfix },
 						}));
@@ -93,6 +93,7 @@ namespace UnityEditorEx
 			File.WriteAllText(Path.GetFullPath(baseScriptPath)
 				, Template.TransformToText<TemplateType>(new Dictionary<string, object>
 					{
+						{ "namespacename", UnityEditorExSettings.instance.namespaceName },
 						{ "typename", typeName },
 						{ "floats", floats },
 						{ "ints", ints },

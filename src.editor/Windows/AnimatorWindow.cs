@@ -27,51 +27,54 @@ namespace UnityEditorEx
 
         private static Type m_AnimatorControllerToolType = typeof(IEdgeGUI).Assembly.GetTypes().Where(t => t.Name == "AnimatorControllerTool").FirstOrDefault();
         private List<Tuple<Animator, AnimatorController>> animators = new List<Tuple<Animator, AnimatorController>>();
+		private Vector2 m_ScrollPosition = Vector2.zero;
 
 
 
-        void OnGUI()
+		void OnGUI()
         {
             if (animators.Count == 0)
             {
                 FindAnimationControllers();
             }
 
-            EditorGUILayout.Space();
-            using (GUILayoutEx.Horizontal())
-            {
-                GUILayout.Label(EditorApplication.isPlaying ? "Runtime Animator Controllers:" : "Project Animator Controllers:", EditorStyles.boldLabel);
-                if (GUILayout.Button("Refresh", GUILayout.Width(80)))
-                {
-                    FindAnimationControllers();
-                }
-            }
+			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
+			{
+				using (GUILayoutEx.Horizontal())
+				{
+					GUILayout.Label(EditorApplication.isPlaying ? "Runtime Animator Controllers:" : "Project Animator Controllers:", EditorStyles.boldLabel);
+					if (GUILayout.Button("Refresh", GUILayout.Width(80)))
+					{
+						FindAnimationControllers();
+					}
+				}
 
-            FieldInfo m_PreviewAnimator = m_AnimatorControllerToolType.GetField("m_PreviewAnimator", BindingFlags.Instance | BindingFlags.NonPublic);
-            PropertyInfo m_AnimatorController = m_AnimatorControllerToolType.GetProperty("animatorController", BindingFlags.Instance | BindingFlags.Public);
+				FieldInfo m_PreviewAnimator = m_AnimatorControllerToolType.GetField("m_PreviewAnimator", BindingFlags.Instance | BindingFlags.NonPublic);
+				PropertyInfo m_AnimatorController = m_AnimatorControllerToolType.GetProperty("animatorController", BindingFlags.Instance | BindingFlags.Public);
 
-            foreach (Tuple<Animator, AnimatorController> tuple in animators)
-            {
-                if (tuple.Item1 == null)
-                {
-                    if (GUILayout.Button("{0}".format(tuple.Item2.name), GUILayout.Height(20)))
-                    {
-                        EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
-                        m_AnimatorController.SetValue(m_AnimatorControllerTool, tuple.Item2, null);
-                        m_AnimatorControllerTool.Repaint();
-                    }
-                }
-                else
-                {
-                    if (GUILayout.Button("{0}: {1}".format(tuple.Item1.name, tuple.Item2.name), GUILayout.Height(20)))
-                    {
-                        EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
-                        m_PreviewAnimator.SetValue(m_AnimatorControllerTool, tuple.Item1);
-                        m_AnimatorController.SetValue(m_AnimatorControllerTool, tuple.Item2, null);
-                        m_AnimatorControllerTool.Repaint();
-                    }
-                }
-            }
+				foreach (Tuple<Animator, AnimatorController> tuple in animators)
+				{
+					if (tuple.Item1 == null)
+					{
+						if (GUILayout.Button("{0}".format(tuple.Item2.name), GUILayout.Height(20)))
+						{
+							EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
+							m_AnimatorController.SetValue(m_AnimatorControllerTool, tuple.Item2, null);
+							m_AnimatorControllerTool.Repaint();
+						}
+					}
+					else
+					{
+						if (GUILayout.Button("{0}: {1}".format(tuple.Item1.name, tuple.Item2.name), GUILayout.Height(20)))
+						{
+							EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
+							m_PreviewAnimator.SetValue(m_AnimatorControllerTool, tuple.Item1);
+							m_AnimatorController.SetValue(m_AnimatorControllerTool, tuple.Item2, null);
+							m_AnimatorControllerTool.Repaint();
+						}
+					}
+				}
+			}
         }
 
         void OnDestroy()

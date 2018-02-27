@@ -20,7 +20,8 @@ namespace UnityEditorEx
 
 
         private Dictionary<string, List<string>> scenes = new Dictionary<string, List<string>>();
-
+		private Dictionary<string, bool> foldouts = new Dictionary<string, bool>();
+		private Vector2 m_ScrollPosition = Vector2.zero;
 
 
         void OnGUI()
@@ -30,31 +31,57 @@ namespace UnityEditorEx
                 FindSceneInProject();
             }
 
-            EditorGUILayout.Space();
+			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
+			{
+				List<string> lastFolders = new List<string>();
 
-            bool bRefresh = false;
-            foreach (string folder in scenes.Keys.OrderBy(s => s))
-            {
-                using (GUILayoutEx.Horizontal())
-                {
-                    GUILayout.Label("{0}:".format(folder), EditorStyles.boldLabel);
-                    if (!bRefresh && GUILayout.Button("Refresh", GUILayout.Width(80)))
-                    {
-                        scenes.Clear();
-                        break;
-                    }
-                    bRefresh = true;
-                }
+				bool bRefresh = false;
+				foreach (string folder in scenes.Keys.OrderBy(s => s))
+				{
+					if (!foldouts[folder])
+					{
+						lastFolders.Add(folder);
+						continue;
+					}
 
-                foreach (string sceneName in scenes[folder])
-                {
-                    if (GUILayout.Button(Path.GetFileName(sceneName), GUILayout.Height(20)))
-                    {
-                        EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-                        EditorSceneManager.OpenScene(sceneName);
-                    }
-                }
-            }
+					using (GUILayoutEx.Horizontal())
+					{
+						foldouts[folder] = EditorGUILayout.Foldout(foldouts[folder], "{0}:".format(folder)/*, EditorStyles.boldLabel*/);
+						if (!bRefresh && GUILayout.Button("Refresh", GUILayout.Width(80)))
+						{
+							scenes.Clear();
+							break;
+						}
+						bRefresh = true;
+					}
+
+					if (foldouts[folder])
+					{
+						foreach (string sceneName in scenes[folder])
+						{
+							if (GUILayout.Button(Path.GetFileName(sceneName), GUILayout.Height(20)))
+							{
+								EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+								EditorSceneManager.OpenScene(sceneName);
+							}
+						}
+					}
+				}
+
+				foreach (string folder in lastFolders)
+				{
+					using (GUILayoutEx.Horizontal())
+					{
+						foldouts[folder] = EditorGUILayout.Foldout(foldouts[folder], "{0}:".format(folder)/*, EditorStyles.boldLabel*/);
+						if (!bRefresh && GUILayout.Button("Refresh", GUILayout.Width(80)))
+						{
+							scenes.Clear();
+							break;
+						}
+						bRefresh = true;
+					}
+				}
+			}
         }
 
         private void FindSceneInProject()
@@ -70,12 +97,11 @@ namespace UnityEditorEx
                 guids[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
                 string scenefolderName = Path.GetDirectoryName(guids[i]);
 
-                if (!scenes.ContainsKey(scenefolderName))
-                {
-                    scenes.Add(scenefolderName, new List<string>());
-                }
-
-                scenes[scenefolderName].Add(guids[i]);
+				List<string> items = scenes.GetOrAdd(scenefolderName, () => {
+					foldouts.Add(scenefolderName, true);
+					return new List<string>();
+				});
+				items.Add(guids[i]);
             }
         }
     }

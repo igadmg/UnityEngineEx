@@ -51,6 +51,19 @@ namespace UnityEditorEx.Components
                     RectTransform rectTransform = canvas.GetComponent<RectTransform>();
                     rectTransform.sizeDelta = panel.uiCanvasSize;
                 }
+				else
+				{
+					if (go.GetComponentInChildren<Renderer>() == null)
+					{
+						item.AddComponent<MeshRenderer>();
+						TextMesh text = item.AddComponent<TextMesh>();
+						text.characterSize = 0.1f;
+						text.fontSize = 30;
+						text.anchor = TextAnchor.MiddleCenter;
+						text.alignment = TextAlignment.Center;
+						text.text = go.name;
+					}
+				}
                 go.transform.SetParent(item.transform, false);
                 panel.Add(item);
 

@@ -14,15 +14,9 @@ using UnityEngineEx;
 
 
 
-<# if (!string.IsNullOrEmpty(this.namespacename)) { #>
 namespace <#= this.namespacename #>
 {
     public class <#= this.classname #> : <#= this.baseclassname #>
     {
     }
 }
-<# } else { #>
-public class <#= this.classname #> : <#= this.baseclassname #>
-{
-}
-<# } #>

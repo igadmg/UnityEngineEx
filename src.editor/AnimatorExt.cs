@@ -60,7 +60,7 @@ namespace UnityEditorEx
 			string animatorControllerName = controller.name.Replace("AnimatorController", "");
 			if (CreateAnimatorScript<BaseAnimatorController_cs>(animator, controller, animatorControllerName, "AnimatorController", out script))
 			{
-				typeof(UnityEditorInternal.InternalEditorUtility).GetMethod("AddScriptComponentUncheckedUndoable", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { animator.gameObject, script });
+				InternalEditorUtilityEx.AddScriptComponentUncheckedUndoable(animator.gameObject, script);
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace UnityEditorEx
 			string stateMachineName = controller.name.Replace("StateMachine", "");
 			if (CreateAnimatorScript<BaseStateMachine_cs>(animator, controller, stateMachineName, "StateMachine", out script))
 			{
-				typeof(UnityEditorInternal.InternalEditorUtility).GetMethod("AddScriptComponentUncheckedUndoable", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { animator.gameObject, script });
+				InternalEditorUtilityEx.AddScriptComponentUncheckedUndoable(animator.gameObject, script);
 			}
 		}
 

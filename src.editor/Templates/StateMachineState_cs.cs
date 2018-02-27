@@ -31,33 +31,61 @@ namespace UnityEditorEx.src.editor.Templates
             this.Write("using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nus" +
                     "ing UnityEngineEx;\n\n\n\nnamespace ");
             
-            #line 11 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.namespacename));
             
             #line default
             #line hidden
             this.Write("\n{\n    public class ");
             
-            #line 11 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.statename));
             
             #line default
             #line hidden
-            this.Write(" : BaseState<");
+            this.Write(" : ");
             
-            #line 11 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+ if (this.partial) { 
+            
+            #line default
+            #line hidden
+            this.Write("StateMachineBehaviour /* ");
+            
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("BaseState<");
+            
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.statemachinetype));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 11 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.controllertype));
             
             #line default
             #line hidden
-            this.Write(">\n    {\n    }\n}\n");
+            this.Write(">");
+            
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+ if (this.partial) { 
+            
+            #line default
+            #line hidden
+            this.Write(" */ ");
+            
+            #line 12 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\StateMachineState_cs.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\n    {\n    }\n}\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -112,6 +140,19 @@ private string controllertype
     get
     {
         return this._controllertypeField;
+    }
+}
+
+private bool _partialField;
+
+/// <summary>
+/// Access the partial parameter of the template.
+/// </summary>
+private bool partial
+{
+    get
+    {
+        return this._partialField;
     }
 }
 
@@ -177,6 +218,20 @@ if ((controllertypeValueAcquired == false))
     if ((data != null))
     {
         this._controllertypeField = ((string)(data));
+    }
+}
+bool partialValueAcquired = false;
+if (this.Session.ContainsKey("partial"))
+{
+    this._partialField = ((bool)(this.Session["partial"]));
+    partialValueAcquired = true;
+}
+if ((partialValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("partial");
+    if ((data != null))
+    {
+        this._partialField = ((bool)(data));
     }
 }
 

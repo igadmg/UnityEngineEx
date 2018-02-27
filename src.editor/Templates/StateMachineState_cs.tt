@@ -8,6 +8,7 @@
 <#@ parameter name="statename" type="System.String" #>
 <#@ parameter name="statemachinetype" type="System.String" #>
 <#@ parameter name="controllertype" type="System.String" #>
+<#@ parameter name="partial" type="System.Boolean" #>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ using UnityEngineEx;
 
 namespace <#= this.namespacename #>
 {
-    public class <#= this.statename #> : BaseState<<#= this.statemachinetype #>, <#= this.controllertype #>>
+    public class <#= this.statename #> : <# if (this.partial) { #>StateMachineBehaviour /* <# } #>BaseState<<#= this.statemachinetype #>, <#= this.controllertype #>><# if (this.partial) { #> */ <# } #>
     {
     }
 }

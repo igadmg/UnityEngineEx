@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UnityEditorEx.Components
 {
-    [CustomEditor(typeof(Transform))]
+    //[CustomEditor(typeof(Transform))]
     [CanEditMultipleObjects]
     public class Inspector_Transform : Editor<Transform>
     {

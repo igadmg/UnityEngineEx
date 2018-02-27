@@ -76,6 +76,30 @@ namespace UnityEngineEx
 			return transform;
 		}
 
+		public static Transform SetParent(this Transform transform, GameObject parent)
+		{
+			transform.SetParent(parent.transform);
+			return transform;
+		}
+
+		public static Transform SetParent<C>(this Transform transform, C parent) where C : Component
+		{
+			transform.SetParent(parent.transform);
+			return transform;
+		}
+
+		public static Transform SetParent(this Transform transform, GameObject parent, bool worldPositionStays)
+		{
+			transform.SetParent(parent.transform, worldPositionStays);
+			return transform;
+		}
+
+		public static Transform SetParent<C>(this Transform transform, C parent, bool worldPositionStays) where C : Component
+		{
+			transform.SetParent(parent.transform, worldPositionStays);
+			return transform;
+		}
+
 		/// <summary>
 		/// Removes all child GameObjects.
 		/// </summary>
@@ -149,6 +173,14 @@ namespace UnityEngineEx
 		public static Transform SetActive(this Transform transform, bool flag)
 		{
 			transform.gameObject.SetActive(flag);
+			return transform;
+		}
+
+		public static Transform Reset(this Transform transform)
+		{
+			transform.localPosition = Vector3.zero;
+			transform.localRotation = Quaternion.identity;
+			transform.localScale = Vector3.one;
 			return transform;
 		}
 

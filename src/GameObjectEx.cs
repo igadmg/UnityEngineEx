@@ -583,12 +583,30 @@ namespace UnityEngineEx
 		/// <returns></returns>
 		public static GameObject SetParent(this GameObject o, GameObject parent)
 		{
-			parent.transform.Add(o);
+			o.transform.SetParent(parent.transform);
 			return o;
 		}
-		
+
+		public static GameObject SetParent<C>(this GameObject o, C parent) where C : Component
+		{
+			o.transform.SetParent(parent.gameObject.transform);
+			return o;
+		}
+
+		public static GameObject SetParent(this GameObject o, GameObject parent, bool worldPositionStays)
+		{
+			o.transform.SetParent(parent.transform, worldPositionStays);
+			return o;
+		}
+
+		public static GameObject SetParent<C>(this GameObject o, C parent, bool worldPositionStays) where C : Component
+		{
+			o.transform.SetParent(parent.gameObject.transform, worldPositionStays);
+			return o;
+		}
+
 		/// <summary>
-		/// SetActive only if needed and return ture if active state was changed.
+		/// SetActive only if needed and return ttue if active state was changed.
 		/// </summary>
 		/// <param name="o"></param>
 		/// <param name="active"></param>
