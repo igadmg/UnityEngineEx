@@ -53,6 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.UnityEditor.cs" />
     <Compile Include="src.editor\AnimatorControllerEx.cs" />
     <Compile Include="src.editor\AnimatorControllerExt.cs" />
+    <Compile Include="src.editor\AnimatorStateExt.cs" />
+    <Compile Include="src.editor\GUIUtilityEx.cs" />
     <Compile Include="src.editor\InternalEditorUtilityEx.cs" />
     <Compile Include="src.editor\AnimatorExt.cs" />
     <Compile Include="src.editor\ComponentExt.cs" />
@@ -61,6 +63,10 @@
     <Compile Include="src.editor\Components\Inspector_Transform.cs" />
     <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
+    <Compile Include="src.editor\ISpyglassEditor.cs" />
+    <Compile Include="src.editor\SpyglassAttribute.cs" />
+    <Compile Include="src.editor\Spyglasses\GameObjectSpyglass.cs" />
+    <Compile Include="src.editor\Spyglasses\RendererSpyglass.cs" />
     <Compile Include="src.editor\UnityEditorExSettings.cs" />
     <Compile Include="src.editor\Editor.cs" />
     <Compile Include="src.editor\EditorGUIUtilityEx.cs" />
@@ -70,7 +76,6 @@
     <Compile Include="src.editor\EditorGUILayoutEx.cs" />
     <Compile Include="src.editor\EditorProgressBar.cs" />
     <Compile Include="src.editor\Editors\AnimationControllerEditor.cs" />
-    <Compile Include="src.editor\Editors\GameObjectEditor.cs" />
     <Compile Include="src.editor\InspectorExt.cs" />
     <Compile Include="src.editor\ProjectBrowserExt.cs" />
     <Compile Include="src.editor\ProjectExt.cs" />
@@ -108,6 +113,7 @@
     <Compile Include="src.editor\Windows\AnimatorWindow.cs" />
     <Compile Include="src.editor\Windows\ButtonDropWindow.cs" />
     <Compile Include="src.editor\Windows\SceneWindow.cs" />
+    <Compile Include="src.editor\Windows\SpyglassWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)Libraries\MathEx\MathEx.csproj">

@@ -101,6 +101,7 @@ namespace UnityEditorEx
         public void onPlayModeStateChanged(PlayModeStateChange state)
         {
             FindAnimationControllers();
+			Repaint();
         }
     }
 }

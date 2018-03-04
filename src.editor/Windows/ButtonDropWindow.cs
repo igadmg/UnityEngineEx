@@ -14,7 +14,7 @@ namespace UnityEditorEx
         string _name;
         Action<Rect, Styles> _onGui;
 
-        public static void Show(string name, Action<Rect, Styles> onGui)
+        public static void Show(string buttonLabel, Action onInit, Action<Rect, Styles> onGui)
         {
             if (_instance == null)
             {
@@ -24,34 +24,32 @@ namespace UnityEditorEx
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
 
-            GUIStyle style = new GUIStyle(GUI.skin.button);
-            style.fontSize = 12;
-            style.fixedWidth = 230;
-            style.fixedHeight = 23;
+            GUIStyle style = (GUIStyle)"AC Button";
+			GUIContent buttonNameLabel = new GUIContent("Add Component");
+			Rect rect = GUILayoutUtility.GetRect(buttonNameLabel, style);
 
-            var rect = GUILayoutUtility.GetLastRect();
-            if (GUILayout.Button(name, style))
+            if (EditorGUI.DropdownButton(rect, buttonNameLabel, FocusType.Passive, style))
             {
-                rect.y += 26f;
-                rect.x += rect.width;
-                rect.width = style.fixedWidth;
-                _instance.Init(rect, onGui);
+                //rect.y += 26f;
+                //rect.x += rect.width;
+                //rect.width = style.fixedWidth;
+                _instance.Init(rect, onInit, onGui);
                 _instance.Repaint();
             }
-            GUILayout.FlexibleSpace();
+			
+			GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }
 
-        private void Init(Rect rect, Action<Rect, Styles> onGui)
+        private void Init(Rect rect, Action onInit, Action<Rect, Styles> onGui)
         {
-            var v2 = GUIUtility.GUIToScreenPoint(new Vector2(rect.x, rect.y));
-            rect.x = v2.x;
-            rect.y = v2.y;
+			rect = rect.GUIToScreenRect();
 
-            _onGui = onGui;
+			onInit();
+			_onGui = onGui;
             ShowAsDropDown(rect, new Vector2(rect.width, 320f));
             Focus();
-            wantsMouseMove = true;
+			wantsMouseMove = true;
         }
 
         void OnGUI()
@@ -61,7 +59,7 @@ namespace UnityEditorEx
                 _styles = new Styles();
             }
 
-            _onGui(position, _styles);
+			_onGui(position, _styles);
         }
 
         public class Styles
