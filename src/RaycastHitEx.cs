@@ -9,6 +9,11 @@ namespace UnityEngineEx
 	/// </summary>
 	public static class RaycastHitEx
 	{
+		public static bool IsHit(this RaycastHit hit)
+		{
+			return hit.transform != null;
+		}
+
 		/// <summary>
 		/// Returns game object short way.
 		/// </summary>
