@@ -36,7 +36,7 @@ namespace UnityEditorEx
                 _instance.Init(rect, onInit, onGui);
                 _instance.Repaint();
             }
-			
+
 			GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }

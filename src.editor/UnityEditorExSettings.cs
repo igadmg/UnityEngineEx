@@ -39,6 +39,6 @@ namespace UnityEditorEx
 			InternalEditorUtility.SaveToSerializedFileAndForget(new UnityEngine.Object[1] { this }, m_SettingsPath, true);
 		}
 
-		public string namespaceName;		
+		public string namespaceName;
 	}
 }

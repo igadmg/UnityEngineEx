@@ -44,7 +44,7 @@ namespace UnityEngineEx
 		}
 
 		/// <summary>
-		/// Enumerates all GameObject children recursively preserving depth of recursion. 
+		/// Enumerates all GameObject children recursively preserving depth of recursion.
 		/// </summary>
 		/// <param name="o"></param>
 		/// <returns></returns>
@@ -178,7 +178,7 @@ namespace UnityEngineEx
 
 				go.SetActive(a);
 			} catch (Exception e) { Debug.LogException(e); }
-			
+
 			instance.SetActive(a);
 			return go;
 		}
@@ -244,7 +244,7 @@ namespace UnityEngineEx
 					go.Dissolve(i);
 				} catch (Exception e) { Debug.LogException(e); }
 
-				go.SetActive(a);			
+				go.SetActive(a);
 			} catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
@@ -363,7 +363,7 @@ namespace UnityEngineEx
 				o.transform.Add(go);
 				go.SetActive(a);
 			} catch (Exception e) { Debug.LogException(e); }
-			
+
 			instance.SetActive(a);
 			return go;
 		}
@@ -403,7 +403,7 @@ namespace UnityEngineEx
 				go.transform.localScale = o.transform.localScale;
 				o.transform.parent.Add(go);
 				GameObject.DestroyImmediate(o);
-				go.SetActive(a);				
+				go.SetActive(a);
 			} catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
@@ -419,7 +419,7 @@ namespace UnityEngineEx
 			GameObject go = null;
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
-			
+
 			try {
 				go = GameObject.Instantiate(instance) as GameObject;
 
@@ -436,13 +436,13 @@ namespace UnityEngineEx
 				go.transform.localScale = o.transform.localScale;
 				o.transform.parent.Add(go);
 				GameObject.DestroyImmediate(o);
-				go.SetActive(a);				
+				go.SetActive(a);
 			} catch (Exception e) { Debug.LogException(e); }
-			
+
 			instance.SetActive(a);
 			return go;
 		}
-				
+
 		#endregion
 
 #if !UNITY_EDITOR

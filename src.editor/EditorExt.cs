@@ -14,7 +14,7 @@ namespace UnityEditorEx
 			EditorSceneManager.SaveOpenScenes();
 		}
 
-	
+
 		[MenuItem("GameObject/Copy path to clipboard %&c", true)]
 		static bool ValidateCopyPathToClipboard()
 		{
@@ -28,7 +28,7 @@ namespace UnityEditorEx
 			var current = Selection.activeGameObject.transform;
 
 			while (current != null) {
-				path = current.name + (path.Length > 0 ? "/" + path : ""); 
+				path = current.name + (path.Length > 0 ? "/" + path : "");
 				current = current.parent;
 			}
 

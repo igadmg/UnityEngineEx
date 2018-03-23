@@ -9,6 +9,22 @@ namespace UnityEditorEx
 {
 	public static class HandlesEx
 	{
+		public static void DoPositionHandle(Vector3 position, Quaternion rotation, Action<Vector3> onChanged)
+		{
+			using (EditorGUIEx.ChangeCheck(() => onChanged(position)))
+			{
+				position = Handles.DoPositionHandle(position, rotation);
+			}
+		}
+
+		public static void DoRotationHandle(Quaternion rotation, Vector3 position, Action<Quaternion> onChanged)
+		{
+			using (EditorGUIEx.ChangeCheck(() => onChanged(rotation)))
+			{
+				rotation = Handles.DoRotationHandle(rotation, position);
+			}
+		}
+
 		public static IDisposable DrawingScope(Color color)
 		{
 			return new Handles.DrawingScope(color);

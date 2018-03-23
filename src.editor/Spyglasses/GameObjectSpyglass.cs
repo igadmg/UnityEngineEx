@@ -11,7 +11,7 @@ using UnityEngineEx;
 namespace UnityEditorEx
 {
 	[Spyglass(typeof(GameObject), true)]
-	public class GameObjectEditor : Editor<GameObject>, ISpyglassEditor
+	public class GameObjectSpyglass : Editor<GameObject>, ISpyglassEditor
 	{
 		private string m_Namespace;
 		private string m_ScriptName;

@@ -63,7 +63,7 @@
     <Compile Include="src.editor\ComponentExt.cs" />
     <Compile Include="src.editor\Components\Inspector_PrefabPanel.cs" />
     <Compile Include="src.editor\Components\Inspector_PrefabPanelList.cs" />
-    <Compile Include="src.editor\Components\Inspector_Transform.cs" />
+    <Compile Include="src.editor\Spyglasses\TransformSpyglass.cs" />
     <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
     <Compile Include="src.editor\ISpyglassEditor.cs" />

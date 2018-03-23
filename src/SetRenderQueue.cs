@@ -1,12 +1,12 @@
 ﻿/*
 	SetRenderQueue.cs
- 
+
 	Sets the RenderQueue of an object's materials on Awake. This will instance
 	the materials, so the script won't interfere with other renderers that
 	reference the same materials.
 
-	Author: Neil Carter (NCarter) and Daniel Brauer (Danielbrauer) 
-	Source: http://wiki.unity3d.com/index.php?title=DepthMask 
+	Author: Neil Carter (NCarter) and Daniel Brauer (Danielbrauer)
+	Source: http://wiki.unity3d.com/index.php?title=DepthMask
 */
 
 using UnityEngine;

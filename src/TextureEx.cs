@@ -79,7 +79,7 @@ namespace UnityEngineEx
 			int EllipseError = 0;
 			int StoppingX = MathfEx.Round(TwoBSquare*radius.x);
 			int StoppingY = 0;
-			
+
 			int o;
 			while (StoppingX >= StoppingY) {
 				o = sy.Clamp(cY - Y) * w;

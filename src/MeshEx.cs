@@ -183,7 +183,7 @@ namespace UnityEngineEx
 		}
 
 		#region Primitive
-		
+
 		public static Mesh Recangle(this Mesh mesh)
 		{
 			return mesh.Recangle(Vector2.one, Vector2.one);
@@ -234,7 +234,7 @@ namespace UnityEngineEx
 			for (int i = 0; i < Columns; i++) {
 				v = i * Vector3.right * dV.x - Vector3.right * Dimensions.x / 2;
 				v -= Vector3.forward * Dimensions.y / 2;
-				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y) {					
+				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y) {
 					vs[vi++] = transform * v;
 					ns[ni++] = transform * Vector3.up;
 					uvs[uvi++] = new Vector2(i / Grid.x, j / Grid.y);
@@ -287,7 +287,7 @@ namespace UnityEngineEx
 			for (int i = 0; i < Columns; i++) {
 				v = i * Vector3.right * dV.x - Vector3.right * Dimensions.x / 2;
 				v -= Vector3.forward * Dimensions.y / 2;
-				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y) {					
+				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y) {
 					vs[vi++] = transform * v;
 					ns[ni++] = transform * Vector3.up;
 					uvs[uvi++] = new Vector2(i / Grid.x, j / Grid.y);
@@ -302,7 +302,7 @@ namespace UnityEngineEx
 			vs[vi++] = transform * new Vector3( hD.x, -hD.y,  hD.z);
 			vs[vi++] = transform * new Vector3(-hD.x, -hD.y,  hD.z);
 			vs[vi++] = transform * new Vector3(-hD.x,  hD.y,  hD.z);
-			
+
 
 			vi = 0;
 			int ti = 0;

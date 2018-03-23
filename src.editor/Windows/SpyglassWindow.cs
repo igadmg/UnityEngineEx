@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using SystemEx;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngineEx;
 
@@ -35,13 +33,13 @@ namespace UnityEditorEx
 		public static void Init()
 		{
 			instance = EditorWindow.GetWindow<SpyglassWindow>(false, "Spyglass");
-			instance.SelectGameObject(Selection.activeGameObject);
+			instance.SelectGameObject(Selection.gameObjects);
 			instance.Show();
 		}
 
 
 
-		private GameObject m_ActiveGameObject;
+		private GameObject[] m_ActiveGameObjects;
 		private List<Tuple<ISpyglassEditor, bool>> m_ActiveSpyglassEditors = new List<Tuple<ISpyglassEditor, bool>>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
@@ -66,18 +64,18 @@ namespace UnityEditorEx
 
 		public void OnSelectionChange()
 		{
-			SelectGameObject(Selection.activeGameObject);
+			SelectGameObject(Selection.gameObjects);
 			Repaint();
 		}
 
-		private void SelectGameObject(GameObject gameObject)
+		private void SelectGameObject(GameObject[] gameObject)
 		{
 			FieldInfo m_ReferenceTargetIndex = typeof(Editor).GetField("m_ReferenceTargetIndex", BindingFlags.Instance | BindingFlags.NonPublic);
 			FieldInfo m_Targets = typeof(Editor).GetField("m_Targets", BindingFlags.Instance | BindingFlags.NonPublic);
 
 			m_ActiveSpyglassEditors.Clear();
-			m_ActiveGameObject = gameObject;
-			if (m_ActiveGameObject == null)
+			m_ActiveGameObjects = gameObject;
+			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0)
 				return;
 
 			{
@@ -87,13 +85,30 @@ namespace UnityEditorEx
 					m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
 						Editor e = (Editor)Activator.CreateInstance(et);
 						m_ReferenceTargetIndex.SetValue(e, 0);
-						m_Targets.SetValue(e, new UnityEngine.Object[] { gameObject });
+						m_Targets.SetValue(e, m_ActiveGameObjects);
 						return Tuple.Create((ISpyglassEditor)e, true);
 					}));
 				}
 			}
 
-			foreach (Component component in m_ActiveGameObject.GetComponents<Component>())
+			/*
+			Dictionary<Type, int> componentList = new Dictionary<Type, int>();
+
+			foreach (Component component in m_ActiveGameObjects[0].GetComponents<Component>())
+			{
+				Type type = component.GetType();
+				if (componentList.ContainsKey(type))
+				{
+					componentList[type]++;
+				}
+				else
+				{
+					componentList.Add(type, 1);
+				}
+			}
+			*/
+
+			foreach (Component component in m_ActiveGameObjects[0].GetComponents<Component>())
 			{
 				foreach (Type type in component.GetType().GetBaseTypes<Component>())
 				{

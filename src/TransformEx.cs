@@ -13,7 +13,7 @@ namespace UnityEngineEx
 	public static class TransformEx
 	{
 		/// <summary>
-		/// Align transform wit otherTransform. 
+		/// Align transform wit otherTransform.
 		/// Synchronize transfrom positions and rotations.
 		/// </summary>
 		/// <param name="transform"></param>
