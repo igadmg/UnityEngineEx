@@ -7,6 +7,23 @@ using UnityEngine;
 
 namespace UnityEngineEx
 {
+	public class MonoBehaviour<Data> : MonoBehaviour
+	{
+		[SerializeField]
+		protected Data m_Data;
+
+		public static implicit operator Data(MonoBehaviour<Data> c)
+		{
+			return c.m_Data;
+		}
+
+		public Data Assign(Data data)
+		{
+			m_Data = data;
+			return m_Data;
+		}
+	}
+
 	public class MonoBehaviourEx : MonoBehaviour
 	{
 		private class MonoBehaviourDescription

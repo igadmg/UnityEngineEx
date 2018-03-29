@@ -9,7 +9,7 @@ using UnityEngineEx;
 
 namespace UnityEditorEx
 {
-	public class TransformExt : MonoBehaviour
+	public class TransformExt
 	{
 		[MenuItem("CONTEXT/Transform/Normalize Parent")]
 		public static void NormalizeParent(MenuCommand command)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditorEx
 {
-	public class EditorExt : MonoBehaviour
+	public class EditorExt
 	{
 		[MenuItem("File/Save All %&s")]
 		static void SaveAll()

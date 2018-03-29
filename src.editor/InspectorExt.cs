@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace UnityEditorEx
 {
-	public class InspectorExt : MonoBehaviour
+	public class InspectorExt
 	{
 	}
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UnityEditorEx
 {
-	public class SpriteExt : MonoBehaviour
+	public class SpriteExt
 	{
 		[MenuItem("Sprite/Auto Layer", true)]
 		static bool AutoLayerCheck(MenuCommand command)
