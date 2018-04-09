@@ -10,6 +10,7 @@
 <#@ parameter name="ints" type="System.Collections.Generic.List<System.String>" #>
 <#@ parameter name="bools" type="System.Collections.Generic.List<System.String>" #>
 <#@ parameter name="triggers" type="System.Collections.Generic.List<System.String>" #>
+<#@ parameter name="states" type="System.Collections.Generic.List<System.String>" #>
 using System;
 using UnityEngine;
 using UnityEngineEx;
@@ -57,9 +58,13 @@ namespace <#= this.namespacename #>
 	<# } } #>
 
 
-		void Awake()
+		protected virtual void Awake()
 		{
 			m_Animator = GetComponent<Animator>();
+
+            <# if (states.Count != 0) { #>
+            AddStateNames(<#=System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())#>);
+            <# } #>
 		}
 	}
 }

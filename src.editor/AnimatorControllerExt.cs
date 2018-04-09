@@ -58,6 +58,7 @@ namespace UnityEditorEx
 			List<string> ints = new List<string>();
 			List<string> bools = new List<string>();
 			List<string> triggers = new List<string>();
+			List<string> states = new List<string>();
 
 			foreach (AnimatorControllerParameter parameter in controller.parameters)
 			{
@@ -76,6 +77,14 @@ namespace UnityEditorEx
 						triggers.Add(parameter.name);
 						break;
 				}
+			}
+
+			if (controller.layers.Length > 0)
+			{
+				foreach (ChildAnimatorState state in controller.layers[0].stateMachine.states)
+                {
+                    states.Add(state.state.name);
+                }
 			}
 
 			if (bNewScript)
@@ -99,6 +108,7 @@ namespace UnityEditorEx
 						{ "ints", ints },
 						{ "bools", bools },
 						{ "triggers", triggers },
+						{ "states", states }
 					}));
 			AssetDatabase.ImportAsset(baseScriptPath);
 			AssetDatabase.ImportAsset(scriptPath);

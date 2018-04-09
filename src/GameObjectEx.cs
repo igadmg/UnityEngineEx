@@ -5,6 +5,8 @@ using SystemEx;
 using UnityDissolve;
 using UnityEngine;
 
+
+
 namespace UnityEngineEx
 {
 	public static class GameObjectEx
@@ -446,12 +448,12 @@ namespace UnityEngineEx
 		#endregion
 
 #if !UNITY_EDITOR
-		public static void Destroy(GameObject o)
+		public static void Destroy(this GameObject o)
 		{
 			GameObject.Destroy(o);
 		}
 #else
-		public static void Destroy(GameObject o)
+		public static void Destroy(this GameObject o)
 		{
 			if (UnityEditor.EditorApplication.isPlaying)
 				GameObject.Destroy(o);
@@ -459,6 +461,22 @@ namespace UnityEngineEx
 				GameObject.DestroyImmediate(o);
 		}
 #endif
+
+		public static void DestroyGameObject(this GameObject o)
+		{
+			if (o != null)
+			{
+				Destroy(o);
+			}
+		}
+
+		public static void DestroyGameObject(this Component c)
+		{
+			if (c != null)
+			{
+				Destroy(c.gameObject);
+			}
+		}
 
 		/// <summary>
 		/// Add a Component to the GameObject setting SerializeFields to a parameters values.

@@ -56,7 +56,7 @@ namespace <#= this.namespacename #>
 	<# } } #>
 
 
-		void Awake()
+		protected virtual void Awake()
 		{
 			m_Animator = GetComponent<Animator>();
 		}
