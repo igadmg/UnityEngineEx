@@ -9,37 +9,37 @@ using UnityEngine;
 
 namespace UnityEditorEx
 {
-    public static class ComponentExt
-    {
-        [MenuItem("CONTEXT/Component/Create Editor Script")]
-        static void CreateEditorScriptForComponent(MenuCommand command)
-        {
-            var component = command.context as Component;
+	public static class ComponentExt
+	{
+		[MenuItem("CONTEXT/Component/Create Editor Script")]
+		static void CreateEditorScriptForComponent(MenuCommand command)
+		{
+			var component = command.context as Component;
 
-            if (component != null)
-            {
-                string editorPath = Path.Combine("Assets", "Editor");
-                if (!Directory.Exists(editorPath))
-                {
-                    Directory.CreateDirectory(editorPath);
-                }
+			if (component != null)
+			{
+				string editorPath = Path.Combine("Assets", "Editor");
+				if (!Directory.Exists(editorPath))
+				{
+					Directory.CreateDirectory(editorPath);
+				}
 
-                string componentTypeName = component.GetType().Name;
-                Dictionary<string, object> parameters = new Dictionary<string, object>
-                {
-                    { "componentname", componentTypeName },
-                };
+				string componentTypeName = component.GetType().Name;
+				Dictionary<string, object> parameters = new Dictionary<string, object>
+				{
+					{ "componentname", componentTypeName },
+				};
 
-                string editorScriptPath = Path.Combine(editorPath, componentTypeName + "Editor.cs");
-                string editorScriptFullPath = Path.GetFullPath(editorScriptPath);
-                if (!File.Exists(editorScriptFullPath))
-                {
-                    File.WriteAllText(editorScriptFullPath, Template.TransformToText<ComponentEditor_cs>(parameters));
+				string editorScriptPath = Path.Combine(editorPath, componentTypeName + "Editor.cs");
+				string editorScriptFullPath = Path.GetFullPath(editorScriptPath);
+				if (!File.Exists(editorScriptFullPath))
+				{
+					File.WriteAllText(editorScriptFullPath, Template.TransformToText<ComponentEditor_cs>(parameters));
 
-                    AssetDatabase.ImportAsset(editorScriptFullPath);
-                    AssetDatabase.Refresh();
-                }
-            }
-        }
-    }
+					AssetDatabase.ImportAsset(editorScriptFullPath);
+					AssetDatabase.Refresh();
+				}
+			}
+		}
+	}
 }

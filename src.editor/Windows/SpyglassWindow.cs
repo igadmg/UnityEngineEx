@@ -29,6 +29,8 @@ namespace UnityEditorEx
 		internal static SpyglassWindow instance = null;
 		private static Dictionary<Type, List<Type>> m_SpyglassEditors = new Dictionary<Type, List<Type>>();
 
+
+
 		[MenuItem("Window/Spyglass")]
 		public static void Init()
 		{
@@ -83,7 +85,7 @@ namespace UnityEditorEx
 				if (editors != null)
 				{
 					m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
-						Editor e = (Editor)Activator.CreateInstance(et);
+						Editor e = (Editor)ScriptableObject.CreateInstance(et);
 						m_ReferenceTargetIndex.SetValue(e, 0);
 						m_Targets.SetValue(e, m_ActiveGameObjects);
 						return Tuple.Create((ISpyglassEditor)e, true);
@@ -116,7 +118,7 @@ namespace UnityEditorEx
 					if (editors != null)
 					{
 						m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
-							Editor e = (Editor)Activator.CreateInstance(et);
+							Editor e = (Editor)ScriptableObject.CreateInstance(et);
 							m_ReferenceTargetIndex.SetValue(e, 0);
 							m_Targets.SetValue(e, new UnityEngine.Object[] { component });
 							return Tuple.Create((ISpyglassEditor)e, true);
