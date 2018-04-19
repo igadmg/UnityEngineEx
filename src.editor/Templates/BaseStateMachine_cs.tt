@@ -62,9 +62,9 @@ namespace <#= this.namespacename #>
 		{
 			m_Animator = GetComponent<Animator>();
 
-            <# if (states.Count != 0) { #>
-            AddStateNames(<#=System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())#>);
-            <# } #>
+			<# if (states.Count != 0) { #>
+			AddStateNames(<#=System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())#>);
+			<# } #>
 		}
 	}
 }

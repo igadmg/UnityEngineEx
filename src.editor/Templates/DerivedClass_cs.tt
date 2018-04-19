@@ -16,7 +16,7 @@ using UnityEngineEx;
 
 namespace <#= this.namespacename #>
 {
-    public class <#= this.classname #> : <#= this.baseclassname #>
-    {
-    }
+	public class <#= this.classname #> : <#= this.baseclassname #>
+	{
+	}
 }

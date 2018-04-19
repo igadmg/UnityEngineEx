@@ -18,7 +18,7 @@ using UnityEngineEx;
 
 namespace <#= this.namespacename #>
 {
-    public class <#= this.statename #> : <# if (this.partial) { #>StateMachineBehaviour /* <# } #>BaseState<<#= this.statemachinetype #>, <#= this.controllertype #>><# if (this.partial) { #> */ <# } #>
-    {
-    }
+	public class <#= this.statename #> : <# if (this.partial) { #>StateMachineBehaviour /* <# } #>BaseState<<#= this.statemachinetype #>, <#= this.controllertype #>><# if (this.partial) { #> */ <# } #>
+	{
+	}
 }

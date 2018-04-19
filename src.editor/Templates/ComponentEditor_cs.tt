@@ -15,8 +15,8 @@ using UnityEngineEx;
 [CustomEditor(typeof(<#= this.componentname #>))]
 public class <#= this.componentname #>Editor : Editor<<#= this.componentname #>>
 {
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-    }
+	public override void OnInspectorGUI()
+	{
+		base.OnInspectorGUI();
+	}
 }
