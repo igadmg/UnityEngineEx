@@ -9,27 +9,27 @@ using UnityEngineEx;
 
 namespace UnityEditorEx
 {
-    class SceneWindow : EditorWindow
-    {
-        [MenuItem("Window/Scenes")]
-        public static void ShowWindow()
-        {
-            SceneWindow window = EditorWindow.GetWindow<SceneWindow>(false, "Scenes");
-        }
+	class SceneWindow : EditorWindow
+	{
+		[MenuItem("Window/Scenes")]
+		public static void ShowWindow()
+		{
+			SceneWindow window = EditorWindow.GetWindow<SceneWindow>(false, "Scenes");
+		}
 
 
 
-        private Dictionary<string, List<string>> scenes = new Dictionary<string, List<string>>();
+		private Dictionary<string, List<string>> scenes = new Dictionary<string, List<string>>();
 		private Dictionary<string, bool> foldouts = new Dictionary<string, bool>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
 
-        void OnGUI()
-        {
-            if (scenes.Count == 0)
-            {
-                FindSceneInProject();
-            }
+		void OnGUI()
+		{
+			if (scenes.Count == 0)
+			{
+				FindSceneInProject();
+			}
 
 			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
 			{
@@ -59,10 +59,17 @@ namespace UnityEditorEx
 					{
 						foreach (string sceneName in scenes[folder])
 						{
-							if (GUILayout.Button(Path.GetFileName(sceneName), GUILayout.Height(20)))
+							using (GUILayoutEx.Horizontal())
 							{
-								EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-								EditorSceneManager.OpenScene(sceneName);
+								if (GUILayout.Button(Path.GetFileName(sceneName), GUILayout.Height(20)))
+								{
+									EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+									EditorSceneManager.OpenScene(sceneName);
+								}
+								if (GUILayout.Button("S", GUILayout.Width(20)))
+								{
+									EditorGUIUtility.PingObject(AssetDatabaseEx.GetInstanceIDFromAssetPath(sceneName));
+								}
 							}
 						}
 					}
@@ -82,27 +89,27 @@ namespace UnityEditorEx
 					}
 				}
 			}
-        }
+		}
 
-        private void FindSceneInProject()
-        {
-            scenes.Clear();
+		private void FindSceneInProject()
+		{
+			scenes.Clear();
 
-            string[] guids;
+			string[] guids;
 
-            guids = AssetDatabase.FindAssets("t:Scene");
+			guids = AssetDatabase.FindAssets("t:Scene");
 
-            for (int i = 0; i < guids.Length; i++)
-            {
-                guids[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
-                string scenefolderName = Path.GetDirectoryName(guids[i]);
+			for (int i = 0; i < guids.Length; i++)
+			{
+				guids[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
+				string scenefolderName = Path.GetDirectoryName(guids[i]);
 
 				List<string> items = scenes.GetOrAdd(scenefolderName, () => {
 					foldouts.Add(scenefolderName, true);
 					return new List<string>();
 				});
 				items.Add(guids[i]);
-            }
-        }
-    }
+			}
+		}
+	}
 }

@@ -54,6 +54,7 @@
     <Compile Include="src.editor\AnimatorControllerEx.cs" />
     <Compile Include="src.editor\AnimatorControllerExt.cs" />
     <Compile Include="src.editor\AnimatorStateExt.cs" />
+    <Compile Include="src.editor\AssetDatabaseEx.cs" />
     <Compile Include="src.editor\HandlesEx.cs" />
     <Compile Include="src.editor\Internal\AngularDisc.cs" />
     <Compile Include="src.editor\SavedInt.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
     <Compile Include="src.editor\ISpyglassEditor.cs" />
     <Compile Include="src.editor\SpyglassAttribute.cs" />
+    <Compile Include="src.editor\Spyglasses\AnimatorSpyglass.cs" />
     <Compile Include="src.editor\Spyglasses\GameObjectSpyglass.cs" />
     <Compile Include="src.editor\Spyglasses\RendererSpyglass.cs" />
     <Compile Include="src.editor\InspectorWindowEx.cs" />
