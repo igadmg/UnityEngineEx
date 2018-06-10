@@ -48,6 +48,11 @@ namespace UnityEditorEx
 
 		void OnGUI()
 		{
+			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0 || m_ActiveGameObjects[0] == null)
+			{
+				return;
+			}
+
 			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
 			{
 				foreach (var i in m_ActiveSpyglassEditors)
@@ -70,12 +75,22 @@ namespace UnityEditorEx
 			Repaint();
 		}
 
+		private void ClearSelectedEditors()
+		{
+			foreach (ISpyglassEditor editor in m_ActiveSpyglassEditors.Select(i => i.Item1))
+			{
+				UnityEngine.Object.DestroyImmediate(editor as UnityEngine.Object);
+			}
+			m_ActiveSpyglassEditors.Clear();
+		}
+
 		private void SelectGameObject(GameObject[] gameObject)
 		{
 			FieldInfo m_ReferenceTargetIndex = typeof(Editor).GetField("m_ReferenceTargetIndex", BindingFlags.Instance | BindingFlags.NonPublic);
 			FieldInfo m_Targets = typeof(Editor).GetField("m_Targets", BindingFlags.Instance | BindingFlags.NonPublic);
 
-			m_ActiveSpyglassEditors.Clear();
+			ClearSelectedEditors();
+
 			m_ActiveGameObjects = gameObject;
 			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0)
 				return;
