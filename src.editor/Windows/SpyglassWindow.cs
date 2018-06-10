@@ -40,9 +40,14 @@ namespace UnityEditorEx
 		}
 
 
+        private class ActiveSpyglassEditor
+        {
+            public ISpyglassEditor Item1;
+            public bool Item2;
+        }
 
 		private GameObject[] m_ActiveGameObjects;
-		private List<Tuple<ISpyglassEditor, bool>> m_ActiveSpyglassEditors = new List<Tuple<ISpyglassEditor, bool>>();
+		private List<ActiveSpyglassEditor> m_ActiveSpyglassEditors = new List<ActiveSpyglassEditor>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
 
@@ -103,7 +108,7 @@ namespace UnityEditorEx
 						Editor e = (Editor)ScriptableObject.CreateInstance(et);
 						m_ReferenceTargetIndex.SetValue(e, 0);
 						m_Targets.SetValue(e, m_ActiveGameObjects);
-						return Tuple.Create((ISpyglassEditor)e, true);
+                        return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
 					}));
 				}
 			}
@@ -136,8 +141,8 @@ namespace UnityEditorEx
 							Editor e = (Editor)ScriptableObject.CreateInstance(et);
 							m_ReferenceTargetIndex.SetValue(e, 0);
 							m_Targets.SetValue(e, new UnityEngine.Object[] { component });
-							return Tuple.Create((ISpyglassEditor)e, true);
-						}));
+							return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
+                        }));
 					}
 				}
 			}
