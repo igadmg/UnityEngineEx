@@ -91,7 +91,7 @@ namespace UnityEditorEx
 
 								InternalEditorUtilityEx.AddScriptComponentUncheckedUndoable(target, script);
 
-								GUIUtility.ExitGUI();
+								ButtonDropWindow.Close();
 							}
 						}
 					}

@@ -41,6 +41,15 @@ namespace UnityEditorEx
             EditorGUILayout.EndHorizontal();
         }
 
+		public static void Close()
+		{
+			if (_instance == null)
+				return;
+
+			((EditorWindow)_instance).Close();
+			_instance = null;
+		}
+
         private void Init(Rect rect, Action onInit, Action<Rect, Styles> onGui)
         {
 			rect = rect.GUIToScreenRect();
@@ -54,6 +63,9 @@ namespace UnityEditorEx
 
         void OnGUI()
         {
+			if (_onGui == null)
+				return;
+
             if (_styles == null)
             {
                 _styles = new Styles();
