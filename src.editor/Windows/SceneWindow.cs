@@ -104,8 +104,8 @@ namespace UnityEditorEx
 				guids[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
 				string scenefolderName = Path.GetDirectoryName(guids[i]);
 
-				List<string> items = scenes.GetOrAdd(scenefolderName, () => {
-					foldouts.Add(scenefolderName, true);
+				List<string> items = scenes.GetOrAdd(scenefolderName, name => {
+					foldouts.Add(name, true);
 					return new List<string>();
 				});
 				items.Add(guids[i]);

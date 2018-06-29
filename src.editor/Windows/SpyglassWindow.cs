@@ -163,14 +163,14 @@ namespace UnityEditorEx
 					if (ce != null && t.HasInterface<ISpyglassEditor>())
 					{
 						Type inspectedType = (Type)m_InspectedType.GetValue(ce);
-						List<Type> editors = m_SpyglassEditors.GetOrAdd(inspectedType, () => new List<Type>());
+						List<Type> editors = m_SpyglassEditors.GetOrAdd(inspectedType, key => new List<Type>());
 
 						editors.Add(t);
 					}
 					SpyglassAttribute sa = t.GetAttribute<SpyglassAttribute>();
 					if (sa != null && t.HasInterface<ISpyglassEditor>())
 					{
-						m_SpyglassEditors.GetOrAdd(sa.inspectedType, () => new List<Type>()).Add(t);
+						m_SpyglassEditors.GetOrAdd(sa.inspectedType, key => new List<Type>()).Add(t);
 					}
 				}
 			}
