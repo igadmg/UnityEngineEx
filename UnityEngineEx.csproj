@@ -78,6 +78,7 @@
     <Compile Include="src\Components\BaseState.cs" />
     <Compile Include="src\Components\PrefabPanel.cs" />
     <Compile Include="src\Components\PrefabPanelList.cs" />
+    <Compile Include="src\GizmosEx.cs" />
     <Compile Include="src\GUILayoutEx.cs" />
     <Compile Include="src\IConstructable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
