@@ -20,35 +20,52 @@ namespace UnityEditorEx
 		public void OnSpyglassGUI()
 		{
 			ButtonDropWindow.Show("Create Component", () => {
+				if (string.IsNullOrEmpty(m_Namespace))
+				{
+					foreach (MonoBehaviour behaviour in target.GetComponents<MonoBehaviour>())
+					{
+						string ns = behaviour.GetType().Namespace;
+						if (!string.IsNullOrEmpty(ns) && !ns.StartsWith("Unity"))
+						{
+							m_Namespace = ns;
+							break;
+						}
+					}
+
 					if (string.IsNullOrEmpty(m_Namespace))
 					{
-						foreach (MonoBehaviour behaviour in target.GetComponents<MonoBehaviour>())
-						{
-							string ns = behaviour.GetType().Namespace;
-							if (!string.IsNullOrEmpty(ns) && !ns.StartsWith("Unity"))
-							{
-								m_Namespace = ns;
-								break;
-							}
-						}
-
-						if (string.IsNullOrEmpty(m_Namespace))
-						{
-							m_Namespace = UnityEditorExSettings.instance.namespaceName;
-						}
+						m_Namespace = UnityEditorExSettings.instance.namespaceName;
 					}
+				}
 
-					if (string.IsNullOrEmpty(m_ScriptName))
-					{
-						m_ScriptName = target.name;
-					}
+				if (string.IsNullOrEmpty(m_ScriptName))
+				{
+					m_ScriptName = target.name;
+				}
 
-					//if (string.IsNullOrEmpty(m_Path))
-					{
-						m_Path = ProjectBrowserExt.GetSelectedPath();
-					}
-				},
+				//if (string.IsNullOrEmpty(m_Path))
+				{
+					m_Path = ProjectBrowserExt.GetSelectedPath();
+				}
+			},
 				(position, styles) => {
+					Event e = Event.current;
+					switch (e.type)
+					{
+						case EventType.KeyDown:
+							if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter)
+							{
+								string scriptPath = Path.Combine(m_Path, m_ScriptName + ".cs");
+								if (!File.Exists(scriptPath))
+								{
+									CreateScript(scriptPath);
+
+									ButtonDropWindow.Close();
+								}
+							}
+							break;
+					}
+
 					GUI.Label(new Rect(0.0f, 0.0f, position.width, position.height), GUIContent.none, styles.background);
 
 					var rect = position;
@@ -76,26 +93,31 @@ namespace UnityEditorEx
 						{
 							if (GUILayout.Button("Create and Add"))
 							{
-								File.WriteAllText(Path.GetFullPath(scriptPath)
-									, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object> {
-											{ "namespacename", UnityEditorExSettings.instance.namespaceName },
-											{ "classname", m_ScriptName },
-											{ "baseclassname", "MonoBehaviour" },
-										}));
-
-								AssetDatabase.ImportAsset(scriptPath);
-								AssetDatabase.Refresh();
-
-								MonoScript script = AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
-								script.SetScriptTypeWasJustCreatedFromComponentMenu();
-
-								InternalEditorUtilityEx.AddScriptComponentUncheckedUndoable(target, script);
+								CreateScript(scriptPath);
 
 								ButtonDropWindow.Close();
 							}
 						}
 					}
 				});
+		}
+
+		private void CreateScript(string scriptPath)
+		{
+			File.WriteAllText(Path.GetFullPath(scriptPath)
+				, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object> {
+						{ "namespacename", UnityEditorExSettings.instance.namespaceName },
+						{ "classname", m_ScriptName },
+						{ "baseclassname", "MonoBehaviour" },
+					}));
+
+			AssetDatabase.ImportAsset(scriptPath);
+			AssetDatabase.Refresh();
+
+			MonoScript script = AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+			script.SetScriptTypeWasJustCreatedFromComponentMenu();
+
+			InternalEditorUtilityEx.AddScriptComponentUncheckedUndoable(target, script);
 		}
 	}
 }

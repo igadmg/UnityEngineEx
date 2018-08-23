@@ -25,7 +25,7 @@ namespace UnityEditorEx
             GUILayout.FlexibleSpace();
 
             GUIStyle style = (GUIStyle)"AC Button";
-			GUIContent buttonNameLabel = new GUIContent("Add Component");
+			GUIContent buttonNameLabel = new GUIContent(buttonLabel);
 			Rect rect = GUILayoutUtility.GetRect(buttonNameLabel, style);
 
             if (EditorGUI.DropdownButton(rect, buttonNameLabel, FocusType.Passive, style))
@@ -41,7 +41,7 @@ namespace UnityEditorEx
             EditorGUILayout.EndHorizontal();
         }
 
-		public static void Close()
+		public static new void Close()
 		{
 			if (_instance == null)
 				return;

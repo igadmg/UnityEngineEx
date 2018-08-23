@@ -40,7 +40,7 @@ namespace UnityEditorEx.Components
             {
                 GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
 
-                GameObject item = new GameObject("Item{0}".format(i));
+                GameObject item = new GameObject("Item{0} ({1})".format(i, go.name));
                 if (panel.isUIPrefabs)
                 {
                     Canvas canvas = item.AddComponent<Canvas>();
@@ -97,7 +97,7 @@ namespace UnityEditorEx.Components
             foreach (GameObject item in panel.gameObject.GetEnumerator())
             {
                 GameObject prefab = item.GetEnumerator().First();
-                PrefabUtility.ReplacePrefab(prefab, PrefabUtility.GetPrefabParent(prefab));
+                PrefabUtility.ReplacePrefab(prefab, PrefabUtility.GetCorrespondingObjectFromSource(prefab));
 
                 i++;
                 EditorProgressBar.ShowProgressBar("Applying prefabs ...", i / (i + 1.0f));

@@ -37,6 +37,23 @@ namespace UnityEditorEx
 					}
 				},
 				(position, styles) => {
+					Event e = Event.current;
+					switch (e.type)
+					{
+						case EventType.KeyDown:
+							if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter)
+							{
+								//string scriptPath = Path.Combine(m_Path, m_ScriptName + ".cs");
+								//if (!File.Exists(scriptPath))
+								{
+									//CreateScript(scriptPath);
+
+									ButtonDropWindow.Close();
+								}
+							}
+							break;
+					}
+
 					GUI.Label(new Rect(0.0f, 0.0f, position.width, position.height), GUIContent.none, styles.background);
 
 					var rect = position;

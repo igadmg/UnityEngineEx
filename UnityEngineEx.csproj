@@ -70,9 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AnimationStateEx.cs" />
-    <Compile Include="src\ColorBlockEx.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="src\ColorBlockEx.cs" />
     <Compile Include="src\Components\AsyncMonoBehaviour.cs" />
     <Compile Include="src\Components\BaseStateMachine.cs" />
     <Compile Include="src\Components\BaseState.cs" />
@@ -109,22 +107,22 @@
     <Compile Include="src\Watch.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)Libraries\MathEx\MathEx.csproj">
+    <ProjectReference Include="$(SolutionDir)\Libraries\MathEx\MathEx.csproj">
       <Project>{8d8a06e5-abfb-49a8-851a-070fcf5339aa}</Project>
       <Name>MathEx</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)Libraries\MathEx\MathEx.UnityEngine.csproj">
+    <ProjectReference Include="$(SolutionDir)\Libraries\MathEx\MathEx.UnityEngine.csproj">
       <Project>{d707c31e-1c84-42a1-9790-3ebbf75ea645}</Project>
       <Name>MathEx.UnityEngine</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)Libraries\SystemEx\SystemEx.csproj">
+    <ProjectReference Include="$(SolutionDir)\Libraries\SystemEx\SystemEx.csproj">
       <Project>{0271e27f-e614-4b0f-af16-05d2d2781b7f}</Project>
       <Name>SystemEx</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)Libraries\UnityDissolve\UnityDissolve.csproj">
+    <ProjectReference Include="$(SolutionDir)\Libraries\UnityDissolve\UnityDissolve.csproj">
       <Project>{5ddef78f-3298-4583-adf8-21421e4b29f9}</Project>
       <Name>UnityDissolve</Name>
       <Private>False</Private>

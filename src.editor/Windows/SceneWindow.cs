@@ -63,10 +63,12 @@ namespace UnityEditorEx
 							{
 								if (GUILayout.Button(Path.GetFileName(sceneName), GUILayout.Height(20)))
 								{
-									EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-									EditorSceneManager.OpenScene(sceneName);
+									if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+									{
+										EditorSceneManager.OpenScene(sceneName);
+									}
 								}
-								if (GUILayout.Button("S", GUILayout.Width(20)))
+								if (GUILayout.Button(new GUIContent("S", "Show scene in project view."), GUILayout.Width(20)))
 								{
 									EditorGUIUtility.PingObject(AssetDatabaseEx.GetInstanceIDFromAssetPath(sceneName));
 								}
