@@ -23,7 +23,7 @@ namespace UnityEngineEx
 		protected TController m_Controller;
 
 
-		public TStateMachine stateMachine { get { return m_StateMachine as TStateMachine; } }
+		public new TStateMachine stateMachine { get { return m_StateMachine as TStateMachine; } }
 		public TController controller { get { return m_Controller; } }
 
 

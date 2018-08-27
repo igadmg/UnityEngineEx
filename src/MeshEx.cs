@@ -282,8 +282,8 @@ namespace UnityEngineEx
 			int vi = 0;
 			Vector3[] vs = new Vector3[Vertices];
 
-			Vector3 v;
 			/*
+			Vector3 v;
 			for (int i = 0; i < Columns; i++) {
 				v = i * Vector3.right * dV.x - Vector3.right * Dimensions.x / 2;
 				v -= Vector3.forward * Dimensions.y / 2;

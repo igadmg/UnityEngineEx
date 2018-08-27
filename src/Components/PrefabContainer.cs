@@ -29,7 +29,7 @@ namespace UnityEngineEx
 		{
 			if (prevPrefab != prefab) {
 				gameObject.transform.Clear();
-				gameObject.Instantiate(prefab, null).CallRecursive((GameObject o) => o.tag = "EditorOnly");
+				prefab.Construct(gameObject).CallRecursive((GameObject o) => o.tag = "EditorOnly");
 				prevPrefab = prefab;
 			}
 		}

@@ -1,0 +1,15 @@
+{
+    "name": "UnityEditorEx",
+    "references": [
+        "SystemEx",
+        "MathEx",
+        "UnityEngineEx",
+        "MathEx.UnityEngine"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true
+}

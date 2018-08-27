@@ -14,7 +14,7 @@ namespace UnityEngineEx
 		{ }
 
 		[SerializeField]
-		protected TriggerEvent m_Delegate;
+		protected TriggerEvent m_Delegate = null;
 
 
 
