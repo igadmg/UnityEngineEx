@@ -157,6 +157,7 @@ namespace UnityEditorEx
 
 			foreach (Assembly a in assemblies)
 			{
+				try {
 				foreach (Type t in a.GetTypes())
 				{
 					CustomEditor ce = t.GetAttribute<CustomEditor>();
@@ -172,6 +173,11 @@ namespace UnityEditorEx
 					{
 						m_SpyglassEditors.GetOrAdd(sa.inspectedType, key => new List<Type>()).Add(t);
 					}
+				}
+				}
+				catch
+				{
+					Debug.Log("Failed to loat types from {0}".format(a.FullName));
 				}
 			}
 		}
