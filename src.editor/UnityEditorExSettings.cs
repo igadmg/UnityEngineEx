@@ -40,5 +40,6 @@ namespace UnityEditorEx
 		}
 
 		public string namespaceName;
+		public string editorScriptsPath;
 	}
 }
