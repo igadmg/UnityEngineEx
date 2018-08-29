@@ -11,14 +11,14 @@ namespace UnityEditorEx
 {
 	public static class ComponentExt
 	{
-		[MenuItem("CONTEXT/Component/Create Editor Script")]
+		[MenuItem("CONTEXT/Component/Create or Show Editor Script")]
 		static void CreateEditorScriptForComponent(MenuCommand command)
 		{
 			var component = command.context as Component;
 
 			if (component != null)
 			{
-				string editorPath = Path.Combine("Assets", "Editor");
+				string editorPath = UnityEditorExSettings.instance.editorScriptsPath;
 				if (!Directory.Exists(editorPath))
 				{
 					Directory.CreateDirectory(editorPath);
