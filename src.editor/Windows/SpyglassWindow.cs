@@ -12,19 +12,15 @@ using UnityEngineEx;
 namespace UnityEditorEx
 {
 	[InitializeOnLoad]
-	public class SpyglassWindwoStartup
+	public class SpyglassWindowStartup
 	{
-		static SpyglassWindwoStartup()
+		static SpyglassWindowStartup()
 		{
 			SpyglassWindow.FindSpyglassEditors();
-			if (SpyglassWindow.instance != null)
-			{
-				SpyglassWindow.instance.OnSelectionChange();
-			}
 		}
 	}
 
-	class SpyglassWindow : EditorWindow
+	internal class SpyglassWindow : EditorWindow
 	{
 		internal static SpyglassWindow instance = null;
 		private static Dictionary<Type, List<Type>> m_SpyglassEditors = new Dictionary<Type, List<Type>>();
@@ -39,19 +35,23 @@ namespace UnityEditorEx
 			instance.Show();
 		}
 
+		private void OnEnable()
+		{
+			OnSelectionChange();
+		}
 
-        private class ActiveSpyglassEditor
-        {
-            public ISpyglassEditor Item1;
-            public bool Item2;
-        }
+
+		private class ActiveSpyglassEditor
+		{
+			public ISpyglassEditor Item1;
+			public bool Item2;
+		}
 
 		private GameObject[] m_ActiveGameObjects;
 		private List<ActiveSpyglassEditor> m_ActiveSpyglassEditors = new List<ActiveSpyglassEditor>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
-
-		void OnGUI()
+		private void OnGUI()
 		{
 			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0 || m_ActiveGameObjects[0] == null)
 			{
@@ -98,17 +98,20 @@ namespace UnityEditorEx
 
 			m_ActiveGameObjects = gameObject;
 			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0)
+			{
 				return;
+			}
 
 			{
 				List<Type> editors = m_SpyglassEditors.Get(typeof(GameObject));
 				if (editors != null)
 				{
-					m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
+					m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
+					{
 						Editor e = (Editor)ScriptableObject.CreateInstance(et);
 						m_ReferenceTargetIndex.SetValue(e, 0);
 						m_Targets.SetValue(e, m_ActiveGameObjects);
-                        return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
+						return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
 					}));
 				}
 			}
@@ -137,12 +140,13 @@ namespace UnityEditorEx
 					List<Type> editors = m_SpyglassEditors.Get(type);
 					if (editors != null)
 					{
-						m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
+						m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
+						{
 							Editor e = (Editor)ScriptableObject.CreateInstance(et);
 							m_ReferenceTargetIndex.SetValue(e, 0);
 							m_Targets.SetValue(e, new UnityEngine.Object[] { component });
 							return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
-                        }));
+						}));
 					}
 				}
 			}
@@ -151,33 +155,21 @@ namespace UnityEditorEx
 		internal static void FindSpyglassEditors()
 		{
 			m_SpyglassEditors.Clear();
-			FieldInfo m_InspectedType = typeof(CustomEditor).GetField("m_InspectedType", BindingFlags.Instance | BindingFlags.NonPublic);
-			var assemblies = (Assembly[])typeof(Editor).Assembly.GetTypes().Where(t => t.Name == "EditorAssemblies").FirstOrDefault()
-				.GetProperty("loadedAssemblies", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null, null);
 
-			foreach (Assembly a in assemblies)
+			foreach (Type t in TypeRepository.GetTypes())
 			{
-				try {
-				foreach (Type t in a.GetTypes())
+				CustomEditor ce = t.GetAttribute<CustomEditor>();
+				if (ce != null && t.HasInterface<ISpyglassEditor>())
 				{
-					CustomEditor ce = t.GetAttribute<CustomEditor>();
-					if (ce != null && t.HasInterface<ISpyglassEditor>())
-					{
-						Type inspectedType = (Type)m_InspectedType.GetValue(ce);
-						List<Type> editors = m_SpyglassEditors.GetOrAdd(inspectedType, key => new List<Type>());
+					Type inspectedType = ce.GetInspectedType();
+					List<Type> editors = m_SpyglassEditors.GetOrAdd(inspectedType, key => new List<Type>());
 
-						editors.Add(t);
-					}
-					SpyglassAttribute sa = t.GetAttribute<SpyglassAttribute>();
-					if (sa != null && t.HasInterface<ISpyglassEditor>())
-					{
-						m_SpyglassEditors.GetOrAdd(sa.inspectedType, key => new List<Type>()).Add(t);
-					}
+					editors.Add(t);
 				}
-				}
-				catch
+				SpyglassAttribute sa = t.GetAttribute<SpyglassAttribute>();
+				if (sa != null && t.HasInterface<ISpyglassEditor>())
 				{
-					Debug.Log("Failed to loat types from {0}".format(a.FullName));
+					m_SpyglassEditors.GetOrAdd(sa.inspectedType, key => new List<Type>()).Add(t);
 				}
 			}
 		}

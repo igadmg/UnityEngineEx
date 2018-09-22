@@ -18,6 +18,14 @@ namespace UnityEditorEx
 				: null;
 		}
 
+		public static string GetComponentScriptPath(ScriptableObject scriptableObject)
+		{
+			MonoScript script = scriptableObject != null ? MonoScript.FromScriptableObject(scriptableObject) : null;
+			return script != null
+				? AssetDatabase.GetAssetPath(script)
+				: null;
+		}
+
 		public static void SetScriptTypeWasJustCreatedFromComponentMenu(this MonoScript script)
 		{
 			m_SetScriptTypeWasJustCreatedFromComponentMenu.Invoke(script, null);

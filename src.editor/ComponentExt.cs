@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using SystemEx;
 using UnityEditor;
 using UnityEditorEx.src.editor.Templates;
@@ -16,7 +18,17 @@ namespace UnityEditorEx
 		{
 			var component = command.context as Component;
 
-			if (component != null)
+			if (component == null)
+				return;
+
+			Editor editor = Editor.CreateEditor(component);
+
+			if (editor != null)
+			{
+				MonoScript script = MonoScript.FromScriptableObject(editor);
+				EditorGUIUtility.PingObject(script);
+			}
+			else
 			{
 				string editorPath = UnityEditorExSettings.instance.editorScriptsPath;
 				if (!Directory.Exists(editorPath))
