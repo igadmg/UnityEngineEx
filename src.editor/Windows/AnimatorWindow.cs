@@ -19,13 +19,16 @@ namespace UnityEditorEx
         public static void ShowWindow()
         {
             AnimatorWindow window = EditorWindow.GetWindow<AnimatorWindow>(false, "Animators");
-
-            EditorApplication.playModeStateChanged += window.onPlayModeStateChanged;
         }
 
+		private void OnEnable()
+		{
+			EditorApplication.playModeStateChanged += onPlayModeStateChanged;
+		}
 
 
-        private static Type m_AnimatorControllerToolType = typeof(IEdgeGUI).Assembly.GetTypes().Where(t => t.Name == "AnimatorControllerTool").FirstOrDefault();
+
+		private static Type m_AnimatorControllerToolType = typeof(IEdgeGUI).Assembly.GetTypes().Where(t => t.Name == "AnimatorControllerTool").FirstOrDefault();
         private List<Tuple<Animator, AnimatorController>> animators = new List<Tuple<Animator, AnimatorController>>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 

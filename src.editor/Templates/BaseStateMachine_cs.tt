@@ -38,9 +38,6 @@ namespace <#= this.namespacename #>
 	<# } } #>
 
 
-		private Animator m_Animator;
-
-
 	<# if (floats.Count != 0) { foreach (System.String floatName in floats) { #>
 		public float <#= floatName #> { get { return m_Animator.GetFloat(Float<#= floatName #>); } set { m_Animator.SetFloat(Float<#= floatName #>, value); } }
 	<# } #>
@@ -58,10 +55,8 @@ namespace <#= this.namespacename #>
 	<# } } #>
 
 
-		protected virtual void Awake()
+		protected override void RegisterStateNames()
 		{
-			m_Animator = GetComponent<Animator>();
-
 			<# if (states.Count != 0) { #>
 			AddStateNames(<#=System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())#>);
 			<# } #>

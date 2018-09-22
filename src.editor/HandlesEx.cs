@@ -42,6 +42,9 @@ namespace UnityEditorEx
 
 		public static void DrawLineArrow(Vector3 start, Vector3 end, float size)
 		{
+			if (start == end)
+				return;
+
 			Vector3 direction = (end - start).normalized;
 			Handles.DrawLine(start, end);
 			Handles.ArrowHandleCap(0, end - size * 1.14f * direction, Quaternion.LookRotation(direction), size, EventType.Repaint);
