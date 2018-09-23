@@ -1,6 +1,5 @@
 ﻿using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 
 
 namespace UnityEditorEx
@@ -8,7 +7,7 @@ namespace UnityEditorEx
 	public class EditorExt
 	{
 		[MenuItem("File/Save All %&s")]
-		static void SaveAll()
+		private static void SaveAll()
 		{
 			AssetDatabase.SaveAssets();
 			EditorSceneManager.SaveOpenScenes();
@@ -16,18 +15,19 @@ namespace UnityEditorEx
 
 
 		[MenuItem("GameObject/Copy path to clipboard %&c", true)]
-		static bool ValidateCopyPathToClipboard()
+		private static bool ValidateCopyPathToClipboard()
 		{
 			return Selection.activeGameObject != null;
 		}
 
 		[MenuItem("GameObject/Copy path to clipboard %&c")]
-		static void CopyPathToClipboard()
+		private static void CopyPathToClipboard()
 		{
 			string path = "";
 			var current = Selection.activeGameObject.transform;
 
-			while (current != null) {
+			while (current != null)
+			{
 				path = current.name + (path.Length > 0 ? "/" + path : "");
 				current = current.parent;
 			}

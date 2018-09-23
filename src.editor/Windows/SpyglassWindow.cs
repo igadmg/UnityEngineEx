@@ -47,7 +47,7 @@ namespace UnityEditorEx
 			public bool Item2;
 		}
 
-		private GameObject[] m_ActiveGameObjects;
+		private UnityEngine.Object[] m_ActiveGameObjects;
 		private List<ActiveSpyglassEditor> m_ActiveSpyglassEditors = new List<ActiveSpyglassEditor>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
@@ -76,8 +76,11 @@ namespace UnityEditorEx
 
 		public void OnSelectionChange()
 		{
-			SelectGameObject(Selection.gameObjects);
-			Repaint();
+			if (!ActiveEditorTracker.sharedTracker.isLocked)
+			{
+				SelectGameObject(Selection.objects);
+				Repaint();
+			}
 		}
 
 		private void ClearSelectedEditors()
@@ -89,21 +92,26 @@ namespace UnityEditorEx
 			m_ActiveSpyglassEditors.Clear();
 		}
 
-		private void SelectGameObject(GameObject[] gameObject)
+		private void SelectGameObject(UnityEngine.Object[] objects)
 		{
 			FieldInfo m_ReferenceTargetIndex = typeof(Editor).GetField("m_ReferenceTargetIndex", BindingFlags.Instance | BindingFlags.NonPublic);
 			FieldInfo m_Targets = typeof(Editor).GetField("m_Targets", BindingFlags.Instance | BindingFlags.NonPublic);
 
 			ClearSelectedEditors();
 
-			m_ActiveGameObjects = gameObject;
+			m_ActiveGameObjects = objects;
 			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0)
 			{
 				return;
 			}
 
 			{
-				List<Type> editors = m_SpyglassEditors.Get(typeof(GameObject));
+				List<Type> editors = null;
+				foreach (var baseType in m_ActiveGameObjects[0].GetType().GetBaseTypes<UnityEngine.Object>())
+				{
+					if (m_SpyglassEditors.TryGetValue(baseType, out editors))
+						break;
+				}
 				if (editors != null)
 				{
 					m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
@@ -133,20 +141,24 @@ namespace UnityEditorEx
 			}
 			*/
 
-			foreach (Component component in m_ActiveGameObjects[0].GetComponents<Component>())
+			var gameObject = m_ActiveGameObjects[0] as GameObject;
+			if (gameObject != null)
 			{
-				foreach (Type type in component.GetType().GetBaseTypes<Component>())
+				foreach (Component component in gameObject.GetComponents<Component>())
 				{
-					List<Type> editors = m_SpyglassEditors.Get(type);
-					if (editors != null)
+					foreach (Type type in component.GetType().GetBaseTypes<Component>())
 					{
-						m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
+						List<Type> editors = m_SpyglassEditors.Get(type);
+						if (editors != null)
 						{
-							Editor e = (Editor)ScriptableObject.CreateInstance(et);
-							m_ReferenceTargetIndex.SetValue(e, 0);
-							m_Targets.SetValue(e, new UnityEngine.Object[] { component });
-							return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
-						}));
+							m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
+							{
+								Editor e = (Editor)ScriptableObject.CreateInstance(et);
+								m_ReferenceTargetIndex.SetValue(e, 0);
+								m_Targets.SetValue(e, new UnityEngine.Object[] { component });
+								return new ActiveSpyglassEditor { Item1 = (ISpyglassEditor)e, Item2 = true };
+							}));
+						}
 					}
 				}
 			}

@@ -94,7 +94,8 @@ namespace UnityEngineEx
             return parent.Add(o.gameObject);
         }
 
-        public static T AddComponent<T>(this Component c) where T : Component
+
+		public static T AddComponent<T>(this Component c) where T : Component
 		{
 			return c.gameObject.AddComponent<T>();
 		}
