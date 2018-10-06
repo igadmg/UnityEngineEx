@@ -70,7 +70,7 @@ namespace UnityEditorEx
 								}
 								if (GUILayout.Button(new GUIContent("S", "Show scene in project view."), GUILayout.Width(20)))
 								{
-									EditorGUIUtility.PingObject(AssetDatabaseEx.GetInstanceIDFromAssetPath(sceneName));
+									EditorGUIUtility.PingObject(AssetDatabaseEx.LoadMainAssetAtGUID(new GUID(sceneName)));
 								}
 							}
 						}
@@ -96,6 +96,7 @@ namespace UnityEditorEx
 		private void FindSceneInProject()
 		{
 			scenes.Clear();
+			foldouts.Clear();
 
 			string[] guids;
 

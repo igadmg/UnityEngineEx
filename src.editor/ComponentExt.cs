@@ -22,10 +22,10 @@ namespace UnityEditorEx
 				return;
 
 			Editor editor = Editor.CreateEditor(component);
+			MonoScript script = MonoScript.FromScriptableObject(editor);
 
-			if (editor != null)
+			if (script.text.Length != 0)
 			{
-				MonoScript script = MonoScript.FromScriptableObject(editor);
 				EditorGUIUtility.PingObject(script);
 			}
 			else
