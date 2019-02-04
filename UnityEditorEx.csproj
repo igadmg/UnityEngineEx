@@ -76,8 +76,11 @@
     <Compile Include="src.editor\AnimatorControllerExt.cs" />
     <Compile Include="src.editor\AnimatorStateExt.cs" />
     <Compile Include="src.editor\AssetDatabaseEx.cs" />
+    <Compile Include="src.editor\CustomEditorEx.cs" />
     <Compile Include="src.editor\HandlesEx.cs" />
     <Compile Include="src.editor\Internal\AngularDisc.cs" />
+    <Compile Include="src.editor\Internal\TypeRepository.cs" />
+    <Compile Include="src.editor\ProjectWindowUtilEx.cs" />
     <Compile Include="src.editor\SavedInt.cs" />
     <Compile Include="src.editor\GUIUtilityEx.cs" />
     <Compile Include="src.editor\InternalEditorUtilityEx.cs" />
