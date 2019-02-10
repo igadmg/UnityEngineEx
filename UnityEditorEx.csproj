@@ -97,6 +97,11 @@
     <Compile Include="src.editor\Spyglasses\GameObjectSpyglass.cs" />
     <Compile Include="src.editor\Spyglasses\RendererSpyglass.cs" />
     <Compile Include="src.editor\InspectorWindowEx.cs" />
+    <Compile Include="src.editor\Templates\ignore_asmdef.cs">
+      <DependentUpon>ignore_asmdef.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="src.editor\ToolsEx.cs" />
     <Compile Include="src.editor\ToolbarEx.cs" />
     <Compile Include="src.editor\UnityEditorExSettings.cs" />
@@ -199,6 +204,10 @@
     <Content Include="src.editor\Templates\BaseStateMachine_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BaseStateMachine_cs.cs</LastGenOutput>
+    </Content>
+    <Content Include="src.editor\Templates\ignore_asmdef.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ignore_asmdef.cs</LastGenOutput>
     </Content>
     <Content Include="src.editor\Templates\DerivedClass_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

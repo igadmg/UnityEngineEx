@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using SystemEx;
 using UnityEditor;
@@ -13,7 +14,7 @@ namespace UnityEditorEx
 		[MenuItem("Assets/Create/Material From Texture")]
 		public static void MaterialFromTexture()
 		{
-			foreach (Object o in Selection.objects)
+			foreach (UnityEngine.Object o in Selection.objects)
 			{
 				string assetPath = AssetDatabase.GetAssetPath(o);
 				assetPath = assetPath.Substring(0, assetPath.LastIndexOf('/'));
@@ -27,7 +28,7 @@ namespace UnityEditorEx
 		[MenuItem("Assets/Copy path to clipboard")]
 		public static void CopyAssetPathToClipboard()
 		{
-			foreach (Object o in Selection.objects)
+			foreach (UnityEngine.Object o in Selection.objects)
 			{
 				EditorGUIUtility.systemCopyBuffer = AssetDatabase.GetAssetPath(o);
 			}
@@ -48,6 +49,21 @@ namespace UnityEditorEx
 					}));
 
 			ProjectWindowUtilEx.CreateScriptAsset(templatePath, scriptPath);
+		}
+
+		[MenuItem("Assets/Ignore asmdef fodler")]
+		private static void IgnoreAsmDefFolder()
+		{
+			string ignorePath = Path.Combine(ProjectBrowserExt.GetSelectedPath(), "ignore.asmdef");
+
+			File.WriteAllText(Path.GetFullPath(ignorePath)
+				, Template.TransformToText<ignore_asmdef>(new Dictionary<string, object>
+					{
+						{ "guid", Guid.NewGuid().ToString() },
+					}));
+
+			AssetDatabase.ImportAsset(ignorePath);
+			AssetDatabase.Refresh();
 		}
 	}
 }

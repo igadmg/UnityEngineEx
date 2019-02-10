@@ -1,5 +1,5 @@
 {
-    "name": "e451dda0-7114-48e9-9f86-d5797a285268",
+    "name": "5a73dd4c-6a8b-43d7-9030-1fe707c72135",
     "references": [],
     "optionalUnityReferences": [
         "TestAssemblies"
@@ -12,10 +12,9 @@
         "LinuxStandalone32",
         "LinuxStandalone64",
         "LinuxStandaloneUniversal",
+        "Lumin",
         "macOSStandalone",
-        "Nintendo3DS",
         "PS4",
-        "PSVita",
         "Switch",
         "tvOS",
         "WSA",
