@@ -1,4 +1,5 @@
 using MathEx;
+using System.IO;
 using UnityEngine;
 
 namespace UnityEngineEx
@@ -213,6 +214,14 @@ namespace UnityEngineEx
 			texture.SetPixels(nc, 0);
 			texture.Apply();
 			return texture;
+		}
+
+		public static Texture2D LoadFromFile(string filename)
+		{
+			Texture2D textrue = new Texture2D(2, 2);
+			using (FileStream stream = File.Open(filename, FileMode.Open))
+				textrue.LoadImage(new BinaryReader(stream).ReadBytes((int)stream.Length));
+			return textrue;
 		}
 	}
 }
