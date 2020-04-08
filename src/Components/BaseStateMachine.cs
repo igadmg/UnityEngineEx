@@ -28,7 +28,8 @@ namespace UnityEngineEx
 					return 1.0f;
 				}
 
-				return (Time.time - m_TransitionStartTime) / m_CurrentTransition.Value.duration;
+				//return (Time.time - m_TransitionStartTime) / m_CurrentTransition.Value.duration;
+				return 0.0f;
 			}
 		}
 

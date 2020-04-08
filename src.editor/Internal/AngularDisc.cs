@@ -115,7 +115,7 @@ namespace UnityEditorEx
 					else if (id == HandleUtility.nearestControl && GUIUtility.hotControl == 0)
 					{
 						color1 = Handles.color;
-						Handles.color = Handles.preselectionColor;
+						Handles.color = Handles.secondaryColor;
 					}
 					if (GUIUtility.hotControl == id)
 					{

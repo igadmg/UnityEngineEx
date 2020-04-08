@@ -13,33 +13,33 @@ using UnityEngineEx;
 
 namespace UnityEditorEx
 {
-    class AnimatorWindow : EditorWindow
-    {
-        [MenuItem("Window/Animators")]
-        public static void ShowWindow()
-        {
-            AnimatorWindow window = EditorWindow.GetWindow<AnimatorWindow>(false, "Animators");
-        }
+	class AnimatorWindow : EditorWindow
+	{
+		[MenuItem("Window/Animators")]
+		public static void ShowWindow()
+		{
+			AnimatorWindow window = EditorWindow.GetWindow<AnimatorWindow>(false, "Animators");
+		}
 
 		private void OnEnable()
 		{
-			EditorApplication.playModeStateChanged += onPlayModeStateChanged;
+			EditorApplication.playmodeStateChanged += onPlayModeStateChanged;
 		}
 
 
 
 		private static Type m_AnimatorControllerToolType = typeof(IEdgeGUI).Assembly.GetTypes().Where(t => t.Name == "AnimatorControllerTool").FirstOrDefault();
-        private List<Tuple<Animator, AnimatorController>> animators = new List<Tuple<Animator, AnimatorController>>();
+		private List<Tuple<Animator, AnimatorController>> animators = new List<Tuple<Animator, AnimatorController>>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
 
 
 		void OnGUI()
-        {
-            if (animators.Count == 0)
-            {
-                FindAnimationControllers();
-            }
+		{
+			if (animators.Count == 0)
+			{
+				FindAnimationControllers();
+			}
 
 			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
 			{
@@ -78,33 +78,33 @@ namespace UnityEditorEx
 					}
 				}
 			}
-        }
+		}
 
-        void OnDestroy()
-        {
-            EditorApplication.playModeStateChanged -= onPlayModeStateChanged;
-        }
+		void OnDestroy()
+		{
+			EditorApplication.playmodeStateChanged -= onPlayModeStateChanged;
+		}
 
-        private void FindAnimationControllers()
-        {
-            animators.Clear();
+		private void FindAnimationControllers()
+		{
+			animators.Clear();
 
-            if (EditorApplication.isPlaying)
-            {
-                animators.AddRange(FindObjectsOfType<Animator>().Select(a =>
-                    Tuple.Create<Animator, AnimatorController>(a, AnimatorControllerEx.GetEffectiveAnimatorController(a))));
-            }
-            else
-            {
-                animators.AddRange(AssetDatabase.FindAssets("t:AnimatorController").Select(guid =>
-                    Tuple.Create<Animator, AnimatorController>(null, AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(guid)))));
-            }
-        }
+			if (EditorApplication.isPlaying)
+			{
+				animators.AddRange(FindObjectsOfType<Animator>().Select(a =>
+					Tuple.Create<Animator, AnimatorController>(a, AnimatorControllerEx.GetEffectiveAnimatorController(a))));
+			}
+			else
+			{
+				animators.AddRange(AssetDatabase.FindAssets("t:AnimatorController").Select(guid =>
+					Tuple.Create<Animator, AnimatorController>(null, AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(guid)))));
+			}
+		}
 
-        public void onPlayModeStateChanged(PlayModeStateChange state)
-        {
-            FindAnimationControllers();
+		public void onPlayModeStateChanged()
+		{
+			FindAnimationControllers();
 			Repaint();
-        }
-    }
+		}
+	}
 }

@@ -1,34 +1,23 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template debug="false" hostspecific="false" language="C#" visibility="internal" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 <#@ parameter name="guid" type="System.String" #>
+<#@ parameter name="platforms" type="System.Collections.Generic.IEnumerable<System.String>" #>
 {
     "name": "<#= this.guid #>",
     "references": [],
-    "optionalUnityReferences": [
-        "TestAssemblies"
-    ],
     "includePlatforms": [],
     "excludePlatforms": [
-        "Android",
-        "Editor",
-        "iOS",
-        "LinuxStandalone32",
-        "LinuxStandalone64",
-        "LinuxStandaloneUniversal",
-        "Lumin",
-        "macOSStandalone",
-        "PS4",
-        "Switch",
-        "tvOS",
-        "WSA",
-        "WebGL",
-        "WindowsStandalone32",
-        "WindowsStandalone64",
-        "XboxOne"
+<#= string.Join(",\n        ", platforms) #>
     ],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

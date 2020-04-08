@@ -220,7 +220,7 @@ namespace UnityEngineEx
 		{
 			Texture2D textrue = new Texture2D(2, 2);
 			using (FileStream stream = File.Open(filename, FileMode.Open))
-				textrue.LoadImage(new BinaryReader(stream).ReadBytes((int)stream.Length));
+				ImageConversion.LoadImage(textrue, new BinaryReader(stream).ReadBytes((int)stream.Length));
 			return textrue;
 		}
 	}

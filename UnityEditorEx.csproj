@@ -1,232 +1,142 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <Import Project="$(SolutionDir)\Common.props" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E848885-8D82-42A3-8AC7-4057DED4213D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnityEditorEx</RootNamespace>
-    <AssemblyName>UnityEditorEx</AssemblyName>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug v3.5|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)bin\Debug.UnityEx\Editor\Assemblies\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release v3.5|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)bin\Release.UnityEx\Editor\Assemblies\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)bin\Debug.UnityEx\Editor\Assemblies\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)bin\Release.UnityEx\Editor\Assemblies\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="UnityEngine">
-      <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(UNITYEDITORDATA_PATH)\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEditor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>$(UNITYEDITORDATA_PATH)\Managed\UnityEditor.Graphs.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <Compile Remove="doc\**" />
+    <Compile Remove="Properties\**" />
+    <Compile Remove="src.examples\**" />
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="doc\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="src.examples\**" />
+    <EmbeddedResource Remove="src\**" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.UnityEditor.cs" />
-    <Compile Include="src.editor\AnimatorControllerEx.cs" />
-    <Compile Include="src.editor\AnimatorControllerExt.cs" />
-    <Compile Include="src.editor\AnimatorStateExt.cs" />
-    <Compile Include="src.editor\AssetDatabaseEx.cs" />
-    <Compile Include="src.editor\CustomEditorEx.cs" />
-    <Compile Include="src.editor\HandlesEx.cs" />
-    <Compile Include="src.editor\Internal\AngularDisc.cs" />
-    <Compile Include="src.editor\Internal\TypeRepository.cs" />
-    <Compile Include="src.editor\ProjectWindowUtilEx.cs" />
-    <Compile Include="src.editor\SavedInt.cs" />
-    <Compile Include="src.editor\GUIUtilityEx.cs" />
-    <Compile Include="src.editor\InternalEditorUtilityEx.cs" />
-    <Compile Include="src.editor\AnimatorExt.cs" />
-    <Compile Include="src.editor\ComponentExt.cs" />
-    <Compile Include="src.editor\Components\Inspector_PrefabPanel.cs" />
-    <Compile Include="src.editor\Components\Inspector_PrefabPanelList.cs" />
-    <Compile Include="src.editor\Spyglasses\TransformSpyglass.cs" />
-    <Compile Include="src.editor\Components\MeshRendererEditor.cs" />
-    <Compile Include="src.editor\Components\ObjectGizmoz.cs" />
-    <Compile Include="src.editor\ISpyglassEditor.cs" />
-    <Compile Include="src.editor\SpyglassAttribute.cs" />
-    <Compile Include="src.editor\Spyglasses\AnimatorSpyglass.cs" />
-    <Compile Include="src.editor\Spyglasses\GameObjectSpyglass.cs" />
-    <Compile Include="src.editor\Spyglasses\RendererSpyglass.cs" />
-    <Compile Include="src.editor\InspectorWindowEx.cs" />
-    <Compile Include="src.editor\Templates\ignore_asmdef.cs">
-      <DependentUpon>ignore_asmdef.tt</DependentUpon>
+    <None Remove="doc\**" />
+    <None Remove="Properties\**" />
+    <None Remove="src.examples\**" />
+    <None Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="src.editor\Templates\BaseAnimatorController_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BaseAnimatorController_cs.cs</LastGenOutput>
+    </None>
+    <None Update="src.editor\Templates\ComponentEditor_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ComponentEditor_cs.cs</LastGenOutput>
+    </None>
+    <None Update="src.editor\Templates\BaseStateMachine_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BaseStateMachine_cs.cs</LastGenOutput>
+    </None>
+    <None Update="src.editor\Templates\ignore_asmdef.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ignore_asmdef.cs</LastGenOutput>
+    </None>
+    <None Update="src.editor\Templates\DerivedClass_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DerivedClass_cs.cs</LastGenOutput>
+    </None>
+    <None Update="src.editor\Templates\StateMachineState_cs.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>StateMachineState_cs.cs</LastGenOutput>
+    </None>
+
+    <Compile Update="src.editor\Templates\BaseAnimatorController_cs.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="src.editor\ToolsEx.cs" />
-    <Compile Include="src.editor\ToolbarEx.cs" />
-    <Compile Include="src.editor\UnityEditorExSettings.cs" />
-    <Compile Include="src.editor\Editor.cs" />
-    <Compile Include="src.editor\EditorGUIUtilityEx.cs" />
-    <Compile Include="src.editor\MonoScriptEx.cs" />
-    <Compile Include="src.editor\EditorExt.cs" />
-    <Compile Include="src.editor\EditorGUIEx.cs" />
-    <Compile Include="src.editor\EditorGUILayoutEx.cs" />
-    <Compile Include="src.editor\EditorProgressBar.cs" />
-    <Compile Include="src.editor\Editors\AnimationControllerEditor.cs" />
-    <Compile Include="src.editor\InspectorExt.cs" />
-    <Compile Include="src.editor\ProjectBrowserExt.cs" />
-    <Compile Include="src.editor\ProjectExt.cs" />
-    <Compile Include="src.editor\Refactoring\RefactorAttribute.cs" />
-    <Compile Include="src.editor\SpriteExt.cs" />
-    <Compile Include="src.editor\RectTransformExt.cs" />
-    <Compile Include="src.editor\Templates\BaseAnimatorController_cs.cs">
       <DependentUpon>BaseAnimatorController_cs.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="src.editor\Templates\ComponentEditor_cs.cs">
+    <Compile Update="src.editor\Templates\ComponentEditor_cs.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ComponentEditor_cs.tt</DependentUpon>
     </Compile>
-    <Compile Include="src.editor\Templates\BaseStateMachine_cs.cs">
+    <Compile Update="src.editor\Templates\BaseStateMachine_cs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>BaseStateMachine_cs.tt</DependentUpon>
+    </Compile>
+    <Compile Update="src.editor\Templates\ignore_asmdef.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ignore_asmdef.tt</DependentUpon>
     </Compile>
-    <Compile Include="src.editor\Templates\DerivedClass_cs.cs">
+    <Compile Update="src.editor\Templates\DerivedClass_cs.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>DerivedClass_cs.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="src.editor\Templates\StateMachineState_cs.cs">
+    <Compile Update="src.editor\Templates\StateMachineState_cs.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StateMachineState_cs.tt</DependentUpon>
     </Compile>
-    <Compile Include="src.editor\TransformEx.cs" />
-    <Compile Include="src.editor\TransformExt.cs" />
-    <Compile Include="src.editor\UndoEx.cs" />
-    <Compile Include="src.editor\Windows\AnimatorWindow.cs" />
-    <Compile Include="src.editor\Windows\ButtonDropWindow.cs" />
-    <Compile Include="src.editor\Windows\SceneWindow.cs" />
-    <Compile Include="src.editor\Windows\SpyglassWindow.cs" />
+
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)\Libraries\MathEx\MathEx.csproj">
-      <Project>{8D8A06E5-ABFB-49A8-851A-070FCF5339AA}</Project>
-      <Name>MathEx</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\Libraries\MathEx\MathEx.UnityEngine.csproj">
-      <Project>{D707C31E-1C84-42A1-9790-3EBBF75EA645}</Project>
-      <Name>MathEx.UnityEngine</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\Libraries\SystemEx\SystemEx.csproj">
-      <Project>{0271E27F-E614-4B0F-AF16-05D2D2781B7F}</Project>
-      <Name>SystemEx</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\Libraries\UnityDissolve\UnityDissolve.csproj">
-      <Project>{5ddef78f-3298-4583-adf8-21421e4b29f9}</Project>
-      <Name>UnityDissolve</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)\Libraries\UnityDissolve\UnityDissolve.Editor.csproj">
-      <Project>{db11460f-9b28-4775-a1cc-348504748721}</Project>
-      <Name>UnityDissolve.Editor</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngineEx.csproj">
-      <Project>{5DDEF78F-3298-4583-ADF8-21421E4B29F9}</Project>
-      <Name>UnityDissolve</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngineEx.csproj">
-      <Project>{e323793c-989d-4e1e-8f78-96c6d5ed6caa}</Project>
-      <Name>UnityEngineEx</Name>
-      <Private>False</Private>
-    </ProjectReference>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="src.editor\EventLog.tcs" />
+    <ProjectReference Include="$(SolutionDir)\Libraries\MathEx\MathEx.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Libraries\MathEx\MathEx.UnityEngine.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Libraries\SystemEx\SystemEx.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Libraries\UnityDissolve\UnityDissolve.csproj" />
+    <ProjectReference Include="$(SolutionDir)\Libraries\UnityDissolve\UnityDissolve.Editor.csproj" />
+    <ProjectReference Include="UnityEngineEx.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="src.editor\Templates\BaseAnimatorController_cs.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>BaseAnimatorController_cs.cs</LastGenOutput>
-    </Content>
-    <Content Include="src.editor\Templates\ComponentEditor_cs.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ComponentEditor_cs.cs</LastGenOutput>
-    </Content>
-    <Content Include="src.editor\Templates\BaseStateMachine_cs.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>BaseStateMachine_cs.cs</LastGenOutput>
-    </Content>
-    <Content Include="src.editor\Templates\ignore_asmdef.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ignore_asmdef.cs</LastGenOutput>
-    </Content>
-    <Content Include="src.editor\Templates\DerivedClass_cs.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DerivedClass_cs.cs</LastGenOutput>
-    </Content>
-    <Content Include="src.editor\Templates\StateMachineState_cs.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>StateMachineState_cs.cs</LastGenOutput>
-    </Content>
+    <Reference Include="UnityEngine">
+      <HintPath>$(UnityEngineDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(UnityEngineCoreModuleDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(UnityEngineAnimationModuleDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(UnityEngineIMGUIModuleDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(UnityEnginePhysicsModuleDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(UnityEngineTextRenderingModuleDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(UnityEngineUIModuleDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(UnityEngineUiDll)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>$(UnityEditorDll)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>$(UnityEditorGraphsDll)</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
