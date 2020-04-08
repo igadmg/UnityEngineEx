@@ -60,6 +60,7 @@ namespace UnityEditorEx
 				, Template.TransformToText<ignore_asmdef>(new Dictionary<string, object>
 					{
 						{ "guid", Guid.NewGuid().ToString() },
+						{ "platforms", new List<string>() }
 					}));
 
 			AssetDatabase.ImportAsset(ignorePath);
