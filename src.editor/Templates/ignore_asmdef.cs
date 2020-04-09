@@ -36,7 +36,7 @@ namespace UnityEditorEx.src.editor.Templates
             #line default
             #line hidden
             this.Write("\",\r\n    \"references\": [],\r\n    \"includePlatforms\": [],\r\n    \"excludePlatforms\": [" +
-                    "\r\n");
+                    "\r\n        ");
             
             #line 14 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\ignore_asmdef.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",\n        ", platforms)));

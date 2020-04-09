@@ -19,7 +19,7 @@ namespace System.CodeDom.Compiler
 {
 	internal class CompilerErrorCollection : List<CompilerError>
 	{
-		public bool HasErrors => Count == 0;
+		public bool HasErrors => Count != 0;
 	}
 
 	internal class CompilerError

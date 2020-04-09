@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using SystemEx;
 using UnityEditor;
 using UnityEditorEx.src.editor.Templates;
@@ -60,7 +61,7 @@ namespace UnityEditorEx
 				, Template.TransformToText<ignore_asmdef>(new Dictionary<string, object>
 					{
 						{ "guid", Guid.NewGuid().ToString() },
-						{ "platforms", new List<string>() }
+						{ "platforms", CustomScriptAssemblyEx.Platforms.Select(p => $@"""{p.Name}""") }
 					}));
 
 			AssetDatabase.ImportAsset(ignorePath);

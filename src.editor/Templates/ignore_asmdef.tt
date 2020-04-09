@@ -11,7 +11,7 @@
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [
-<#= string.Join(",\n        ", platforms) #>
+        <#= string.Join(",\n        ", platforms) #>
     ],
     "allowUnsafeCode": false,
     "overrideReferences": true,

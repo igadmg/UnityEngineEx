@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PeanutButter.DuckTyping" Version="1.2.358" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="src.editor\Templates\BaseAnimatorController_cs.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BaseAnimatorController_cs.cs</LastGenOutput>
