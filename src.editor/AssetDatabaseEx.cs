@@ -23,6 +23,7 @@ namespace UnityEditorEx
 			return GetInstanceIDFromGUID(AssetDatabase.AssetPathToGUID(path));
 		}
 
+		[Obsolete("Use AssetDatabase.LoadMainAssetAtPath instead.")]
 		public static UnityEngine.Object LoadMainAssetAtGUID(GUID guid)
 		{
 			return (UnityEngine.Object)m_LoadMainAssetAtGUID.Value.Invoke(null, new object[] { guid });
