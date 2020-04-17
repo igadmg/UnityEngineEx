@@ -44,7 +44,7 @@ namespace UnityEditorEx
 			File.WriteAllText(Path.GetFullPath(templatePath)
 				, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object>
 					{
-						{ "namespacename", UnityEditorExSettings.instance.namespaceName },
+						{ "namespacename", UnityEditorExSettings.instance.GetNamespaceName(scriptPath) },
 						{ "classname", "#SCRIPTNAME#" },
 						{ "baseclassname", "MonoBehaviour" },
 					}));

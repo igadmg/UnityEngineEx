@@ -21,7 +21,7 @@ namespace UnityEditorEx
 			File.WriteAllText(Path.GetFullPath(scriptPath)
 				, Template.TransformToText<StateMachineState_cs>(new Dictionary<string, object>
 					{
-						{ "namespacename", UnityEditorExSettings.instance.namespaceName },
+						{ "namespacename", UnityEditorExSettings.instance.GetNamespaceName(scriptPath) },
 						{ "statename", state.name + "State" },
 						{ "statemachinetype", "StateMachineType" },
 						{ "controllertype", "ControllerType" },
@@ -47,7 +47,7 @@ namespace UnityEditorEx
 			File.WriteAllText(Path.GetFullPath(scriptPath)
 					, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object>
 						{
-							{ "namespacename", UnityEditorExSettings.instance.namespaceName },
+							{ "namespacename", UnityEditorExSettings.instance.GetNamespaceName(scriptPath) },
 							{ "classname", transfrom.gameObject.name },
 							{ "baseclassname", "MonoBehaviour" },
 						}));
