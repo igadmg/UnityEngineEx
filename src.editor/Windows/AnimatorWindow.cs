@@ -27,9 +27,15 @@ namespace UnityEditorEx
 		}
 
 
+		struct AnimatorDescription
+		{
+			public Animator animator;
+			public AnimatorController controller;
+			public string path;
+		}
 
 		private static Type m_AnimatorControllerToolType = typeof(IEdgeGUI).Assembly.GetTypes().Where(t => t.Name == "AnimatorControllerTool").FirstOrDefault();
-		private List<Tuple<Animator, AnimatorController>> animators = new List<Tuple<Animator, AnimatorController>>();
+		private List<AnimatorDescription> animators = new List<AnimatorDescription>();
 		private Vector2 m_ScrollPosition = Vector2.zero;
 
 
@@ -55,25 +61,36 @@ namespace UnityEditorEx
 				FieldInfo m_PreviewAnimator = m_AnimatorControllerToolType.GetField("m_PreviewAnimator", BindingFlags.Instance | BindingFlags.NonPublic);
 				PropertyInfo m_AnimatorController = m_AnimatorControllerToolType.GetProperty("animatorController", BindingFlags.Instance | BindingFlags.Public);
 
-				foreach (Tuple<Animator, AnimatorController> tuple in animators)
+				foreach (var a in animators)
 				{
-					if (tuple.Item1 == null)
+					using (GUILayoutEx.Horizontal())
 					{
-						if (GUILayout.Button("{0}".format(tuple.Item2.name), GUILayout.Height(20)))
+						if (a.animator == null)
 						{
-							EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
-							m_AnimatorController.SetValue(m_AnimatorControllerTool, tuple.Item2, null);
-							m_AnimatorControllerTool.Repaint();
+							if (GUILayout.Button("{0}".format(a.controller.name), GUILayout.Height(20)))
+							{
+								EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
+								m_AnimatorController.SetValue(m_AnimatorControllerTool, a.controller, null);
+								m_AnimatorControllerTool.Repaint();
+							}
+							if (GUILayout.Button(new GUIContent("S", "Show animator in hierarchy view."), GUILayout.Width(20)))
+							{
+								EditorGUIUtility.PingObject(AssetDatabase.LoadMainAssetAtPath(a.path));
+							}
 						}
-					}
-					else
-					{
-						if (GUILayout.Button("{0}: {1}".format(tuple.Item1.name, tuple.Item2.name), GUILayout.Height(20)))
+						else
 						{
-							EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
-							m_PreviewAnimator.SetValue(m_AnimatorControllerTool, tuple.Item1);
-							m_AnimatorController.SetValue(m_AnimatorControllerTool, tuple.Item2, null);
-							m_AnimatorControllerTool.Repaint();
+							if (GUILayout.Button("{0}: {1}".format(a.animator.name, a.controller.name), GUILayout.Height(20)))
+							{
+								EditorWindow m_AnimatorControllerTool = GetWindow(m_AnimatorControllerToolType);
+								m_PreviewAnimator.SetValue(m_AnimatorControllerTool, a.animator);
+								m_AnimatorController.SetValue(m_AnimatorControllerTool, a.controller, null);
+								m_AnimatorControllerTool.Repaint();
+							}
+							if (GUILayout.Button(new GUIContent("S", "Show animator in hierarchy view."), GUILayout.Width(20)))
+							{
+
+							}
 						}
 					}
 				}
@@ -92,12 +109,22 @@ namespace UnityEditorEx
 			if (EditorApplication.isPlaying)
 			{
 				animators.AddRange(FindObjectsOfType<Animator>().Select(a =>
-					Tuple.Create<Animator, AnimatorController>(a, AnimatorControllerEx.GetEffectiveAnimatorController(a))));
+					new AnimatorDescription
+					{
+						animator = a,
+						controller = AnimatorControllerEx.GetEffectiveAnimatorController(a),
+						path = AssetDatabase.GetAssetPath(a)
+					}));
 			}
 			else
 			{
 				animators.AddRange(AssetDatabase.FindAssets("t:AnimatorController").Select(guid =>
-					Tuple.Create<Animator, AnimatorController>(null, AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(guid)))));
+					new AnimatorDescription
+					{
+						animator = null,
+						controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(guid)),
+						path = AssetDatabase.GUIDToAssetPath(guid)
+					}));
 			}
 		}
 

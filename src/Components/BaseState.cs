@@ -18,7 +18,15 @@ namespace UnityEngineEx
 		public string stateName { get { return m_StateMachine.GetStateName(m_StateInfo.shortNameHash); } }
 	}
 
-	public class BaseState<TStateMachine, TController> : BaseState
+	public interface IState
+	{
+		void OnRestore();
+		void OnEnter(float duration);
+		void OnUpdate();
+		void OnExit();
+	}
+
+	public class BaseState<TStateMachine, TController> : BaseState, IState
 		where TStateMachine : BaseStateMachine
 	{
 		protected TController m_Controller;
@@ -28,11 +36,10 @@ namespace UnityEngineEx
 		public TController controller { get { return m_Controller; } }
 
 
-		protected virtual void OnRestore() { }
-		protected virtual void OnEnter() { }
-		protected virtual void OnUpdate() { }
-		protected virtual void OnExit() { }
-
+		public virtual void OnRestore() { }
+		public virtual void OnEnter(float duration) { }
+		public virtual void OnUpdate() { }
+		public virtual void OnExit() { }
 
 
 		// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -71,7 +78,7 @@ namespace UnityEngineEx
 #endif
 			{
 				m_StateMachine.onStateSwitch?.Invoke(this);
-				OnEnter();
+				OnEnter(0);
 			}
 		}
 
