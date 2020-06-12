@@ -35,9 +35,11 @@ namespace UnityEngineEx
 			Stack<Transform> next = new Stack<Transform>();
 
 			next.Push(o.transform);
-			while (next.Count != 0) {
+			while (next.Count != 0)
+			{
 				Transform current = next.Pop();
-				foreach (Transform child in current) {
+				foreach (Transform child in current)
+				{
 					yield return child.gameObject;
 					next.Push(child);
 				}
@@ -55,9 +57,11 @@ namespace UnityEngineEx
 			Stack<Tuple<Transform, int>> next = new Stack<Tuple<Transform, int>>();
 
 			next.Push(Tuple.Create(o.transform, 0));
-			while (next.Count != 0) {
+			while (next.Count != 0)
+			{
 				var current = next.Pop();
-				foreach (Transform child in current.Item1) {
+				foreach (Transform child in current.Item1)
+				{
 					yield return Tuple.Create(child.gameObject, current.Item2 + 1);
 					next.Push(Tuple.Create(child, current.Item2 + 1));
 				}
@@ -141,6 +145,16 @@ namespace UnityEngineEx
 
 		#endregion
 
+		public static TComponent CreateActor<TComponent>(string name, Transform parent)
+			where TComponent : Component
+		{
+			var go = new GameObject(name);
+			go.transform.parent = parent;
+
+			return go.AddComponent<TComponent>();
+		}
+
+
 		#region Instantiation
 
 		public static GameObject Construct(this GameObject instance)
@@ -169,17 +183,21 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -196,12 +214,13 @@ namespace UnityEngineEx
 				go = GameObject.Instantiate(instance) as GameObject;
 				parent.Add(go);
 
-				foreach (var i in initializers) try	{
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				}
-				catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
 			}
@@ -217,17 +236,21 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -239,15 +262,19 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					go.Dissolve(i);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						go.Dissolve(i);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -259,20 +286,25 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				if (initializers != null) {
-					foreach (var i in initializers) try {
-						var c = go.GetComponent(i.Item1);
-						if (c != null)
-							c.Setup(i.Item2);
-					} catch (Exception e) { Debug.LogException(e); }
+				if (initializers != null)
+				{
+					foreach (var i in initializers) try
+						{
+							var c = go.GetComponent(i.Item1);
+							if (c != null)
+								c.Setup(i.Item2);
+						}
+						catch (Exception e) { Debug.LogException(e); }
 				}
 
 				go.name = name;
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -284,21 +316,26 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				if (initializers != null) {
-					foreach (var i in initializers) try {
-						var c = go.GetComponent(i.Item1);
-						if (c != null)
-							c.Setup(i.Item2);
-					} catch (Exception e) { Debug.LogException(e); }
+				if (initializers != null)
+				{
+					foreach (var i in initializers) try
+						{
+							var c = go.GetComponent(i.Item1);
+							if (c != null)
+								c.Setup(i.Item2);
+						}
+						catch (Exception e) { Debug.LogException(e); }
 				}
 
 				go.name = name;
 				go.transform.position = po;
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -327,17 +364,21 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						i.Item2(c);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							i.Item2(c);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -350,21 +391,26 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				if (initializers != null) {
-					foreach (var i in initializers) try {
-						var c = go.GetComponent(i.Item1);
-						if (c != null)
-							c.Setup(i.Item2);
-					} catch (Exception e) { Debug.LogException(e); }
+				if (initializers != null)
+				{
+					foreach (var i in initializers) try
+						{
+							var c = go.GetComponent(i.Item1);
+							if (c != null)
+								c.Setup(i.Item2);
+						}
+						catch (Exception e) { Debug.LogException(e); }
 				}
 
 				go.transform.position = po;
 				o.transform.Add(go);
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -390,14 +436,17 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.name = o.name;
 				go.transform.position = o.transform.localPosition + go.transform.position;
@@ -406,7 +455,8 @@ namespace UnityEngineEx
 				o.transform.parent.Add(go);
 				GameObject.DestroyImmediate(o);
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -422,15 +472,18 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					Type ct = i.GetType().GetGenericArguments()[0];
-					var c = go.GetComponentOrThis(ct);
-					if (c != null)
-						((Delegate)(i)).DynamicInvoke(c);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						Type ct = i.GetType().GetGenericArguments()[0];
+						var c = go.GetComponentOrThis(ct);
+						if (c != null)
+							((Delegate)(i)).DynamicInvoke(c);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.name = o.name;
 				go.transform.position = o.transform.localPosition + go.transform.position;
@@ -439,7 +492,8 @@ namespace UnityEngineEx
 				o.transform.parent.Add(go);
 				GameObject.DestroyImmediate(o);
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -530,7 +584,8 @@ namespace UnityEngineEx
 			T c = o.AddComponent<T>();
 
 			object[] prms = new object[ctor.args.Length];
-			for (int ai = 0; ai < ctor.args.Length; ai++) {
+			for (int ai = 0; ai < ctor.args.Length; ai++)
+			{
 				if (ctor.args[ai] != typeof(T))
 					prms[ai] = o.GetComponentOrThis(ctor.args[ai]);
 				else
@@ -555,14 +610,16 @@ namespace UnityEngineEx
 		public static T AddComponent<T>(this GameObject o, params object[] args) where T : Component, IConstructable
 		{
 			bool a = o.activeSelf;
-			try	{
+			try
+			{
 				o.SetActive(false);
 
 				T c = o.AddComponent<T>();
 				c.Constructor(args);
 				return c;
 			}
-			finally {
+			finally
+			{
 				o.SetActive(a);
 			}
 		}
@@ -653,7 +710,8 @@ namespace UnityEngineEx
 					return;
 
 				var renderer = c.GetComponent<Renderer>();
-				if (renderer != null) {
+				if (renderer != null)
+				{
 					b = b.Extend(renderer.bounds);
 				}
 			});
@@ -669,7 +727,8 @@ namespace UnityEngineEx
 		public static Bounds GetBoundsLocal(this GameObject o)
 		{
 			var renderer = o.GetComponent<Renderer>();
-			if (renderer != null) {
+			if (renderer != null)
+			{
 				return renderer.bounds;
 			}
 
@@ -700,7 +759,8 @@ namespace UnityEngineEx
 		public static GameObject CallRecursive(this GameObject o, Action<GameObject> a)
 		{
 			a(o);
-			foreach (GameObject child in o.GetEnumeratorRecursive()) {
+			foreach (GameObject child in o.GetEnumeratorRecursive())
+			{
 				a(child);
 			}
 
@@ -716,7 +776,8 @@ namespace UnityEngineEx
 		public static GameObject CallRecursive(this GameObject o, Action<GameObject, int> a)
 		{
 			a(o, 0);
-			foreach (var child in o.GetEnumeratorRecursiveWithDepth()) {
+			foreach (var child in o.GetEnumeratorRecursiveWithDepth())
+			{
 				a(child.Item1, child.Item2);
 			}
 

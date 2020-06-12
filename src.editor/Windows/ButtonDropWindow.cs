@@ -26,13 +26,16 @@ namespace UnityEditorEx
 
 				if (EditorGUI.DropdownButton(rect, buttonNameLabel, FocusType.Passive, style))
 				{
-					Close();
-
-					//rect.y += 26f;
-					//rect.x += rect.width;
-					//rect.width = style.fixedWidth;
-					_instance.Value.Init(rect, onInit, onGui);
-					_instance.Value.Repaint();
+					if (_instance.IsValueCreated)
+						Close();
+					else
+					{
+						//rect.y += 26f;
+						//rect.x += rect.width;
+						//rect.width = style.fixedWidth;
+						_instance.Value.Init(rect, onInit, onGui);
+						_instance.Value.Repaint();
+					}
 				}
 
 				GUILayout.FlexibleSpace();

@@ -8,7 +8,7 @@ using UnityEngineEx;
 
 
 namespace UnityEditorEx
-{
+{ 
 	[Spyglass(typeof(Animator), true)]
 	class AnimatorSpyglass : Editor<Animator>, ISpyglassEditor
 	{

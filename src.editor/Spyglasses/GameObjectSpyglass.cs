@@ -102,14 +102,26 @@ namespace UnityEditorEx
 				rect = GUILayoutUtility.GetRect(10f, 25f);
 				GUI.Label(rect, "New Script", styles.header);
 
-				GUILayout.Label("Namespace:");
-				m_Namespace = EditorGUILayout.TextField(m_Namespace);
-
 				GUILayout.Label("Name:");
 				m_ScriptName = EditorGUILayout.TextField(m_ScriptName);
 
+				GUILayout.Label("Namespace:");
+				using (GUILayoutEx.Horizontal())
+				{
+					m_Namespace = EditorGUILayout.TextField(m_Namespace);
+					if (GUILayout.Button("S", GUILayout.Width(20)))
+					{
+					}
+				}
+
 				GUILayout.Label("Path:");
-				m_Path = EditorGUILayout.TextField(m_Path);
+				using (GUILayoutEx.Horizontal())
+				{
+					m_Path = EditorGUILayout.TextField(m_Path);
+					if (GUILayout.Button("S", GUILayout.Width(20)))
+					{
+					}
+				}
 
 				string scriptPath = Path.Combine(m_Path, m_ScriptName + ".cs");
 				using (EditorGUIEx.DisabledScopeIf(File.Exists(scriptPath)))

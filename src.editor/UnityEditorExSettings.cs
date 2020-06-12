@@ -40,6 +40,7 @@ namespace UnityEditorEx
 		}
 
 		public string namespaceName;
+		public string scriptRoot;
 		public string editorScriptsPath;
 
 		public string GetNamespaceName(string path)

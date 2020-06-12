@@ -35,6 +35,13 @@ namespace UnityEditorEx
 			instance.Show();
 		}
 
+		[MenuItem("UnityEx/Find Spyglass Editors")]
+		public static void MenuFindSpyglassEditors()
+		{
+			SpyglassWindow.FindSpyglassEditors();
+		}
+
+
 		private void OnEnable()
 		{
 			OnSelectionChange();
@@ -100,7 +107,7 @@ namespace UnityEditorEx
 			ClearSelectedEditors();
 
 			m_ActiveGameObjects = objects;
-			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0)
+			if (m_ActiveGameObjects == null || m_ActiveGameObjects.Length == 0 || m_ActiveGameObjects[0] == null)
 			{
 				return;
 			}
@@ -170,16 +177,15 @@ namespace UnityEditorEx
 
 			foreach (Type t in TypeRepository.GetTypes())
 			{
+				Type inspectedType = null;
 				CustomEditor ce = t.GetAttribute<CustomEditor>();
 				if (ce != null && t.HasInterface<ISpyglassEditor>())
 				{
-					Type inspectedType = ce.GetInspectedType();
-					List<Type> editors = m_SpyglassEditors.GetOrAdd(inspectedType, key => new List<Type>());
-
-					editors.Add(t);
+					inspectedType = ce.GetInspectedType();
+					m_SpyglassEditors.GetOrAdd(inspectedType, key => new List<Type>()).Add(t);
 				}
 				SpyglassAttribute sa = t.GetAttribute<SpyglassAttribute>();
-				if (sa != null && t.HasInterface<ISpyglassEditor>())
+				if (sa != null && t.HasInterface<ISpyglassEditor>() && sa.inspectedType != inspectedType)
 				{
 					m_SpyglassEditors.GetOrAdd(sa.inspectedType, key => new List<Type>()).Add(t);
 				}
