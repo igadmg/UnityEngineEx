@@ -47,6 +47,11 @@ namespace UnityEditorEx
 			OnSelectionChange();
 		}
 
+		void OnFocus()
+		{
+			OnSelectionChange();
+		}
+
 
 		private class ActiveSpyglassEditor
 		{
