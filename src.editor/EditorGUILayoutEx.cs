@@ -3,6 +3,7 @@ using System.Reflection;
 using SystemEx;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Internal;
 
 namespace UnityEditorEx
 {
@@ -21,16 +22,26 @@ namespace UnityEditorEx
 			return new DisposableLock(() => EditorGUILayout.EndScrollView());
 		}
 
-		public static IDisposable Horizontal()
+		public static IDisposable Horizontal(params GUILayoutOption[] options)
 		{
-			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.BeginHorizontal(options);
 			return new DisposableLock(() => EditorGUILayout.EndHorizontal());
 		}
 
-		public static IDisposable Vertical()
+		public static IDisposable Vertical(params GUILayoutOption[] options)
 		{
-			EditorGUILayout.BeginVertical();
+			EditorGUILayout.BeginVertical(options);
 			return new DisposableLock(() => EditorGUILayout.EndVertical());
+		}
+
+		public static IDisposable FoldoutHeaderGroup(ref bool foldout, string content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
+			, Action ifVisible = null)
+		{
+			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
+			if (foldout)
+				ifVisible?.Invoke();
+
+			return new DisposableLock(() => EditorGUILayout.EndFoldoutHeaderGroup());
 		}
 	}
 }
