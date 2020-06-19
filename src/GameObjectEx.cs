@@ -69,6 +69,17 @@ namespace UnityEngineEx
 			yield break;
 		}
 
+		public static IEnumerable<T> Enumerate<T>(this GameObject o)
+			where T : Component
+		{
+			foreach (Transform child in o.transform)
+			{
+				T c = child.GetComponent<T>();
+				if (c != null)
+					yield return c;
+			}
+		}
+
 		#endregion
 
 		#region Creation

@@ -136,6 +136,15 @@ namespace UnityEngineEx
 			return c.gameObject.AddComponent<T>(ctor);
 		}
 
+		public static T GetOrAddComponent<T>(this Component c) where T : Component
+		{
+			var r = c.GetComponent<T>();
+			if (r != null)
+				return r;
+
+			return c.AddComponent<T>();
+		}
+
 		/// <summary>
 		/// Finds GameObject by path name. And returns it's Component T if it exists.
 		/// </summary>
