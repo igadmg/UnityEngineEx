@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using SystemEx;
 using UnityEngine;
 
 namespace UnityEngineEx
@@ -9,7 +7,8 @@ namespace UnityEngineEx
 	{
 		static IEnumerator CoroutineWrapper(IEnumerator coroutine, GameObject controller)
 		{
-			while (coroutine.MoveNext()) {
+			while (coroutine.MoveNext())
+			{
 				yield return true;
 			}
 

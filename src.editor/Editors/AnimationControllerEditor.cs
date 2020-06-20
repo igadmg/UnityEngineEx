@@ -9,33 +9,33 @@ using UnityEngineEx;
 
 namespace UnityEditorEx
 {
-    [CustomEditor(typeof(AnimatorController))]
-    public class AnimationControllerEditor : Editor<AnimatorController>
-    {
-        private string m_Namespace = null;
-        private string m_Path = null;
-        private GameObject m_GameObject;
-        private Component m_Behaviour;
+	[CustomEditor(typeof(AnimatorController))]
+	public class AnimationControllerEditor : Editor<AnimatorController>
+	{
+		private string m_Namespace = null;
+		private string m_Path = null;
+		private GameObject m_GameObject;
+		private Component m_Behaviour;
 
 
 
-        public override void OnInspectorGUI()
-        {
-            AnimatorController ac = target;
+		public override void OnInspectorGUI()
+		{
+			AnimatorController ac = target;
 
-            ButtonDropWindow.Show("Add State Machine", () => {
-					if (string.IsNullOrEmpty(m_Namespace))
+			ButtonDropWindow.Show("Add State Machine", () => {
+				if (string.IsNullOrEmpty(m_Namespace))
+				{
+					m_Namespace = ac.name;
+				}
+				if (string.IsNullOrEmpty(m_Path))
+				{
+					if (Selection.activeObject != null)
 					{
-						m_Namespace = ac.name;
+						m_Path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(Selection.activeObject));
 					}
-					if (string.IsNullOrEmpty(m_Path))
-					{
-						if (Selection.activeObject != null)
-						{
-							m_Path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(Selection.activeObject));
-						}
-					}
-				},
+				}
+			},
 				(position, styles) => {
 					Event e = Event.current;
 					switch (e.type)
@@ -105,11 +105,11 @@ namespace UnityEditorEx
 						}
 					}
 				});
-        }
+		}
 
-        private void OnBehaviourSelected(object o)
-        {
-            m_Behaviour = (Component)o;
-        }
-    }
+		private void OnBehaviourSelected(object o)
+		{
+			m_Behaviour = (Component)o;
+		}
+	}
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,7 +23,8 @@ namespace UnityEditorEx
 
 			GameObject root = Selection.activeObject as GameObject;
 			var sr = root.GetComponent<SpriteRenderer>();
-			if (sr != null) {
+			if (sr != null)
+			{
 				layers[sr.sortingLayerName] = sr.sortingOrder;
 			}
 
@@ -35,16 +35,20 @@ namespace UnityEditorEx
 		static void ReadLayers(GameObject current, IDictionary<string, int> layers)
 		{
 			var sr = current.GetComponent<SpriteRenderer>();
-			if (sr != null) {
-				if (layers.ContainsKey(sr.sortingLayerName)) {
+			if (sr != null)
+			{
+				if (layers.ContainsKey(sr.sortingLayerName))
+				{
 					layers[sr.sortingLayerName] = Mathf.Min(sr.sortingOrder, layers[sr.sortingLayerName]);
 				}
-				else {
+				else
+				{
 					layers[sr.sortingLayerName] = sr.sortingOrder;
 				}
 			}
 
-			foreach (Transform child in current.transform) {
+			foreach (Transform child in current.transform)
+			{
 				ReadLayers(child.gameObject, layers);
 			}
 		}
@@ -52,16 +56,20 @@ namespace UnityEditorEx
 		static void UpdateLayer(GameObject current, IDictionary<string, int> layers, int depth)
 		{
 			var sr = current.GetComponent<SpriteRenderer>();
-			if (sr != null) {
-				if (layers.ContainsKey(sr.sortingLayerName)) {
+			if (sr != null)
+			{
+				if (layers.ContainsKey(sr.sortingLayerName))
+				{
 					sr.sortingOrder = layers[sr.sortingLayerName] + depth;
 				}
-				else {
+				else
+				{
 					layers[sr.sortingLayerName] = sr.sortingOrder;
 				}
 			}
 
-			foreach (Transform child in current.transform) {
+			foreach (Transform child in current.transform)
+			{
 				UpdateLayer(child.gameObject, layers, depth + 1);
 			}
 		}

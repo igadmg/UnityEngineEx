@@ -5,7 +5,7 @@ namespace UnityEngineEx
 	public static class SocketEx
 	{
 		public static T GetSocket<T>(this Component c)
-			where T: Component
+			where T : Component
 		{
 			Transform t = c.transform.parent;
 			while (t != null && t.gameObject.tag == "Socket")

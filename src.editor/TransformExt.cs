@@ -32,8 +32,7 @@ namespace UnityEditorEx
 		[MenuItem("CONTEXT/Transform/Reset Z")]
 		public static void ResetZ(MenuCommand command)
 		{
-			Selection.activeGameObject.CallRecursive((GameObject o) =>
-			{
+			Selection.activeGameObject.CallRecursive((GameObject o) => {
 				if (o != Selection.activeGameObject)
 					o.transform.localPosition = o.transform.localPosition.Z(-0.0001f);
 			});
@@ -112,8 +111,7 @@ namespace UnityEditorEx
 
 		static IList<GameObject> SortByX(GameObject[] os)
 		{
-			var objects = new SortedList<Vector3, GameObject>(LambdaComparer.Create((Vector3 a, Vector3 b) =>
-			{
+			var objects = new SortedList<Vector3, GameObject>(LambdaComparer.Create((Vector3 a, Vector3 b) => {
 				if (a.y < b.y) return -1;
 				if (a.y == b.y && a.x < b.x) return -1;
 				if (a.y == b.y && a.x == b.x) return 0;

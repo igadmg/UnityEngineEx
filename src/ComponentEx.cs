@@ -30,14 +30,14 @@ namespace UnityEngineEx
 		{
 			GameObject go = prefab.gameObject.Construct(parent.gameObject);
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
 		public static C Construct<C>(this C prefab, GameObject parent)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent);
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
 		/// <summary>
 		/// Construct prefab of given component type.
@@ -52,21 +52,21 @@ namespace UnityEngineEx
 		{
 			GameObject go = prefab.gameObject.Construct(Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
 		public static C Construct<C>(this C prefab, Transform parent, object initializer)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent.gameObject, Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
 		public static C Construct<C>(this C prefab, GameObject parent, object initializer)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent, Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
 		/// <summary>
 		/// Adds GameObject as a child to another GameObject.
@@ -81,7 +81,7 @@ namespace UnityEngineEx
 			return parent.transform.Add(o).gameObject;
 		}
 
-        /// <summary>
+		/// <summary>
 		/// Adds Component as a child to another GameObject.
 		/// Objects position and rotation are set to localPosition and localrotation.
 		/// <seealso cref="TransformEx.Add"/>
@@ -90,9 +90,9 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <returns></returns>
 		public static GameObject Add(this Component parent, Component o)
-        {
-            return parent.Add(o.gameObject);
-        }
+		{
+			return parent.Add(o.gameObject);
+		}
 
 
 		public static T AddComponent<T>(this Component c) where T : Component

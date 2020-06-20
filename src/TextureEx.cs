@@ -62,7 +62,7 @@ namespace UnityEngineEx
 		{
 			var p = position;
 			var s = texture.GetSize();
-			int w = (int) s.x;
+			int w = (int)s.x;
 			var sx = new Vector2(0, s.x - 1);
 			var sy = new Vector2(0, s.y - 1);
 			Color[] pixels = texture.GetPixels();
@@ -71,18 +71,19 @@ namespace UnityEngineEx
 
 			int cX = MathfEx.Round(position.x);
 			int cY = MathfEx.Round(position.y);
-			int TwoASquare = MathfEx.Round(2*radius.x*radius.x);
-			int TwoBSquare = MathfEx.Round(2*radius.y*radius.y);
+			int TwoASquare = MathfEx.Round(2 * radius.x * radius.x);
+			int TwoBSquare = MathfEx.Round(2 * radius.y * radius.y);
 			int X = MathfEx.Round(radius.x);
 			int Y = 0;
-			int XChange = MathfEx.Round(radius.y*radius.y*(1 - 2*radius.x));
-			int YChange = MathfEx.Round(radius.x*radius.x);
+			int XChange = MathfEx.Round(radius.y * radius.y * (1 - 2 * radius.x));
+			int YChange = MathfEx.Round(radius.x * radius.x);
 			int EllipseError = 0;
-			int StoppingX = MathfEx.Round(TwoBSquare*radius.x);
+			int StoppingX = MathfEx.Round(TwoBSquare * radius.x);
 			int StoppingY = 0;
 
 			int o;
-			while (StoppingX >= StoppingY) {
+			while (StoppingX >= StoppingY)
+			{
 				o = sy.Clamp(cY - Y) * w;
 				for (int i = sx.Clamp(cX - X); i <= sx.Clamp(cX + X); i++)
 					pixels[i + o] = color;
@@ -94,7 +95,8 @@ namespace UnityEngineEx
 				StoppingY += TwoASquare;
 				EllipseError += YChange;
 				YChange += TwoASquare;
-				if ((2*EllipseError + XChange) > 0 ) {
+				if ((2 * EllipseError + XChange) > 0)
+				{
 					X--;
 					StoppingX -= TwoBSquare;
 					EllipseError += XChange;
@@ -104,12 +106,13 @@ namespace UnityEngineEx
 
 			X = 0;
 			Y = MathfEx.Round(radius.y);
-			XChange = MathfEx.Round(radius.y*radius.y);
-			YChange = MathfEx.Round(radius.x*radius.x*(1 - 2*radius.y));
+			XChange = MathfEx.Round(radius.y * radius.y);
+			YChange = MathfEx.Round(radius.x * radius.x * (1 - 2 * radius.y));
 			EllipseError = 0;
 			StoppingX = 0;
-			StoppingY = MathfEx.Round(TwoASquare*radius.y);
-			while ( StoppingX <= StoppingY ) {
+			StoppingY = MathfEx.Round(TwoASquare * radius.y);
+			while (StoppingX <= StoppingY)
+			{
 				o = sy.Clamp(cY - Y) * w;
 				for (int i = sx.Clamp(cX - X); i <= sx.Clamp(cX + X); i++)
 					pixels[i + o] = color;
@@ -121,7 +124,8 @@ namespace UnityEngineEx
 				StoppingX += TwoBSquare;
 				EllipseError += XChange;
 				XChange += TwoBSquare;
-				if ((2*EllipseError + YChange) > 0 ) {
+				if ((2 * EllipseError + YChange) > 0)
+				{
 					Y--;
 					StoppingY -= TwoASquare;
 					EllipseError += YChange;
@@ -149,9 +153,11 @@ namespace UnityEngineEx
 			int maxy = 0;
 
 			for (int y = 0; y < texture.height; y++)
-				for (int x = 0; x < texture.width; x++) {
+				for (int x = 0; x < texture.width; x++)
+				{
 					Color cc = c[x + y * texture.width];
-					if (cc.a > 0) {
+					if (cc.a > 0)
+					{
 						if (minx > x) minx = Mathf.Min(x - 1, minx);
 						if (miny > y) miny = Mathf.Min(y - 1, miny);
 						if (maxx < x) maxx = Mathf.Max(x + 1, maxx);
@@ -173,7 +179,8 @@ namespace UnityEngineEx
 			int dy = maxy - miny;
 			Color[] nc = new Color[dx * dy];
 			for (int y = 0; y < dy; y++)
-				for (int x = 0; x < dx; x++) {
+				for (int x = 0; x < dx; x++)
+				{
 					nc[x + y * dx] = c[minx + x + (miny + y) * texture.width];
 				}
 
@@ -191,20 +198,24 @@ namespace UnityEngineEx
 			Color[] nc = new Color[c.Length];
 
 			for (int y = 0; y < texture.height; y++)
-				for (int x = 0; x < texture.width; x++) {
+				for (int x = 0; x < texture.width; x++)
+				{
 					Color cc = c[x + y * texture.width];
-					if (cc.a < 0.1) {
+					if (cc.a < 0.1)
+					{
 						float a = 0;
 						for (int cy = Mathf.Max(y - width, 0); cy <= Mathf.Min(y + width, texture.height - 1); cy++)
 							for (int cx = Mathf.Max(x - width, 0); cx <= Mathf.Min(x + width, texture.width - 1); cx++)
 								a = Mathf.Max(c[cx + cy * texture.width].a, a);
 
-						if (a > 0.1) {
+						if (a > 0.1)
+						{
 							nc[x + y * texture.width] = Color.black.Alpha(a);
 							goto skip;
 						}
 					}
-					if (cc.a > 0) {
+					if (cc.a > 0)
+					{
 						cc = cc.Alpha(1.0f);
 					}
 					nc[x + y * texture.width] = cc;

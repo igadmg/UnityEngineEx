@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using SystemEx;
+﻿using System.IO;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditorEx.src.editor.Templates;

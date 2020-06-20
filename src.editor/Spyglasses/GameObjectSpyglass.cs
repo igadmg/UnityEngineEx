@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using SystemEx;
@@ -23,8 +22,7 @@ namespace UnityEditorEx
 			using (EditorGUILayoutEx.Vertical())
 			{
 				ButtonDropWindow.Show("Create Component", () => InitButtonDropWindow(),
-					(position, styles) =>
-					{
+					(position, styles) => {
 						Event e = Event.current;
 						switch (e.type)
 						{

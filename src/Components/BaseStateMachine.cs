@@ -20,8 +20,7 @@ namespace UnityEngineEx
 
 		public BaseState currentState { get { return m_CurrentState; } }
 		public BaseState lastState { get { return m_LastTransitionState; } }
-		public float weight
-		{
+		public float weight {
 			get {
 				if (!m_CurrentTransition.HasValue)
 				{

@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace UnityEditorEx
 {
-    public static class EditorGUIEx
-    {
-        public static IDisposable ChangeCheck(Action action)
-        {
-            return new EditorGUIChangeCheck(action);
-        }
+	public static class EditorGUIEx
+	{
+		public static IDisposable ChangeCheck(Action action)
+		{
+			return new EditorGUIChangeCheck(action);
+		}
 
-        public static IDisposable DisabledScopeIf(bool isDiasbaled)
-        {
-            return new EditorGUI.DisabledScope(isDiasbaled);
-        }
+		public static IDisposable DisabledScopeIf(bool isDiasbaled)
+		{
+			return new EditorGUI.DisabledScope(isDiasbaled);
+		}
 
 		public static IDisposable Property(Rect totalPosition, GUIContent label, SerializedProperty property)
 		{
@@ -28,24 +28,24 @@ namespace UnityEditorEx
 		}
 	}
 
-    internal class EditorGUIChangeCheck : IDisposable
-    {
-        Action action;
+	internal class EditorGUIChangeCheck : IDisposable
+	{
+		Action action;
 
-        internal EditorGUIChangeCheck(Action action)
-        {
-            this.action = action;
-            EditorGUI.BeginChangeCheck();
-        }
+		internal EditorGUIChangeCheck(Action action)
+		{
+			this.action = action;
+			EditorGUI.BeginChangeCheck();
+		}
 
-        public void Dispose()
-        {
-            if (EditorGUI.EndChangeCheck() && action != null)
-            {
-                action.Invoke();
-            }
-        }
-    }
+		public void Dispose()
+		{
+			if (EditorGUI.EndChangeCheck() && action != null)
+			{
+				action.Invoke();
+			}
+		}
+	}
 
 	internal class EditorGUIProperty : IDisposable
 	{

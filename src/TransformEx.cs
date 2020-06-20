@@ -45,7 +45,7 @@ namespace UnityEngineEx
 			return transform;
 		}
 
-        /// <summary>
+		/// <summary>
 		/// Adds GameObject as a child to the Transform.
 		/// Objects position and rotation are set to localPosition and localRotation.
 		/// </summary>
@@ -53,18 +53,18 @@ namespace UnityEngineEx
 		/// <param name="child"></param>
 		/// <returns></returns>
 		public static Transform Add(this Transform transform, Component child)
-        {
-            return transform.Add(child.gameObject);
-        }
+		{
+			return transform.Add(child.gameObject);
+		}
 
-        /// <summary>
-        /// Adds Transform as a child to the Transform.
-        /// Objects position and rotation are set to localPosition and localRotation.
-        /// </summary>
-        /// <param name="transform"></param>
-        /// <param name="child"></param>
-        /// <returns></returns>
-        public static Transform Add(this Transform transform, Transform child)
+		/// <summary>
+		/// Adds Transform as a child to the Transform.
+		/// Objects position and rotation are set to localPosition and localRotation.
+		/// </summary>
+		/// <param name="transform"></param>
+		/// <param name="child"></param>
+		/// <returns></returns>
+		public static Transform Add(this Transform transform, Transform child)
 		{
 			var po = child.position;
 			var ro = child.rotation;
@@ -108,19 +108,23 @@ namespace UnityEngineEx
 		public static Transform Clear(this Transform transform)
 		{
 #if UNITY_EDITOR
-			if (!UnityEditor.EditorApplication.isPlaying) {
+			if (!UnityEditor.EditorApplication.isPlaying)
+			{
 				List<GameObject> objects = new List<GameObject>();
-				foreach (Transform child in transform) {
+				foreach (Transform child in transform)
+				{
 					objects.Add(child.gameObject);
 				}
-				foreach (GameObject o in objects) {
+				foreach (GameObject o in objects)
+				{
 					GameObjectEx.Destroy(o);
 				}
 			}
 			else
 #endif
 			{
-				foreach (Transform child in transform) {
+				foreach (Transform child in transform)
+				{
 					GameObjectEx.Destroy(child.gameObject);
 				}
 			}
@@ -137,19 +141,23 @@ namespace UnityEngineEx
 		public static Transform Clear(this Transform transform, Func<Transform, bool> f)
 		{
 #if UNITY_EDITOR
-			if (!UnityEditor.EditorApplication.isPlaying) {
+			if (!UnityEditor.EditorApplication.isPlaying)
+			{
 				List<GameObject> objects = new List<GameObject>();
-				foreach (Transform child in transform.Find(f)) {
+				foreach (Transform child in transform.Find(f))
+				{
 					objects.Add(child.gameObject);
 				}
-				foreach (GameObject o in objects) {
+				foreach (GameObject o in objects)
+				{
 					GameObjectEx.Destroy(o);
 				}
 			}
 			else
 #endif
 			{
-				foreach (Transform child in transform.Find(f)) {
+				foreach (Transform child in transform.Find(f))
+				{
 					GameObjectEx.Destroy(child.gameObject);
 				}
 			}
@@ -163,7 +171,8 @@ namespace UnityEngineEx
 		/// <returns></returns>
 		public static Transform Unlink(this Transform transform)
 		{
-			foreach (Transform child in transform) {
+			foreach (Transform child in transform)
+			{
 				child.SetParent(null);
 			}
 
@@ -229,7 +238,8 @@ namespace UnityEngineEx
 
 		public static IEnumerable<Transform> Find(this Transform transform, Func<Transform, bool> f)
 		{
-			foreach (Transform child in transform) {
+			foreach (Transform child in transform)
+			{
 				if (f(child))
 					yield return child;
 			}

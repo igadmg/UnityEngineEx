@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using MathEx;
+using System;
 using UnityEngine;
 
 namespace UnityEngineEx
@@ -16,7 +15,8 @@ namespace UnityEngineEx
 		public static Mesh Translate(this Mesh mesh, Vector3 Translation)
 		{
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertexCount; i++) {
+			for (int i = 0; i < mesh.vertexCount; i++)
+			{
 				vertices[i] = mesh.vertices[i] + Translation;
 			}
 
@@ -34,12 +34,14 @@ namespace UnityEngineEx
 		public static Mesh Rotate(this Mesh mesh, Quaternion Rotation)
 		{
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertexCount; i++) {
+			for (int i = 0; i < mesh.vertexCount; i++)
+			{
 				vertices[i] = Rotation * mesh.vertices[i];
 			}
 
 			Vector3[] normals = new Vector3[mesh.normals.Length];
-			for (int i = 0; i < mesh.normals.Length; i++) {
+			for (int i = 0; i < mesh.normals.Length; i++)
+			{
 				normals[i] = Rotation * mesh.normals[i];
 			}
 
@@ -53,7 +55,8 @@ namespace UnityEngineEx
 		{
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
 			Vector3[] normals = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertices.Length; i++) {
+			for (int i = 0; i < mesh.vertices.Length; i++)
+			{
 				float a = mesh.vertices[i].z * dA;
 				vertices[i] = mesh.vertices[i].Rotate(new Vector3(0, 0, a));
 				normals[i] = mesh.normals[i].Rotate(new Vector3(0, 0, a));
@@ -69,7 +72,8 @@ namespace UnityEngineEx
 		{
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
 			Vector3[] normals = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertices.Length; i++) {
+			for (int i = 0; i < mesh.vertices.Length; i++)
+			{
 				float a = Vector3.Project(mesh.vertices[i], x).z * dA;
 				vertices[i] = mesh.vertices[i].Rotate(x * a);
 				normals[i] = mesh.normals[i].Rotate(x * a);
@@ -97,7 +101,8 @@ namespace UnityEngineEx
 			Vector2 shift = new Vector2(uv.xMin, uv.yMin);
 			Vector2 scale = new Vector2(uv.width, uv.height);
 			Vector2[] uvs = new Vector2[mesh.uv.Length];
-			for (int i = 0; i < mesh.uv.Length; i++) {
+			for (int i = 0; i < mesh.uv.Length; i++)
+			{
 				uvs[i] = shift + mesh.uv[i].Mul(scale);
 			}
 
@@ -111,12 +116,14 @@ namespace UnityEngineEx
 			Vector2[] uvs = new Vector2[mesh.vertexCount];
 
 			Rect bound = RectEx.Empty;
-			for (int i = 0; i < uvs.Length; i++) {
+			for (int i = 0; i < uvs.Length; i++)
+			{
 				uvs[i] = mesh.vertices[i].xy();
 				bound = bound.Extend(uvs[i]);
 			}
 
-			for (int i = 0; i < uvs.Length; i++) {
+			for (int i = 0; i < uvs.Length; i++)
+			{
 				uvs[i] = bound.Normalize(uvs[i]);
 			}
 
@@ -130,7 +137,8 @@ namespace UnityEngineEx
 			Vector2[] uvs = new Vector2[mesh.vertexCount];
 
 			Rect bound = RectEx.Empty;
-			for (int i = 0; i < uvs.Length; i++) {
+			for (int i = 0; i < uvs.Length; i++)
+			{
 				CylinderVector3 cv = mesh.vertices[i];
 				uvs[i] = new Vector2(cv.e, cv.n);
 				bound = bound.Extend(uvs[i]);
@@ -140,7 +148,8 @@ namespace UnityEngineEx
 			bound = bound.Extend(new Vector2(+Mathf.PI, bound.yMin));
 
 			Debug.Log(bound);
-			for (int i = 0; i < uvs.Length; i++) {
+			for (int i = 0; i < uvs.Length; i++)
+			{
 				uvs[i] = bound.Normalize(uvs[i]);
 				Debug.Log(uvs[i].ToString());
 			}
@@ -231,10 +240,12 @@ namespace UnityEngineEx
 			Vector2[] uvs = new Vector2[Vertices];
 
 			Vector3 v;
-			for (int i = 0; i < Columns; i++) {
+			for (int i = 0; i < Columns; i++)
+			{
 				v = i * Vector3.right * dV.x - Vector3.right * Dimensions.x / 2;
 				v -= Vector3.forward * Dimensions.y / 2;
-				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y) {
+				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y)
+				{
 					vs[vi++] = transform * v;
 					ns[ni++] = transform * Vector3.up;
 					uvs[uvi++] = new Vector2(i / Grid.x, j / Grid.y);
@@ -244,7 +255,8 @@ namespace UnityEngineEx
 			vi = 0;
 			int ti = 0;
 			int[] triangles = new int[Triangles * 3];
-			for (int i = 0; i < Triangles / 2; i++, vi++) {
+			for (int i = 0; i < Triangles / 2; i++, vi++)
+			{
 				if (((vi + 1) % Rows) == 0)
 					vi++;
 
@@ -294,14 +306,14 @@ namespace UnityEngineEx
 				}
 			}
 			 */
-			vs[vi++] = transform * new Vector3( hD.x,  hD.y, -hD.z);
-			vs[vi++] = transform * new Vector3( hD.x, -hD.y, -hD.z);
+			vs[vi++] = transform * new Vector3(hD.x, hD.y, -hD.z);
+			vs[vi++] = transform * new Vector3(hD.x, -hD.y, -hD.z);
 			vs[vi++] = transform * new Vector3(-hD.x, -hD.y, -hD.z);
-			vs[vi++] = transform * new Vector3(-hD.x,  hD.y, -hD.z);
-			vs[vi++] = transform * new Vector3( hD.x,  hD.y,  hD.z);
-			vs[vi++] = transform * new Vector3( hD.x, -hD.y,  hD.z);
-			vs[vi++] = transform * new Vector3(-hD.x, -hD.y,  hD.z);
-			vs[vi++] = transform * new Vector3(-hD.x,  hD.y,  hD.z);
+			vs[vi++] = transform * new Vector3(-hD.x, hD.y, -hD.z);
+			vs[vi++] = transform * new Vector3(hD.x, hD.y, hD.z);
+			vs[vi++] = transform * new Vector3(hD.x, -hD.y, hD.z);
+			vs[vi++] = transform * new Vector3(-hD.x, -hD.y, hD.z);
+			vs[vi++] = transform * new Vector3(-hD.x, hD.y, hD.z);
 
 
 			vi = 0;
@@ -398,11 +410,13 @@ namespace UnityEngineEx
 			float a = 0;
 			float dA = 2 * Mathf.PI / Columns;
 			float dH = Dimensions.y / Grid.y;
-			for (int i = 0; i < Columns; i++, a += dA) {
+			for (int i = 0; i < Columns; i++, a += dA)
+			{
 				float x = Mathf.Cos(a);
 				float y = Mathf.Sin(a);
-				for (int j = 0; j < Rows; j++) {
-					vs[vi++] = new Vector3(x*Dimensions.x, y*Dimensions.x, j*dH);
+				for (int j = 0; j < Rows; j++)
+				{
+					vs[vi++] = new Vector3(x * Dimensions.x, y * Dimensions.x, j * dH);
 					ns[ni++] = new Vector3(x, y, 0);
 					uvs[uvi++] = new Vector2(i / (float)(Columns), j / Grid.y);
 				}
@@ -411,7 +425,8 @@ namespace UnityEngineEx
 				a = 0;
 				float x = Mathf.Cos(a);
 				float y = Mathf.Sin(a);
-				for (int j = 0; j < Rows; j++) {
+				for (int j = 0; j < Rows; j++)
+				{
 					vs[vi++] = new Vector3(x * Dimensions.x, y * Dimensions.x, j * dH);
 					ns[ni++] = new Vector3(x, y, 0);
 					uvs[uvi++] = new Vector2(1.0f, j / Grid.y);
@@ -422,7 +437,8 @@ namespace UnityEngineEx
 			vi = 0;
 			int ti = 0;
 			int[] triangles = new int[Triangles * 3];
-			for (int i = 0; i < Triangles / 2; i++, vi++) {
+			for (int i = 0; i < Triangles / 2; i++, vi++)
+			{
 				if (((vi + 1) % Rows) == 0)
 					vi++;
 
@@ -469,7 +485,8 @@ namespace UnityEngineEx
 			};
 
 			Vector3[] ns = new Vector3[vs.Length];
-			for (int i = 0; i < ns.Length; i++) {
+			for (int i = 0; i < ns.Length; i++)
+			{
 				ns[i] = vs[i].normalized;
 			}
 

@@ -7,7 +7,7 @@ namespace UnityEngineEx
 	{
 		public static Vector3 GetVector3(string key)
 		{
- 			string v = PlayerPrefs.GetString(key);
+			string v = PlayerPrefs.GetString(key);
 			float[] tokens = ArrayEx.Parse<float>(v);
 			return new Vector3(tokens[0], tokens[1], tokens[2]);
 		}

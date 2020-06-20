@@ -126,8 +126,7 @@ namespace UnityEditorEx
 				}
 				if (editors != null)
 				{
-					m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
-					{
+					m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
 						Editor e = (Editor)ScriptableObject.CreateInstance(et);
 						m_ReferenceTargetIndex.SetValue(e, 0);
 						m_Targets.SetValue(e, m_ActiveGameObjects);
@@ -163,8 +162,7 @@ namespace UnityEditorEx
 						List<Type> editors = m_SpyglassEditors.Get(type);
 						if (editors != null)
 						{
-							m_ActiveSpyglassEditors.AddRange(editors.Select(et =>
-							{
+							m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
 								Editor e = (Editor)ScriptableObject.CreateInstance(et);
 								m_ReferenceTargetIndex.SetValue(e, 0);
 								m_Targets.SetValue(e, new UnityEngine.Object[] { component });

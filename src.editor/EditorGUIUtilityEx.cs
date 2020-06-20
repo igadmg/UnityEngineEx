@@ -7,25 +7,25 @@ namespace UnityEditorEx
 {
 	public static class EditorGUIUtilityEx
 	{
-        public static IDisposable LabelWidth(float newWidth)
-        {
-            return new EditorGUIUtilityLabelWidth(newWidth);
-        }
+		public static IDisposable LabelWidth(float newWidth)
+		{
+			return new EditorGUIUtilityLabelWidth(newWidth);
+		}
 	}
 
-    internal class EditorGUIUtilityLabelWidth : IDisposable
-    {
-        float oldWidth;
+	internal class EditorGUIUtilityLabelWidth : IDisposable
+	{
+		float oldWidth;
 
-        internal EditorGUIUtilityLabelWidth(float newWidth)
-        {
+		internal EditorGUIUtilityLabelWidth(float newWidth)
+		{
 			oldWidth = EditorGUIUtility.labelWidth;
 			EditorGUIUtility.labelWidth = newWidth;
 		}
 
-        public void Dispose()
-        {
+		public void Dispose()
+		{
 			EditorGUIUtility.labelWidth = oldWidth;
 		}
-    }
+	}
 }

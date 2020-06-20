@@ -109,8 +109,7 @@ namespace UnityEditorEx
 			if (EditorApplication.isPlaying)
 			{
 				animators.AddRange(FindObjectsOfType<Animator>().Select(a =>
-					new AnimatorDescription
-					{
+					new AnimatorDescription {
 						animator = a,
 						controller = AnimatorControllerEx.GetEffectiveAnimatorController(a),
 						path = AssetDatabase.GetAssetPath(a)
@@ -119,8 +118,7 @@ namespace UnityEditorEx
 			else
 			{
 				animators.AddRange(AssetDatabase.FindAssets("t:AnimatorController").Select(guid =>
-					new AnimatorDescription
-					{
+					new AnimatorDescription {
 						animator = null,
 						controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(guid)),
 						path = AssetDatabase.GUIDToAssetPath(guid)

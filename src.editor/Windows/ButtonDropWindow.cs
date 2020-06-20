@@ -8,7 +8,7 @@ namespace UnityEditorEx
 {
 	public class ButtonDropWindow : EditorWindow
 	{
-		static Lazy<ButtonDropWindow> _instance = new Lazy<ButtonDropWindow>(()=> ScriptableObject.CreateInstance<ButtonDropWindow>());
+		static Lazy<ButtonDropWindow> _instance = new Lazy<ButtonDropWindow>(() => ScriptableObject.CreateInstance<ButtonDropWindow>());
 		static Styles _styles;
 
 		string _name;

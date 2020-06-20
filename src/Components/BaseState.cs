@@ -99,7 +99,7 @@ namespace UnityEngineEx
 			}
 #endif
 
-			weight = m_StateMachine.GetStateWeight(this, m_Animator);			
+			weight = m_StateMachine.GetStateWeight(this, m_Animator);
 			OnExit();
 
 #if UNITY_EDITOR

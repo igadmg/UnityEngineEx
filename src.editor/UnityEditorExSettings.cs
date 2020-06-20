@@ -10,10 +10,8 @@ namespace UnityEditorEx
 	{
 		protected static string m_SettingsPath = Path.GetFullPath("ProjectSettings/UnityEditorEx.asset");
 		private static UnityEditorExSettings m_Instance = null;
-		public static UnityEditorExSettings instance
-		{
-			get
-			{
+		public static UnityEditorExSettings instance {
+			get {
 				if (m_Instance == null)
 				{
 					UnityEngine.Object[] objectArray = InternalEditorUtility.LoadSerializedFileAndForget(m_SettingsPath);
