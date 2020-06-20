@@ -23,7 +23,7 @@ namespace UnityEditorEx
 
 		private void OnEnable()
 		{
-			EditorApplication.playmodeStateChanged += onPlayModeStateChanged;
+			EditorApplication.playModeStateChanged += onPlayModeStateChanged;
 		}
 
 
@@ -99,7 +99,7 @@ namespace UnityEditorEx
 
 		void OnDestroy()
 		{
-			EditorApplication.playmodeStateChanged -= onPlayModeStateChanged;
+			EditorApplication.playModeStateChanged -= onPlayModeStateChanged;
 		}
 
 		private void FindAnimationControllers()
@@ -126,7 +126,7 @@ namespace UnityEditorEx
 			}
 		}
 
-		public void onPlayModeStateChanged()
+		public void onPlayModeStateChanged(PlayModeStateChange change)
 		{
 			FindAnimationControllers();
 			Repaint();

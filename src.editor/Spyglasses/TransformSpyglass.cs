@@ -19,7 +19,7 @@ namespace UnityEditorEx.Components
 					GUILayout.Label("Object distances:");
 					foreach (Object[] o in targets.Tuples(2))
 					{
-						Transform[] t = o.convert<Transform>().ToArray();
+						Transform[] t = o.Cast<Transform>().ToArray();
 
 						using (EditorGUILayoutEx.Horizontal())
 						{

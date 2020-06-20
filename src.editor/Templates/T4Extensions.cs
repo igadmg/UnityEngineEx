@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 
+#if NET_CORE
+
 namespace UnityEditorEx.src.editor.Templates
 {
 	internal static class T4Extensions
@@ -72,3 +74,5 @@ namespace System.Runtime.Remoting.Messaging
 			state.TryGetValue(name, out AsyncLocal<object> data) ? data.Value : null;
 	}
 }
+
+#endif
