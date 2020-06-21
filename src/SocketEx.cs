@@ -8,7 +8,7 @@ namespace UnityEngineEx
 			where T : Component
 		{
 			Transform t = c.transform.parent;
-			while (t != null && t.gameObject.tag == "Socket")
+			while (t != null && t.gameObject.CompareTag("Socket"))
 			{
 				T r = t.GetComponent<T>();
 				if (r != null)

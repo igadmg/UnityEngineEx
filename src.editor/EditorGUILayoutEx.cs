@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using SystemEx;
 using UnityEditor;
@@ -38,10 +41,37 @@ namespace UnityEditorEx
 			, Action ifVisible = null)
 		{
 			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
+
 			if (foldout)
-				ifVisible?.Invoke();
+				try
+				{
+					ifVisible?.Invoke();
+				}
+				catch (Exception e)
+				{
+					Debug.LogException(e);
+				}
 
 			return new DisposableLock(() => EditorGUILayout.EndFoldoutHeaderGroup());
 		}
+
+		public static int Popup(string label, int selectedIndex, IEnumerable<string> displayedOptions, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(label, selectedIndex, displayedOptions.ToArray(), options);
+		public static int Popup(int selectedIndex, IEnumerable<string> displayedOptions, GUIStyle style, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(selectedIndex, displayedOptions.ToArray(), style, options);
+		public static int Popup(int selectedIndex, IEnumerable<GUIContent> displayedOptions, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(selectedIndex, displayedOptions.ToArray(), options);
+		public static int Popup(int selectedIndex, IEnumerable<GUIContent> displayedOptions, GUIStyle style, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(selectedIndex, displayedOptions.ToArray(), style, options);
+		public static int Popup(GUIContent label, int selectedIndex, IEnumerable<string> displayedOptions, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(label, selectedIndex, displayedOptions.ToArray(), options);
+		public static int Popup(string label, int selectedIndex, IEnumerable<string> displayedOptions, GUIStyle style, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(label, selectedIndex, displayedOptions.ToArray(), style, options);
+		public static int Popup(GUIContent label, int selectedIndex, IEnumerable<GUIContent> displayedOptions, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(label, selectedIndex, displayedOptions.ToArray(), options);
+		public static int Popup(GUIContent label, int selectedIndex, IEnumerable<GUIContent> displayedOptions, GUIStyle style, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(label, selectedIndex, displayedOptions.ToArray(), style, options);
+		public static int Popup(int selectedIndex, IEnumerable<string> displayedOptions, params GUILayoutOption[] options)
+			=> EditorGUILayout.Popup(selectedIndex, displayedOptions.ToArray(), options);
 	}
 }

@@ -755,7 +755,7 @@ namespace UnityEngineEx
 		public static GameObject GetRootObject(this GameObject o)
 		{
 			GameObject go = o;
-			while (go != null && go.tag == "SubObject")
+			while (go != null && go.CompareTag("SubObject"))
 				go = go.transform.parent.gameObject;
 
 			return go;
