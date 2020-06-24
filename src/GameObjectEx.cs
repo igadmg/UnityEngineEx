@@ -181,6 +181,9 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		public static GameObject Construct<C>(this GameObject instance, C parent) where C : Component
+			=> instance.Construct(parent.gameObject);
+
 		public static GameObject Construct(this GameObject instance, GameObject parent)
 		{
 			return instance.New(_.a((Transform t) => {
@@ -515,11 +518,17 @@ namespace UnityEngineEx
 #if !UNITY_EDITOR
 		public static void Destroy(this GameObject o)
 		{
+			if (o == null)
+				return;
+
 			GameObject.Destroy(o);
 		}
 #else
 		public static void Destroy(this GameObject o)
 		{
+			if (o == null)
+				return;
+
 			if (UnityEditor.EditorApplication.isPlaying)
 				GameObject.Destroy(o);
 			else
@@ -539,8 +548,15 @@ namespace UnityEngineEx
 		{
 			if (c != null)
 			{
-				Destroy(c.gameObject);
+				c.gameObject.Destroy();
 			}
+		}
+
+		public static GameObject Replace(this GameObject go, GameObject newGo)
+		{
+			newGo.name = go.name;
+			go.Destroy();
+			return newGo;
 		}
 
 		/// <summary>

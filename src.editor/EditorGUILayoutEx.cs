@@ -41,7 +41,18 @@ namespace UnityEditorEx
 			, Action ifVisible = null)
 		{
 			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
+			return FinishFoldoutHeaderGroup(foldout, ifVisible);
+		}
 
+		public static IDisposable FoldoutHeaderGroup(ref bool foldout, GUIContent content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
+			, Action ifVisible = null)
+		{
+			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
+			return FinishFoldoutHeaderGroup(foldout, ifVisible);
+		}
+
+		private static IDisposable FinishFoldoutHeaderGroup(bool foldout, Action ifVisible = null)
+		{
 			if (foldout)
 				try
 				{
