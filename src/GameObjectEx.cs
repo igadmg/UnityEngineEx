@@ -555,6 +555,10 @@ namespace UnityEngineEx
 		public static GameObject Replace(this GameObject go, GameObject newGo)
 		{
 			newGo.name = go.name;
+			newGo.transform.parent = go.transform.parent;
+			newGo.transform.position = go.transform.position;
+			newGo.transform.rotation = go.transform.rotation;
+			newGo.transform.localScale = go.transform.localScale;
 			go.Destroy();
 			return newGo;
 		}
