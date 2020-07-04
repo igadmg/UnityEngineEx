@@ -521,7 +521,7 @@ namespace UnityEngineEx
 			if (o == null)
 				return;
 
-			GameObject.Destroy(o);
+			UnityEngine.Object.Destroy(o);
 		}
 #else
 		public static void Destroy(this GameObject o)
@@ -530,9 +530,9 @@ namespace UnityEngineEx
 				return;
 
 			if (UnityEditor.EditorApplication.isPlaying)
-				GameObject.Destroy(o);
+				UnityEngine.Object.Destroy(o);
 			else
-				GameObject.DestroyImmediate(o);
+				UnityEngine.Object.DestroyImmediate(o);
 		}
 #endif
 

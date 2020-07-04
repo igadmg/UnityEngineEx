@@ -172,6 +172,27 @@ namespace UnityEngineEx
 		{
 			return c.gameObject.GetBounds();
 		}
+
+#if !UNITY_EDITOR
+		public static void Destroy(this Component c)
+		{
+			if (c == null)
+				return;
+
+			UnityEngine.Object.Destroy(c);
+		}
+#else
+		public static void Destroy(this Component c)
+		{
+			if (c == null)
+				return;
+
+			if (UnityEditor.EditorApplication.isPlaying)
+				UnityEngine.Object.Destroy(c);
+			else
+				UnityEngine.Object.DestroyImmediate(c);
+		}
+#endif
 	}
 }
 
