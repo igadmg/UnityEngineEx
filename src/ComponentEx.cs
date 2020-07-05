@@ -193,6 +193,19 @@ namespace UnityEngineEx
 				UnityEngine.Object.DestroyImmediate(c);
 		}
 #endif
+
+#if !UNITY_EDITOR
+		public static void IfGameIsPlaying(this Component c, Action action)
+		{
+			action();
+		}
+#else
+		public static void IfGameIsPlaying(this Component c, Action action)
+		{
+			if (UnityEditor.EditorApplication.isPlaying)
+				action();
+		}
+#endif
 	}
 }
 
