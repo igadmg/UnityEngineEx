@@ -11,6 +11,9 @@ namespace UnityEngineEx
 {
 	public static class GameObjectEx
 	{
+		public static readonly string RootTag = "RootTag";
+		public static readonly string SubObjectTag = "SubObject";
+
 		#region Enumerators
 
 		/// <summary>
@@ -775,8 +778,10 @@ namespace UnityEngineEx
 		public static GameObject GetRootObject(this GameObject o)
 		{
 			GameObject go = o;
-			while (go != null && go.CompareTag("SubObject"))
+			while (go != null && !go.CompareTag(RootTag))
 				go = go.transform.parent.gameObject;
+
+			Debug.Assert(go != null);
 
 			return go;
 		}
