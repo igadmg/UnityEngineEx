@@ -18,7 +18,7 @@ namespace UnityEditorEx.src.editor.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
+    #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     internal partial class DerivedClass_cs : DerivedClass_csBase
     {
@@ -31,30 +31,37 @@ namespace UnityEditorEx.src.editor.Templates
             this.Write("using System.Collections;\r\nusing System.Collections.Generic;\r\nusing UnityEngine;\r" +
                     "\nusing UnityEngineEx;\r\n\r\n\r\n\r\nnamespace ");
             
-            #line 17 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
+            #line 18 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.namespacename));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\tpublic class ");
             
-            #line 19 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
+            #line 20 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.classname));
             
             #line default
             #line hidden
             this.Write(" : ");
             
-            #line 19 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
+            #line 20 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.baseclassname));
             
             #line default
             #line hidden
-            this.Write("\r\n\t{\r\n\t}\r\n}\r\n");
+            this.Write("\r\n\t{\r\n");
+            
+            #line 22 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.content));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t}\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
+        #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\DerivedClass_cs.tt"
 
 private string _namespacenameField;
 
@@ -92,6 +99,19 @@ private string baseclassname
     get
     {
         return this._baseclassnameField;
+    }
+}
+
+private string _contentField;
+
+/// <summary>
+/// Access the content parameter of the template.
+/// </summary>
+private string content
+{
+    get
+    {
+        return this._contentField;
     }
 }
 
@@ -143,6 +163,20 @@ if ((baseclassnameValueAcquired == false))
     if ((data != null))
     {
         this._baseclassnameField = ((string)(data));
+    }
+}
+bool contentValueAcquired = false;
+if (this.Session.ContainsKey("content"))
+{
+    this._contentField = ((string)(this.Session["content"]));
+    contentValueAcquired = true;
+}
+if ((contentValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("content");
+    if ((data != null))
+    {
+        this._contentField = ((string)(data));
     }
 }
 

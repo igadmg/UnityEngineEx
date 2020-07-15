@@ -20,7 +20,7 @@ using UnityEngineEx;
 namespace <#= this.namespacename #>
 {
 	[ExecuteInEditMode]
-	public class Base<#= this.typename #>StateMachine : BaseStateMachine
+	public partial class <#= this.typename #>StateMachine
 	{<# if (floats.Count != 0) { foreach (System.String floatName in floats) { #>
 		private static readonly int Float<#= floatName #> = Animator.StringToHash("<#= floatName #>");
 	<# } #>
@@ -55,11 +55,11 @@ namespace <#= this.namespacename #>
 	<# } } #>
 
 
-		protected override void RegisterStateNames()
+		protected override void RegisterStateNamesGenerated()
 		{
 			<# if (states.Count != 0) { #>
 			AddStateNames(<#=System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())#>);
-			<# } #>
+<# } #>
 		}
 	}
 }

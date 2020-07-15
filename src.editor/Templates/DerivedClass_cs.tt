@@ -7,6 +7,7 @@
 <#@ parameter name="namespacename" type="System.String" #>
 <#@ parameter name="classname" type="System.String" #>
 <#@ parameter name="baseclassname" type="System.String" #>
+<#@ parameter name="content" type="System.String" #>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,5 +19,6 @@ namespace <#= this.namespacename #>
 {
 	public class <#= this.classname #> : <#= this.baseclassname #>
 	{
+<#= this.content #>
 	}
 }
