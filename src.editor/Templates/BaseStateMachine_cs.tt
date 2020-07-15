@@ -55,7 +55,7 @@ namespace <#= this.namespacename #>
 	<# } } #>
 
 
-		protected override void RegisterStateNamesGenerated()
+		void RegisterStateNamesGenerated()
 		{
 			<# if (states.Count != 0) { #>
 			AddStateNames(<#=System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())#>);

@@ -287,7 +287,7 @@ namespace UnityEditorEx.src.editor.Templates
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n\t\tprotected override void RegisterStateNamesGenerated()\r\n\t\t{\r\n\t\t\t");
+            this.Write("\r\n\r\n\t\tvoid RegisterStateNamesGenerated()\r\n\t\t{\r\n\t\t\t");
             
             #line 60 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  if (states.Count != 0) { 
