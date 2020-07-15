@@ -18,7 +18,7 @@ using UnityEngineEx;
 
 namespace <#= this.namespacename #>
 {
-	public <#= this.isPartial ? "partial " : "" >class <#= this.classname #> : <#= this.baseclassname #>
+	public <#= this.isPartial ? "partial " : "" #>class <#= this.classname #> : <#= this.baseclassname #>
 	{
 <#= this.content #>
 	}
