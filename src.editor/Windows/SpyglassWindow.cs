@@ -157,6 +157,9 @@ namespace UnityEditorEx
 			{
 				foreach (Component component in gameObject.GetComponents<Component>())
 				{
+					if (component == null)
+						continue;
+
 					foreach (Type type in component.GetType().GetBaseTypes<Component>())
 					{
 						List<Type> editors = m_SpyglassEditors.Get(type);

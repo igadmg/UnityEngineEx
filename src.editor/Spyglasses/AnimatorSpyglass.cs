@@ -15,6 +15,8 @@ namespace UnityEditorEx
 		public void OnSpyglassGUI()
 		{
 			var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GetAssetPath(target.runtimeAnimatorController));
+			if (controller == null)
+				return;
 
 			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
 			{
