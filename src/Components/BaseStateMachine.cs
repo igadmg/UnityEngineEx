@@ -16,6 +16,8 @@ namespace UnityEngineEx
 		AnimatorTransitionInfo? m_CurrentTransition = null;
 		protected float m_TransitionStartTime;
 
+		protected object parameters = null;
+		public T GetParameters<T>() => (T)parameters;
 
 
 		public BaseState currentState { get { return m_CurrentState; } }
