@@ -94,26 +94,28 @@ namespace UnityEditorEx
 			if (bNewScript)
 			{
 				File.WriteAllText(Path.GetFullPath(scriptPath)
-					, Template.TransformToText<DerivedClass_cs>(new Dictionary<string, object>
-						{
-							{ "namespacename", namespaceName },
-							{ "classname", typeName + postfix },
-							{ "baseclassname", "Base" + typeName + postfix },
-						}));
+					, Template.TransformToText<DerivedClass_cs>(new {
+						namespacename = namespaceName,
+						classname = typeName + postfix,
+						baseclassname = "BaseStateMachine",
+						isPartial = true,
+						content = @"		protected override void RegisterStateNames()
+			=> RegisterStateNamesGenerated();
+"
+					}.ToExpando())); ;
 			}
 
-			string baseScriptPath = Path.Combine(Path.GetDirectoryName(scriptPath), "Base" + typeName + postfix + ".cs");
+			string baseScriptPath = Path.Combine(Path.GetDirectoryName(scriptPath), typeName + postfix + ".generated.cs");
 			File.WriteAllText(Path.GetFullPath(baseScriptPath)
-				, Template.TransformToText<TemplateType>(new Dictionary<string, object>
-					{
-						{ "namespacename", namespaceName },
-						{ "typename", typeName },
-						{ "floats", floats },
-						{ "ints", ints },
-						{ "bools", bools },
-						{ "triggers", triggers },
-						{ "states", states }
-					}));
+				, Template.TransformToText<TemplateType>(new {
+					namespacename = namespaceName,
+					typename = typeName,
+					floats = floats,
+					ints = ints,
+					bools = bools,
+					triggers = triggers,
+					states = states
+				}.ToExpando()));
 			AssetDatabase.ImportAsset(baseScriptPath);
 			AssetDatabase.ImportAsset(scriptPath);
 			AssetDatabase.Refresh();

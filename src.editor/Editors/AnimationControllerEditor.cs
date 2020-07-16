@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using SystemEx;
 using UnityEditor;
@@ -119,9 +118,9 @@ namespace UnityEditorEx
 		{
 			File.WriteAllText(Path.GetFullPath(scriptPath)
 				, Template.TransformToText<BaseStateMachine_cs>(new {
-						namespacename = UnityEditorExSettings.instance.GetNamespaceName(scriptPath),
-						typename = m_ScriptName,
-					}.ToExpando()));
+					namespacename = UnityEditorExSettings.instance.GetNamespaceName(scriptPath),
+					typename = m_ScriptName,
+				}.ToExpando()));
 
 			AssetDatabase.ImportAsset(scriptPath);
 			AssetDatabase.Refresh();
