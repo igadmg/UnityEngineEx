@@ -184,7 +184,7 @@ namespace UnityEngineEx
 			return go;
 		}
 
-		public static GameObject Construct<C>(this GameObject instance, C parent) where C : Component
+		public static GameObject Construct(this GameObject instance, Component parent)
 			=> instance.Construct(parent.gameObject);
 
 		public static GameObject Construct(this GameObject instance, GameObject parent)

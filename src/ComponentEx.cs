@@ -39,6 +39,13 @@ namespace UnityEngineEx
 			return (C)go.GetComponent(prefab.GetType());
 		}
 
+		public static C Construct<C>(this C prefab, Component parent)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct(parent);
+			return (C)go.GetComponent(prefab.GetType());
+		}
+
 		/// <summary>
 		/// Construct prefab of given component type.
 		/// Initialize component with fields from initializer object.
