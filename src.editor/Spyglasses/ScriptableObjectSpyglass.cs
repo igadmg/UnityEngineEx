@@ -3,13 +3,18 @@ using UnityEngine;
 
 
 
-namespace UnityEditorEx.Components
+namespace UnityEditorEx.Spyglasses
 {
 	[Spyglass(typeof(ScriptableObject), true)]
-	public class ScriptableObjectSpyglass : Editor<ScriptableObject>, ISpyglassEditor
+	public class ScriptableObjectSpyglass : ScriptableObjectSpyglass<ScriptableObject> { }
+
+	public class ScriptableObjectSpyglass<T> : ObjectSpyglass<T>, ISpyglassEditor
+		where T : ScriptableObject
 	{
-		public virtual void OnSpyglassGUI()
+		public override void OnSpyglassGUI()
 		{
+			base.OnSpyglassGUI();
+
 			if (GUILayout.Button("Ping"))
 			{
 				EditorGUIUtility.PingObject(target);

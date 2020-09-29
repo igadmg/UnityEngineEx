@@ -79,7 +79,19 @@ namespace UnityEditorEx
 						i.Item2 = EditorGUILayout.InspectorTitlebar(i.Item2, ((Editor)i.Item1).target);
 						if (i.Item2)
 						{
-							i.Item1.OnSpyglassGUI();
+							try
+							{
+								i.Item1.OnSpyglassGUI();
+							}
+							catch (Exception e)
+							{
+								if (GUIUtilityEx.ShouldRethrowException(e))
+								{
+									throw;
+								}
+
+								Debug.LogException(e);
+							}
 						}
 					}
 				}
@@ -106,6 +118,10 @@ namespace UnityEditorEx
 
 		private void SelectGameObject(UnityEngine.Object[] objects)
 		{
+			if ((objects == null && m_ActiveGameObjects == null)
+				|| (objects != null && m_ActiveGameObjects != null && Enumerable.SequenceEqual(objects, m_ActiveGameObjects)))
+				return;
+
 			FieldInfo m_ReferenceTargetIndex = typeof(Editor).GetField("m_ReferenceTargetIndex", BindingFlags.Instance | BindingFlags.NonPublic);
 			FieldInfo m_Targets = typeof(Editor).GetField("m_Targets", BindingFlags.Instance | BindingFlags.NonPublic);
 
@@ -127,6 +143,7 @@ namespace UnityEditorEx
 				if (editors != null)
 				{
 					m_ActiveSpyglassEditors.AddRange(editors.Select(et => {
+						et = et.IsGenericType ? et.MakeGenericType(m_ActiveGameObjects[0].GetType()) : et;
 						Editor e = (Editor)ScriptableObject.CreateInstance(et);
 						m_ReferenceTargetIndex.SetValue(e, 0);
 						m_Targets.SetValue(e, m_ActiveGameObjects);

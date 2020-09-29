@@ -36,21 +36,21 @@ namespace UnityEditorEx
 			return new DisposableLock(() => EditorGUILayout.EndVertical());
 		}
 
-		public static IDisposable FoldoutHeaderGroup(ref bool foldout, string content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
+		public static void FoldoutHeaderGroup(ref bool foldout, string content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
 			, Action ifVisible = null)
 		{
 			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
-			return FinishFoldoutHeaderGroup(foldout, ifVisible);
+			FinishFoldoutHeaderGroup(foldout, ifVisible);
 		}
 
-		public static IDisposable FoldoutHeaderGroup(ref bool foldout, GUIContent content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
+		public static void FoldoutHeaderGroup(ref bool foldout, GUIContent content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
 			, Action ifVisible = null)
 		{
 			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
-			return FinishFoldoutHeaderGroup(foldout, ifVisible);
+			FinishFoldoutHeaderGroup(foldout, ifVisible);
 		}
 
-		private static IDisposable FinishFoldoutHeaderGroup(bool foldout, Action ifVisible = null)
+		private static void FinishFoldoutHeaderGroup(bool foldout, Action ifVisible = null)
 		{
 			if (foldout)
 				try
@@ -62,7 +62,7 @@ namespace UnityEditorEx
 					Debug.LogException(e);
 				}
 
-			return new DisposableLock(() => EditorGUILayout.EndFoldoutHeaderGroup());
+			EditorGUILayout.EndFoldoutHeaderGroup();
 		}
 
 		public static int Popup(string label, int selectedIndex, IEnumerable<string> displayedOptions, params GUILayoutOption[] options)

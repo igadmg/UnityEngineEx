@@ -8,17 +8,19 @@ using UnityEngineEx;
 
 
 
-namespace UnityEditorEx
+namespace UnityEditorEx.Spyglasses
 {
 	[Spyglass(typeof(GameObject), true)]
-	public class GameObjectSpyglass : Editor<GameObject>, ISpyglassEditor
+	public class GameObjectSpyglass : ObjectSpyglass<GameObject>, ISpyglassEditor
 	{
 		private string m_Namespace;
 		private string m_ScriptName;
 		private string m_Path;
 
-		public void OnSpyglassGUI()
+		public override void OnSpyglassGUI()
 		{
+			base.OnSpyglassGUI();
+
 			using (EditorGUILayoutEx.Vertical())
 			{
 				ButtonDropWindow.Show("Create Component", () => InitButtonDropWindow(),

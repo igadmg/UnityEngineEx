@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-namespace UnityEditorEx.Components
+namespace UnityEditorEx.Spyglasses
 {
 	[Spyglass(typeof(Transform), true)]
 	public class TransformSpyglass : Editor<Transform>, ISpyglassEditor

@@ -519,7 +519,7 @@ namespace UnityEngineEx
 		#endregion
 
 #if !UNITY_EDITOR
-		public static void Destroy(this GameObject o)
+		public static void Destroy(this UnityEngine.Object o)
 		{
 			if (o == null)
 				return;
@@ -527,7 +527,7 @@ namespace UnityEngineEx
 			UnityEngine.Object.Destroy(o);
 		}
 #else
-		public static void Destroy(this GameObject o)
+		public static void Destroy(this UnityEngine.Object o)
 		{
 			if (o == null)
 				return;

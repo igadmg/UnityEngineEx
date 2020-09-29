@@ -5,7 +5,7 @@ using UnityEngineEx;
 
 
 
-namespace UnityEditorEx
+namespace UnityEditorEx.Spyglasses
 {
 	[Spyglass(typeof(Animator), true)]
 	class AnimatorSpyglass : Editor<Animator>, ISpyglassEditor
