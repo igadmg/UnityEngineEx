@@ -188,11 +188,16 @@ namespace UnityEngineEx
 			=> instance.Construct(parent.gameObject);
 
 		public static GameObject Construct(this GameObject instance, GameObject parent)
-		{
-			return instance.New(_.a((Transform t) => {
-				parent.Add(t);
-			}));
-		}
+			=> instance.Construct(_.a((Transform t) => { parent.Add(t); }));
+
+		public static GameObject Construct(this GameObject instance, Component parent, params ActionContainer[] initializers)
+			=> instance.Construct(parent.gameObject, initializers);
+
+		public static GameObject Construct(this GameObject instance, GameObject parent, params ActionContainer[] initializers)
+			=> instance.Construct(
+				ArrayEx.Concat(
+					_.a((Transform t) => { parent.Add(t); })
+					, initializers));
 
 		public static GameObject Construct(this GameObject instance, params Tuple<Type, object>[] initializers)
 		{
@@ -247,6 +252,31 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		public static GameObject Construct(this GameObject instance, params ActionContainer[] initializers)
+		{
+			GameObject go = null;
+			bool a = instance.activeSelf;
+			instance.SetActive(false);
+
+			try
+			{
+				go = GameObject.Instantiate(instance) as GameObject;
+
+				foreach (var i in initializers) try
+					{
+						go.Dissolve(i);
+					}
+					catch (Exception e) { Debug.LogException(e); }
+
+				go.SetActive(a);
+			}
+			catch (Exception e) { Debug.LogException(e); }
+
+			instance.SetActive(a);
+			return go;
+		}
+
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, params Tuple<Type, IDictionary<string, object>>[] initializers)
 		{
 			GameObject go = null;
@@ -273,6 +303,7 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, params ActionContainer[] initializers)
 		{
 			GameObject go = null;
@@ -297,6 +328,7 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, string name, params Tuple<Type, object>[] initializers)
 		{
 			GameObject go = null;
@@ -327,6 +359,7 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, string name, Vector3 po, params Tuple<Type, object>[] initializers)
 		{
 			GameObject go = null;
@@ -358,6 +391,7 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, GameObject parent, params ActionContainer[] initializers)
 		{
 			return instance.New(
@@ -366,6 +400,7 @@ namespace UnityEngineEx
 					, initializers));
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, GameObject parent, Vector3 po, params ActionContainer[] initializers)
 		{
 			return instance.New(
