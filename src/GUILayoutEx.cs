@@ -25,5 +25,11 @@ namespace UnityEngineEx
 			GUILayout.BeginVertical(options);
 			return DisposableLock.Lock(() => GUILayout.EndVertical());
 		}
+
+		public static IDisposable ScrollView(ref Vector2 scrollPosition, params GUILayoutOption[] options)
+		{
+			scrollPosition = GUILayout.BeginScrollView(scrollPosition, options);
+			return DisposableLock.Lock(() => GUILayout.EndScrollView());
+		}
 	}
 }
