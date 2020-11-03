@@ -869,5 +869,14 @@ namespace UnityEngineEx
 
 			return result;
 		}
+
+		public static IEnumerable<TResult> Select<TComponent, TResult>(this GameObject go, Func<TComponent, TResult> func)
+			where TComponent : Component
+		{
+			foreach (var c in go.GetComponents<TComponent>())
+			{
+				yield return func(c);
+			}
+		}
 	}
 }

@@ -30,9 +30,21 @@ namespace UnityEditorEx
 			return new DisposableLock(() => EditorGUILayout.EndHorizontal());
 		}
 
+		public static IDisposable Horizontal(out Rect rect, params GUILayoutOption[] options)
+		{
+			rect = EditorGUILayout.BeginHorizontal(options);
+			return new DisposableLock(() => EditorGUILayout.EndHorizontal());
+		}
+
 		public static IDisposable Vertical(params GUILayoutOption[] options)
 		{
 			EditorGUILayout.BeginVertical(options);
+			return new DisposableLock(() => EditorGUILayout.EndVertical());
+		}
+
+		public static IDisposable Vertical(out Rect rect, params GUILayoutOption[] options)
+		{
+			rect = EditorGUILayout.BeginVertical(options);
 			return new DisposableLock(() => EditorGUILayout.EndVertical());
 		}
 
@@ -40,29 +52,53 @@ namespace UnityEditorEx
 			, Action ifVisible = null)
 		{
 			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
-			FinishFoldoutHeaderGroup(foldout, ifVisible);
+			if (foldout) SafeExecuteAction(ifVisible);
+			EditorGUILayout.EndFoldoutHeaderGroup();
 		}
 
 		public static void FoldoutHeaderGroup(ref bool foldout, GUIContent content, [DefaultValue("EditorStyles.foldoutHeader")] GUIStyle style = null, Action<Rect> menuAction = null, GUIStyle menuIcon = null
 			, Action ifVisible = null)
 		{
 			foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, content, style, menuAction, menuIcon);
-			FinishFoldoutHeaderGroup(foldout, ifVisible);
+			if (foldout) SafeExecuteAction(ifVisible);
+			EditorGUILayout.EndFoldoutHeaderGroup();
 		}
 
-		private static void FinishFoldoutHeaderGroup(bool foldout, Action ifVisible = null)
+		public static void InspectorTitlebar(ref bool foldout, UnityEngine.Object[] targetObjs
+			, Action ifVisible = null)
 		{
-			if (foldout)
-				try
-				{
-					ifVisible?.Invoke();
-				}
-				catch (Exception e)
-				{
-					Debug.LogException(e);
-				}
+			foldout = EditorGUILayout.InspectorTitlebar(foldout, targetObjs);
+			if (foldout) SafeExecuteAction(ifVisible);
+		}
+		public static void InspectorTitlebar(ref bool foldout, UnityEngine.Object targetObj, bool expandable
+			, Action ifVisible = null)
+		{
+			foldout = EditorGUILayout.InspectorTitlebar(foldout, targetObj, expandable);
+			if (foldout) SafeExecuteAction(ifVisible);
+		}
+		public static void InspectorTitlebar(ref bool foldout, UnityEngine.Object targetObj
+			, Action ifVisible = null)
+		{
+			foldout = EditorGUILayout.InspectorTitlebar(foldout, targetObj);
+			if (foldout) SafeExecuteAction(ifVisible);
+		}
+		public static void InspectorTitlebar(ref bool foldout, UnityEngine.Object[] targetObjs, bool expandable
+			, Action ifVisible = null)
+		{
+			foldout = EditorGUILayout.InspectorTitlebar(foldout, targetObjs, expandable);
+			if (foldout) SafeExecuteAction(ifVisible);
+		}
 
-			EditorGUILayout.EndFoldoutHeaderGroup();
+		private static void SafeExecuteAction(Action ifVisible = null)
+		{
+			try
+			{
+				ifVisible?.Invoke();
+			}
+			catch (Exception e)
+			{
+				Debug.LogException(e);
+			}
 		}
 
 		public static int Popup(string label, int selectedIndex, IEnumerable<string> displayedOptions, params GUILayoutOption[] options)
