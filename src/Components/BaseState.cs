@@ -36,6 +36,13 @@ namespace UnityEngineEx
 		public TController controller { get { return m_Controller; } }
 
 
+		public virtual TStateMachine GetStateMachine()
+			=> m_Animator.gameObject.GetComponent<TStateMachine>();
+
+		public virtual TController GetController()
+			=> m_Animator.gameObject.GetComponent<TController>();
+
+
 		public virtual void OnRestore() { }
 		public virtual void OnEnter(float duration) { }
 		public virtual void OnUpdate() { }
@@ -46,9 +53,9 @@ namespace UnityEngineEx
 		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
 			m_Animator = animator;
-			m_StateMachine = m_Animator.gameObject.GetComponent<TStateMachine>();
 			m_StateInfo = stateInfo;
-			m_Controller = m_Animator.gameObject.GetComponent<TController>();
+			m_StateMachine = GetStateMachine();
+			m_Controller = GetController();
 
 #if UNITY_EDITOR
 			try

@@ -199,6 +199,19 @@ namespace UnityEngineEx
 		}
 #endif
 
+		public static IDisposable EnsureInactive(this Behaviour c)
+		{
+			if (c.enabled)
+			{
+				c.enabled = false;
+				return DisposableLock.Lock(() => c.enabled = true);
+			}
+			else
+			{
+				return DisposableLock.empty;
+			}
+		}
+
 #if !UNITY_EDITOR
 		public static void IfGameIsPlaying(this Component c, Action action)
 		{
@@ -208,6 +221,12 @@ namespace UnityEngineEx
 		public static void IfGameIsPlaying(this Component c, Action action)
 		{
 			if (UnityEditor.EditorApplication.isPlaying)
+				action();
+		}
+
+		public static void IfGameIsNotPlaying(this Component c, Action action)
+		{
+			if (!UnityEditor.EditorApplication.isPlaying)
 				action();
 		}
 #endif
