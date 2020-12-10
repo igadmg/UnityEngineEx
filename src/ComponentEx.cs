@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using SystemEx;
 using UnityEngine;
 
@@ -199,7 +200,7 @@ namespace UnityEngineEx
 		}
 #endif
 
-		public static IDisposable EnsureInactive(this Behaviour c)
+		public static IDisposable EnsureDisabled(this Behaviour c)
 		{
 			if (c.enabled)
 			{
@@ -213,20 +214,30 @@ namespace UnityEngineEx
 		}
 
 #if !UNITY_EDITOR
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IfGameIsPlaying(this Component c, Action action)
 		{
 			action();
 		}
 #else
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IfGameIsPlaying(this Component c, Action action)
 		{
 			if (UnityEditor.EditorApplication.isPlaying)
 				action();
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IfGameIsNotPlaying(this Component c, Action action)
 		{
 			if (!UnityEditor.EditorApplication.isPlaying)
+				action();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IfIsPartOfCurrentPrefab(this Component c, Action action)
+		{
+			if (UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().Elvis(cps => cps.IsPartOfPrefabContents(c.gameObject)))
 				action();
 		}
 #endif
