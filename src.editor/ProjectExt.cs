@@ -61,7 +61,9 @@ namespace UnityEditorEx
 				, Template.TransformToText<ignore_asmdef>(new Dictionary<string, object>
 					{
 						{ "guid", Guid.NewGuid().ToString() },
+#if !NETSTANDARD
 						{ "platforms", CustomScriptAssemblyEx.Platforms.Select(p => $@"""{p.Name}""") }
+#endif
 					}));
 
 			AssetDatabase.ImportAsset(ignorePath);

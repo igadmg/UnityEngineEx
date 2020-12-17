@@ -1,5 +1,11 @@
 ﻿
-#if NET_CORE
+#if NETSTANDARD
+
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading;
 
 namespace UnityEditorEx.src.editor.Templates
 {
