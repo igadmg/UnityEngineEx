@@ -608,6 +608,7 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <param name="parameters"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, IDictionary<string, object> parameters) where T : Component
 		{
 			bool a = o.activeSelf;
@@ -626,6 +627,7 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, Action<T> ctor) where T : Component
 		{
 			bool a = o.activeSelf;
@@ -645,6 +647,7 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, ActionContainer ctor) where T : Component
 		{
 			bool a = o.activeSelf;
@@ -676,6 +679,7 @@ namespace UnityEngineEx
 		/// <param name="o">GameObject to add component to.</param>
 		/// <param name="args">Arguments to a constructor.</param>
 		/// <returns>Returns new;y added component.</returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, params object[] args) where T : Component, IConstructable
 		{
 			bool a = o.activeSelf;
@@ -876,6 +880,19 @@ namespace UnityEngineEx
 			foreach (var c in go.GetComponents<TComponent>())
 			{
 				yield return func(c);
+			}
+		}
+
+		public static IDisposable EnsureInactive(this GameObject go)
+		{
+			if (go.activeSelf)
+			{
+				go.SetActive(false);
+				return DisposableLock.Lock(() => go.SetActive(true));
+			}
+			else
+			{
+				return DisposableLock.empty;
 			}
 		}
 	}

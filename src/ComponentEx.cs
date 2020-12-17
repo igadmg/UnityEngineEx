@@ -113,6 +113,7 @@ namespace UnityEngineEx
 		/// <param name="c"></param>
 		/// <param name="parameters"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this Component c, IDictionary<string, object> parameters) where T : Component
 		{
 			return c.gameObject.AddComponent<T>(parameters);
@@ -125,6 +126,7 @@ namespace UnityEngineEx
 		/// <param name="c">A</param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this Component c, Action<T> ctor) where T : Component
 		{
 			return c.gameObject.AddComponent<T>(ctor);
@@ -137,6 +139,7 @@ namespace UnityEngineEx
 		/// <param name="c"></param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this Component c, ActionContainer ctor) where T : Component
 		{
 			return c.gameObject.AddComponent<T>(ctor);

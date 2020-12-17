@@ -5,6 +5,7 @@ using UnityEngine;
 namespace UnityEngineEx
 {
 	public class EditorTool<T> : EditorTool
+		where T: UnityEngine.Object
 	{
 		GUIContent m_IconContent;
 
@@ -12,6 +13,8 @@ namespace UnityEngineEx
 		public virtual Texture2D Image => null;
 		public virtual string Text => GetType().GetAttribute<EditorToolAttribute>()?.displayName;
 		public virtual string Tooltip => null;
+
+		public new T target => base.target as T;
 
 		protected virtual void OnEnable()
 		{
