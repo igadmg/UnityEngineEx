@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using SystemEx;
 using UnityEngine;
 
@@ -25,19 +26,27 @@ namespace UnityEngineEx
 			return (C)go.GetComponent(prefab.GetType());
 		}
 
-		public static C Construct<C>(this C prefab, Transform parent)
+		public static C Construct<C>(this C prefab, Component parent)
 			where C : Component
-		{
-			GameObject go = prefab.gameObject.Construct(parent.gameObject);
-			return (C)go.GetComponent(prefab.GetType());
-        }
+			=> prefab.Construct(parent.gameObject);
 
 		public static C Construct<C>(this C prefab, GameObject parent)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent);
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
+
+		public static C Construct<C>(this C prefab, Component parent, params ActionContainer[] initializers)
+			where C : Component
+			=> prefab.Construct(parent.gameObject, initializers);
+
+		public static C Construct<C>(this C prefab, GameObject parent, params ActionContainer[] initializers)
+			where C : Component
+		{
+			GameObject go = prefab.gameObject.Construct(parent, initializers);
+			return (C)go.GetComponent(prefab.GetType());
+		}
 
 		/// <summary>
 		/// Construct prefab of given component type.
@@ -52,21 +61,18 @@ namespace UnityEngineEx
 		{
 			GameObject go = prefab.gameObject.Construct(Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
-		public static C Construct<C>(this C prefab, Transform parent, object initializer)
+		public static C Construct<C>(this C prefab, Component parent, object initializer)
 			where C : Component
-		{
-			GameObject go = prefab.gameObject.Construct(parent.gameObject, Tuple.Create(typeof(C), initializer));
-			return (C)go.GetComponent(prefab.GetType());
-        }
+			=> prefab.Construct(parent.gameObject, initializer);
 
 		public static C Construct<C>(this C prefab, GameObject parent, object initializer)
 			where C : Component
 		{
 			GameObject go = prefab.gameObject.Construct(parent, Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
-        }
+		}
 
 		/// <summary>
 		/// Adds GameObject as a child to another GameObject.
@@ -81,7 +87,7 @@ namespace UnityEngineEx
 			return parent.transform.Add(o).gameObject;
 		}
 
-        /// <summary>
+		/// <summary>
 		/// Adds Component as a child to another GameObject.
 		/// Objects position and rotation are set to localPosition and localrotation.
 		/// <seealso cref="TransformEx.Add"/>
@@ -90,9 +96,9 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <returns></returns>
 		public static GameObject Add(this Component parent, Component o)
-        {
-            return parent.Add(o.gameObject);
-        }
+		{
+			return parent.Add(o.gameObject);
+		}
 
 
 		public static T AddComponent<T>(this Component c) where T : Component
@@ -107,6 +113,7 @@ namespace UnityEngineEx
 		/// <param name="c"></param>
 		/// <param name="parameters"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this Component c, IDictionary<string, object> parameters) where T : Component
 		{
 			return c.gameObject.AddComponent<T>(parameters);
@@ -119,6 +126,7 @@ namespace UnityEngineEx
 		/// <param name="c">A</param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this Component c, Action<T> ctor) where T : Component
 		{
 			return c.gameObject.AddComponent<T>(ctor);
@@ -131,9 +139,19 @@ namespace UnityEngineEx
 		/// <param name="c"></param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this Component c, ActionContainer ctor) where T : Component
 		{
 			return c.gameObject.AddComponent<T>(ctor);
+		}
+
+		public static T GetOrAddComponent<T>(this Component c) where T : Component
+		{
+			var r = c.GetComponent<T>();
+			if (r != null)
+				return r;
+
+			return c.AddComponent<T>();
 		}
 
 		/// <summary>
@@ -163,6 +181,69 @@ namespace UnityEngineEx
 		{
 			return c.gameObject.GetBounds();
 		}
+
+#if !UNITY_EDITOR
+		public static void Destroy(this Component c)
+		{
+			if (c == null)
+				return;
+
+			UnityEngine.Object.Destroy(c);
+		}
+#else
+		public static void Destroy(this Component c)
+		{
+			if (c == null)
+				return;
+
+			if (UnityEditor.EditorApplication.isPlaying)
+				UnityEngine.Object.Destroy(c);
+			else
+				UnityEngine.Object.DestroyImmediate(c);
+		}
+#endif
+
+		public static IDisposable EnsureDisabled(this Behaviour c)
+		{
+			if (c.enabled)
+			{
+				c.enabled = false;
+				return DisposableLock.Lock(() => c.enabled = true);
+			}
+			else
+			{
+				return DisposableLock.empty;
+			}
+		}
+
+#if !UNITY_EDITOR
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IfGameIsPlaying(this Component c, Action action)
+		{
+			action();
+		}
+#else
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IfGameIsPlaying(this Component c, Action action)
+		{
+			if (UnityEditor.EditorApplication.isPlaying)
+				action();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IfGameIsNotPlaying(this Component c, Action action)
+		{
+			if (!UnityEditor.EditorApplication.isPlaying)
+				action();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IfIsPartOfCurrentPrefab(this Component c, Action action)
+		{
+			if (UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().Elvis(cps => cps.IsPartOfPrefabContents(c.gameObject)))
+				action();
+		}
+#endif
 	}
 }
 

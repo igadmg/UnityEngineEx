@@ -18,7 +18,7 @@ namespace UnityEditorEx.src.editor.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+    #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     internal partial class BaseStateMachine_cs : BaseStateMachine_csBase
     {
@@ -30,280 +30,280 @@ namespace UnityEditorEx.src.editor.Templates
         {
             this.Write("using System;\r\nusing UnityEngine;\r\nusing UnityEngineEx;\r\n\r\n\r\n\r\nnamespace ");
             
-            #line 20 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 20 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.namespacename));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n\t[ExecuteInEditMode]\r\n\tpublic class Base");
+            this.Write("\r\n{\r\n\t[ExecuteInEditMode]\r\n\tpublic partial class ");
             
-            #line 23 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 23 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.typename));
             
             #line default
             #line hidden
-            this.Write("StateMachine : BaseStateMachine\r\n\t{");
+            this.Write("StateMachine\r\n\t{");
             
-            #line 24 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 24 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  if (floats.Count != 0) { foreach (System.String floatName in floats) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate static readonly int Float");
             
-            #line 25 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 25 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 25 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 25 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t");
             
-            #line 26 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 26 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 28 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 28 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } if (ints.Count != 0) { foreach (System.String intName in ints) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate static readonly int Int");
             
-            #line 29 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 29 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 29 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 29 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t");
             
-            #line 30 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 30 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 32 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 32 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } if (bools.Count != 0) { foreach (System.String boolName in bools) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate static readonly int Bool");
             
-            #line 33 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 33 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 33 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 33 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t");
             
-            #line 34 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 34 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 36 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 36 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } if (triggers.Count != 0) { foreach (System.String triggerName in triggers) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate static readonly int Trigger");
             
-            #line 37 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 37 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write(" = Animator.StringToHash(\"");
             
-            #line 37 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 37 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t");
             
-            #line 38 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 38 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } } 
             
             #line default
             #line hidden
             this.Write("\r\n\r\n\t");
             
-            #line 41 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 41 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  if (floats.Count != 0) { foreach (System.String floatName in floats) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic float ");
             
-            #line 42 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 42 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write(" { get { return m_Animator.GetFloat(Float");
             
-            #line 42 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 42 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write("); } set { m_Animator.SetFloat(Float");
             
-            #line 42 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 42 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(floatName));
             
             #line default
             #line hidden
             this.Write(", value); } }\r\n\t");
             
-            #line 43 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 43 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 45 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 45 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } if (ints.Count != 0) { foreach (System.String intName in ints) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic int ");
             
-            #line 46 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 46 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write(" { get { return m_Animator.GetInt(Int");
             
-            #line 46 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 46 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write("); } set { m_Animator.SetInt(Int");
             
-            #line 46 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 46 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(intName));
             
             #line default
             #line hidden
             this.Write(", value); } }\r\n\t");
             
-            #line 47 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 47 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 49 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 49 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } if (bools.Count != 0) { foreach (System.String boolName in bools) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic bool ");
             
-            #line 50 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 50 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write(" { get { return m_Animator.GetBool(Bool");
             
-            #line 50 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 50 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write("); } set { m_Animator.SetBool(Bool");
             
-            #line 50 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 50 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(boolName));
             
             #line default
             #line hidden
             this.Write(", value); } }\r\n\t");
             
-            #line 51 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 51 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t");
             
-            #line 53 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 53 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } if (triggers.Count != 0) { foreach (System.String triggerName in triggers) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic void ");
             
-            #line 54 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 54 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write("() { m_Animator.SetTrigger(Trigger");
             
-            #line 54 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 54 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(triggerName));
             
             #line default
             #line hidden
             this.Write("); }\r\n\t");
             
-            #line 55 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 55 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } } 
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n\t\tprotected override void RegisterStateNames()\r\n\t\t{\r\n\t\t\t");
+            this.Write("\r\n\r\n\t\tvoid RegisterStateNamesGenerated()\r\n\t\t{\r\n\t\t\t");
             
-            #line 60 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 60 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  if (states.Count != 0) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAddStateNames(");
             
-            #line 61 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 61 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(System.String.Join(",", states.Select(s => "\"" + s + "\"").ToArray())));
             
             #line default
             #line hidden
-            this.Write(");\r\n\t\t\t");
+            this.Write(");\r\n");
             
-            #line 62 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+            #line 62 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
  } 
             
             #line default
@@ -312,7 +312,7 @@ namespace UnityEditorEx.src.editor.Templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "D:\workspace\Planar\Assets\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
+        #line 1 "D:\workspace\UnityEx\Libraries\UnityEngineEx\src.editor\Templates\BaseStateMachine_cs.tt"
 
 private string _namespacenameField;
 

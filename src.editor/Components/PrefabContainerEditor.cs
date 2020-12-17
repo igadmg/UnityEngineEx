@@ -9,7 +9,8 @@ namespace UnityEditorEx.Components
 	{
 		public override void OnInspectorGUI()
 		{
-			if (GUILayout.Button("Reset")) {
+			if (GUILayout.Button("Reset"))
+			{
 				target.DoReset();
 			}
 

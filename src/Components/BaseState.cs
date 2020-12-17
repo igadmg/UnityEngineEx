@@ -29,6 +29,13 @@ namespace UnityEngineEx
 		protected GameObject m_ControllerPrefab;
 		protected GameObject m_Controller;
 
+		public virtual TStateMachine GetStateMachine()
+			=> m_Animator.gameObject.GetComponent<TStateMachine>();
+
+		public virtual TController GetController()
+			=> m_Animator.gameObject.GetComponent<TController>();
+
+
 		public virtual void OnRestore() { }
 		public virtual void OnEnter(float duration) { }
 		public virtual void OnUpdate(float weight) { }
@@ -39,10 +46,13 @@ namespace UnityEngineEx
 		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
 			m_Animator = animator;
-			m_StateMachine = m_Animator.gameObject.GetComponent<BaseStateMachine>();
 			m_StateInfo = stateInfo;
-			m_Controller = GameObject.Instantiate(m_ControllerPrefab);
-			m_Controller.transform.SetParent(m_StateMachine.transform);
+			m_StateMachine = GetStateMachine();
+			m_Controller = GetController();
+
+// NOTE: Merge
+//			m_Controller = GameObject.Instantiate(m_ControllerPrefab);
+//			m_Controller.transform.SetParent(m_StateMachine.transform);
 
 #if UNITY_EDITOR
 			try

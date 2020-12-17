@@ -13,7 +13,8 @@ namespace UnityEngineEx
 		public static AnimationState GetState(this Animation animation, int index)
 		{
 			int i = 0;
-			foreach (AnimationState state in animation) {
+			foreach (AnimationState state in animation)
+			{
 				if (i == index)
 					return state;
 				i++;

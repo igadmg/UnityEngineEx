@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
+using SystemEx;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEditorEx.src.editor.Templates;
 using UnityEngine;
 using UnityEngineEx;
 
@@ -9,33 +11,33 @@ using UnityEngineEx;
 
 namespace UnityEditorEx
 {
-    [CustomEditor(typeof(AnimatorController))]
-    public class AnimationControllerEditor : Editor<AnimatorController>
-    {
-        private string m_Namespace = null;
-        private string m_Path = null;
-        private GameObject m_GameObject;
-        private Component m_Behaviour;
+	[CustomEditor(typeof(AnimatorController))]
+	public class AnimationControllerEditor : Editor<AnimatorController>
+	{
+		private string m_ScriptName = null;
+		private string m_Path = null;
+		private GameObject m_GameObject;
+		private Component m_Behaviour;
 
 
 
-        public override void OnInspectorGUI()
-        {
-            AnimatorController ac = target;
+		public override void OnInspectorGUI()
+		{
+			AnimatorController ac = target;
 
-            ButtonDropWindow.Show("Add State Machine", () => {
-					if (string.IsNullOrEmpty(m_Namespace))
+			ButtonDropWindow.Show("Add State Machine", () => {
+				if (string.IsNullOrEmpty(m_ScriptName))
+				{
+					m_ScriptName = ac.name;
+				}
+				if (string.IsNullOrEmpty(m_Path))
+				{
+					if (Selection.activeObject != null)
 					{
-						m_Namespace = ac.name;
+						m_Path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(Selection.activeObject));
 					}
-					if (string.IsNullOrEmpty(m_Path))
-					{
-						if (Selection.activeObject != null)
-						{
-							m_Path = Path.GetDirectoryName(AssetDatabase.GetAssetPath(Selection.activeObject));
-						}
-					}
-				},
+				}
+			},
 				(position, styles) => {
 					Event e = Event.current;
 					switch (e.type)
@@ -43,10 +45,10 @@ namespace UnityEditorEx
 						case EventType.KeyDown:
 							if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter)
 							{
-								//string scriptPath = Path.Combine(m_Path, m_ScriptName + ".cs");
-								//if (!File.Exists(scriptPath))
+								string scriptPath = Path.Combine(m_Path, m_ScriptName + ".cs");
+								if (!File.Exists(scriptPath))
 								{
-									//CreateScript(scriptPath);
+									CreateScript(scriptPath);
 
 									ButtonDropWindow.Close();
 								}
@@ -68,8 +70,8 @@ namespace UnityEditorEx
 
 						using (GUILayoutEx.Vertical())
 						{
-							GUILayout.Label("Namespace:");
-							m_Namespace = EditorGUILayout.TextField(m_Namespace);
+							GUILayout.Label("Script Name:");
+							m_ScriptName = EditorGUILayout.TextField(m_ScriptName);
 
 							GUILayout.Label("Path:");
 							if (EditorGUILayout.DropdownButton(new GUIContent(m_Path), FocusType.Keyboard))
@@ -105,11 +107,28 @@ namespace UnityEditorEx
 						}
 					}
 				});
-        }
+		}
 
-        private void OnBehaviourSelected(object o)
-        {
-            m_Behaviour = (Component)o;
-        }
-    }
+		private void OnBehaviourSelected(object o)
+		{
+			m_Behaviour = (Component)o;
+		}
+
+		private void CreateScript(string scriptPath)
+		{
+			File.WriteAllText(Path.GetFullPath(scriptPath)
+				, Template.TransformToText<BaseStateMachine_cs>(new {
+					namespacename = UnityEditorExSettings.instance.GetNamespaceName(scriptPath),
+					typename = m_ScriptName,
+				}.ToExpando()));
+
+			AssetDatabase.ImportAsset(scriptPath);
+			AssetDatabase.Refresh();
+
+			MonoScript script = AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+			script.SetScriptTypeWasJustCreatedFromComponentMenu();
+
+			InternalEditorUtilityEx.AddScriptComponentUncheckedUndoable(m_GameObject, script);
+		}
+	}
 }

@@ -23,7 +23,7 @@ namespace UnityEditorEx
 
 		private void OnEnable()
 		{
-			EditorApplication.playmodeStateChanged += onPlayModeStateChanged;
+			EditorApplication.playModeStateChanged += onPlayModeStateChanged;
 		}
 
 
@@ -99,7 +99,7 @@ namespace UnityEditorEx
 
 		void OnDestroy()
 		{
-			EditorApplication.playmodeStateChanged -= onPlayModeStateChanged;
+			EditorApplication.playModeStateChanged -= onPlayModeStateChanged;
 		}
 
 		private void FindAnimationControllers()
@@ -109,8 +109,7 @@ namespace UnityEditorEx
 			if (EditorApplication.isPlaying)
 			{
 				animators.AddRange(FindObjectsOfType<Animator>().Select(a =>
-					new AnimatorDescription
-					{
+					new AnimatorDescription {
 						animator = a,
 						controller = AnimatorControllerEx.GetEffectiveAnimatorController(a),
 						path = AssetDatabase.GetAssetPath(a)
@@ -119,8 +118,7 @@ namespace UnityEditorEx
 			else
 			{
 				animators.AddRange(AssetDatabase.FindAssets("t:AnimatorController").Select(guid =>
-					new AnimatorDescription
-					{
+					new AnimatorDescription {
 						animator = null,
 						controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(guid)),
 						path = AssetDatabase.GUIDToAssetPath(guid)
@@ -128,7 +126,7 @@ namespace UnityEditorEx
 			}
 		}
 
-		public void onPlayModeStateChanged()
+		public void onPlayModeStateChanged(PlayModeStateChange change)
 		{
 			FindAnimationControllers();
 			Repaint();

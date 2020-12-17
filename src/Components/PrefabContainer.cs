@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngineEx;
 
 namespace UnityEngineEx
 {
@@ -27,7 +26,8 @@ namespace UnityEngineEx
 		GameObject prevPrefab = null;
 		void Update()
 		{
-			if (prevPrefab != prefab) {
+			if (prevPrefab != prefab)
+			{
 				gameObject.transform.Clear();
 				prefab.Construct(gameObject).CallRecursive((GameObject o) => o.tag = "EditorOnly");
 				prevPrefab = prefab;

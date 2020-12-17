@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
+﻿
+#if NET_CORE
 
 namespace UnityEditorEx.src.editor.Templates
 {
@@ -72,3 +69,5 @@ namespace System.Runtime.Remoting.Messaging
 			state.TryGetValue(name, out AsyncLocal<object> data) ? data.Value : null;
 	}
 }
+
+#endif

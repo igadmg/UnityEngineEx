@@ -16,12 +16,13 @@ namespace UnityEngineEx
 		AnimatorTransitionInfo? m_CurrentTransition = null;
 		protected float m_TransitionStartTime;
 
+		protected object parameters = null;
+		public T GetParameters<T>() => (T)parameters;
 
 
 		public BaseState currentState { get { return m_CurrentState; } }
 		public BaseState lastState { get { return m_LastTransitionState; } }
-		public float weight
-		{
+		public float weight {
 			get {
 				if (!m_CurrentTransition.HasValue)
 				{
@@ -89,9 +90,7 @@ namespace UnityEngineEx
 		}
 
 
-
 		protected abstract void RegisterStateNames();
-
 
 
 		protected virtual void Awake()
@@ -104,12 +103,12 @@ namespace UnityEngineEx
 		private string currentStateHashKey { get { return "StateMachines.{0}.currentStateHash".format(gameObject.name); } }
 		private string currentStateDataKey { get { return "StateMachines.{0}.currentStateData".format(gameObject.name); } }
 
-		private void OnEnable()
+		protected virtual void OnEnable()
 		{
 			UnityEditor.AssemblyReloadEvents.afterAssemblyReload += LoadStateInformation;
 		}
 
-		private void OnDisable()
+		protected virtual void OnDisable()
 		{
 			AnimatorStateInfo currentStateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
 			UnityEditor.EditorPrefs.SetInt(currentStateHashKey, currentStateInfo.fullPathHash);
@@ -155,6 +154,14 @@ namespace UnityEngineEx
 			}
 			UnityEditor.EditorPrefs.DeleteKey(currentStateHashKey);
 			UnityEditor.EditorPrefs.DeleteKey(currentStateDataKey);
+		}
+#else
+		protected virtual void OnEnable()
+		{
+		}
+
+		protected virtual void OnDisable()
+		{
 		}
 #endif
 	}

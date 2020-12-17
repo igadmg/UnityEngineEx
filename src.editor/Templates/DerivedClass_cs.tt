@@ -7,6 +7,8 @@
 <#@ parameter name="namespacename" type="System.String" #>
 <#@ parameter name="classname" type="System.String" #>
 <#@ parameter name="baseclassname" type="System.String" #>
+<#@ parameter name="isPartial" type="System.Boolean" #>
+<#@ parameter name="content" type="System.String" #>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +18,8 @@ using UnityEngineEx;
 
 namespace <#= this.namespacename #>
 {
-	public class <#= this.classname #> : <#= this.baseclassname #>
+	public <#= this.isPartial ? "partial " : "" #>class <#= this.classname #> : <#= this.baseclassname #>
 	{
+<#= this.content #>
 	}
 }

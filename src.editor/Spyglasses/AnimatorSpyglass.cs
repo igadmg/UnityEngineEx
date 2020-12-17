@@ -1,13 +1,11 @@
-﻿using SystemEx;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEditor.Animations;
-using UnityEditorEx;
 using UnityEngine;
 using UnityEngineEx;
 
 
 
-namespace UnityEditorEx
+namespace UnityEditorEx.Spyglasses
 {
 	[Spyglass(typeof(Animator), true)]
 	class AnimatorSpyglass : Editor<Animator>, ISpyglassEditor
@@ -17,6 +15,8 @@ namespace UnityEditorEx
 		public void OnSpyglassGUI()
 		{
 			var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GetAssetPath(target.runtimeAnimatorController));
+			if (controller == null)
+				return;
 
 			using (EditorGUILayoutEx.ScrollView(ref m_ScrollPosition))
 			{
@@ -34,7 +34,7 @@ namespace UnityEditorEx
 									value = EditorGUILayout.FloatField(parameter.name, value);
 								}
 							}
-								break;
+							break;
 							case AnimatorControllerParameterType.Int:
 							{
 								int value = target.GetInteger(parameter.name);
@@ -43,7 +43,7 @@ namespace UnityEditorEx
 									value = EditorGUILayout.IntField(parameter.name, value);
 								}
 							}
-								break;
+							break;
 							case AnimatorControllerParameterType.Bool:
 							{
 								bool value = target.GetBool(parameter.name);
@@ -52,7 +52,7 @@ namespace UnityEditorEx
 									value = EditorGUILayout.Toggle(parameter.name, value);
 								}
 							}
-								break;
+							break;
 							case AnimatorControllerParameterType.Trigger:
 								if (GUILayout.Button(parameter.name))
 								{

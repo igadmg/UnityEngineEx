@@ -20,7 +20,8 @@ namespace UnityEditorEx.Components
 			string[] layerNames = GetSortingLayerNames();
 			int selected = Array.IndexOf(layerNames, t.sortingLayerName);
 			selected = EditorGUILayout.Popup(selected, layerNames);
-			if (selected >= 0) {
+			if (selected >= 0)
+			{
 				t.sortingLayerName = layerNames[selected];
 			}
 			GUILayout.EndHorizontal();

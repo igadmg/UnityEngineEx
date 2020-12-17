@@ -8,7 +8,8 @@ namespace UnityEngineEx
 	{
 		public static L DestroyObjects<L>(this L list) where L : IEnumerable
 		{
-			foreach (UnityEngine.Object child in list) {
+			foreach (UnityEngine.Object child in list)
+			{
 				UnityEngine.Object.Destroy(child);
 			}
 

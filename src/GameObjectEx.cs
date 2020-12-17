@@ -11,6 +11,9 @@ namespace UnityEngineEx
 {
 	public static class GameObjectEx
 	{
+		public static readonly string RootTag = "RootTag";
+		public static readonly string SubObjectTag = "SubObject";
+
 		#region Enumerators
 
 		/// <summary>
@@ -35,9 +38,11 @@ namespace UnityEngineEx
 			Stack<Transform> next = new Stack<Transform>();
 
 			next.Push(o.transform);
-			while (next.Count != 0) {
+			while (next.Count != 0)
+			{
 				Transform current = next.Pop();
-				foreach (Transform child in current) {
+				foreach (Transform child in current)
+				{
 					yield return child.gameObject;
 					next.Push(child);
 				}
@@ -55,14 +60,27 @@ namespace UnityEngineEx
 			Stack<Tuple<Transform, int>> next = new Stack<Tuple<Transform, int>>();
 
 			next.Push(Tuple.Create(o.transform, 0));
-			while (next.Count != 0) {
+			while (next.Count != 0)
+			{
 				var current = next.Pop();
-				foreach (Transform child in current.Item1) {
+				foreach (Transform child in current.Item1)
+				{
 					yield return Tuple.Create(child.gameObject, current.Item2 + 1);
 					next.Push(Tuple.Create(child, current.Item2 + 1));
 				}
 			}
 			yield break;
+		}
+
+		public static IEnumerable<T> Enumerate<T>(this GameObject o)
+			where T : Component
+		{
+			foreach (Transform child in o.transform)
+			{
+				T c = child.GetComponent<T>();
+				if (c != null)
+					yield return c;
+			}
 		}
 
 		#endregion
@@ -141,6 +159,16 @@ namespace UnityEngineEx
 
 		#endregion
 
+		public static TComponent CreateActor<TComponent>(string name, Transform parent)
+			where TComponent : Component
+		{
+			var go = new GameObject(name);
+			go.transform.parent = parent;
+
+			return go.AddComponent<TComponent>();
+		}
+
+
 		#region Instantiation
 
 		public static GameObject Construct(this GameObject instance)
@@ -156,12 +184,20 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		public static GameObject Construct(this GameObject instance, Component parent)
+			=> instance.Construct(parent.gameObject);
+
 		public static GameObject Construct(this GameObject instance, GameObject parent)
-		{
-			return instance.New(_.a((Transform t) => {
-				parent.Add(t);
-			}));
-		}
+			=> instance.Construct(_.a((Transform t) => { parent.Add(t); }));
+
+		public static GameObject Construct(this GameObject instance, Component parent, params ActionContainer[] initializers)
+			=> instance.Construct(parent.gameObject, initializers);
+
+		public static GameObject Construct(this GameObject instance, GameObject parent, params ActionContainer[] initializers)
+			=> instance.Construct(
+				ArrayEx.Concat(
+					_.a((Transform t) => { parent.Add(t); })
+					, initializers));
 
 		public static GameObject Construct(this GameObject instance, params Tuple<Type, object>[] initializers)
 		{
@@ -169,17 +205,21 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -196,12 +236,13 @@ namespace UnityEngineEx
 				go = GameObject.Instantiate(instance) as GameObject;
 				parent.Add(go);
 
-				foreach (var i in initializers) try	{
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				}
-				catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
 			}
@@ -211,99 +252,146 @@ namespace UnityEngineEx
 			return go;
 		}
 
+		public static GameObject Construct(this GameObject instance, params ActionContainer[] initializers)
+		{
+			GameObject go = null;
+			bool a = instance.activeSelf;
+			instance.SetActive(false);
+
+			try
+			{
+				go = GameObject.Instantiate(instance) as GameObject;
+
+				foreach (var i in initializers) try
+					{
+						go.Dissolve(i);
+					}
+					catch (Exception e) { Debug.LogException(e); }
+
+				go.SetActive(a);
+			}
+			catch (Exception e) { Debug.LogException(e); }
+
+			instance.SetActive(a);
+			return go;
+		}
+
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, params Tuple<Type, IDictionary<string, object>>[] initializers)
 		{
 			GameObject go = null;
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, params ActionContainer[] initializers)
 		{
 			GameObject go = null;
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					go.Dissolve(i);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						go.Dissolve(i);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, string name, params Tuple<Type, object>[] initializers)
 		{
 			GameObject go = null;
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				if (initializers != null) {
-					foreach (var i in initializers) try {
-						var c = go.GetComponent(i.Item1);
-						if (c != null)
-							c.Setup(i.Item2);
-					} catch (Exception e) { Debug.LogException(e); }
+				if (initializers != null)
+				{
+					foreach (var i in initializers) try
+						{
+							var c = go.GetComponent(i.Item1);
+							if (c != null)
+								c.Setup(i.Item2);
+						}
+						catch (Exception e) { Debug.LogException(e); }
 				}
 
 				go.name = name;
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, string name, Vector3 po, params Tuple<Type, object>[] initializers)
 		{
 			GameObject go = null;
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				if (initializers != null) {
-					foreach (var i in initializers) try {
-						var c = go.GetComponent(i.Item1);
-						if (c != null)
-							c.Setup(i.Item2);
-					} catch (Exception e) { Debug.LogException(e); }
+				if (initializers != null)
+				{
+					foreach (var i in initializers) try
+						{
+							var c = go.GetComponent(i.Item1);
+							if (c != null)
+								c.Setup(i.Item2);
+						}
+						catch (Exception e) { Debug.LogException(e); }
 				}
 
 				go.name = name;
 				go.transform.position = po;
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, GameObject parent, params ActionContainer[] initializers)
 		{
 			return instance.New(
@@ -312,6 +400,7 @@ namespace UnityEngineEx
 					, initializers));
 		}
 
+		[Obsolete("Use Construct method instead")]
 		public static GameObject New(this GameObject instance, GameObject parent, Vector3 po, params ActionContainer[] initializers)
 		{
 			return instance.New(
@@ -327,17 +416,21 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						i.Item2(c);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							i.Item2(c);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -350,21 +443,26 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				if (initializers != null) {
-					foreach (var i in initializers) try {
-						var c = go.GetComponent(i.Item1);
-						if (c != null)
-							c.Setup(i.Item2);
-					} catch (Exception e) { Debug.LogException(e); }
+				if (initializers != null)
+				{
+					foreach (var i in initializers) try
+						{
+							var c = go.GetComponent(i.Item1);
+							if (c != null)
+								c.Setup(i.Item2);
+						}
+						catch (Exception e) { Debug.LogException(e); }
 				}
 
 				go.transform.position = po;
 				o.transform.Add(go);
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -390,14 +488,17 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					var c = go.GetComponent(i.Item1);
-					if (c != null)
-						c.Setup(i.Item2);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						var c = go.GetComponent(i.Item1);
+						if (c != null)
+							c.Setup(i.Item2);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.name = o.name;
 				go.transform.position = o.transform.localPosition + go.transform.position;
@@ -406,7 +507,8 @@ namespace UnityEngineEx
 				o.transform.parent.Add(go);
 				GameObject.DestroyImmediate(o);
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -422,15 +524,18 @@ namespace UnityEngineEx
 			bool a = instance.activeSelf;
 			instance.SetActive(false);
 
-			try {
+			try
+			{
 				go = GameObject.Instantiate(instance) as GameObject;
 
-				foreach (var i in initializers) try {
-					Type ct = i.GetType().GetGenericArguments()[0];
-					var c = go.GetComponentOrThis(ct);
-					if (c != null)
-						((Delegate)(i)).DynamicInvoke(c);
-				} catch (Exception e) { Debug.LogException(e); }
+				foreach (var i in initializers) try
+					{
+						Type ct = i.GetType().GetGenericArguments()[0];
+						var c = go.GetComponentOrThis(ct);
+						if (c != null)
+							((Delegate)(i)).DynamicInvoke(c);
+					}
+					catch (Exception e) { Debug.LogException(e); }
 
 				go.name = o.name;
 				go.transform.position = o.transform.localPosition + go.transform.position;
@@ -439,7 +544,8 @@ namespace UnityEngineEx
 				o.transform.parent.Add(go);
 				GameObject.DestroyImmediate(o);
 				go.SetActive(a);
-			} catch (Exception e) { Debug.LogException(e); }
+			}
+			catch (Exception e) { Debug.LogException(e); }
 
 			instance.SetActive(a);
 			return go;
@@ -448,17 +554,23 @@ namespace UnityEngineEx
 		#endregion
 
 #if !UNITY_EDITOR
-		public static void Destroy(this GameObject o)
+		public static void Destroy(this UnityEngine.Object o)
 		{
-			GameObject.Destroy(o);
+			if (o == null)
+				return;
+
+			UnityEngine.Object.Destroy(o);
 		}
 #else
-		public static void Destroy(this GameObject o)
+		public static void Destroy(this UnityEngine.Object o)
 		{
+			if (o == null)
+				return;
+
 			if (UnityEditor.EditorApplication.isPlaying)
-				GameObject.Destroy(o);
+				UnityEngine.Object.Destroy(o);
 			else
-				GameObject.DestroyImmediate(o);
+				UnityEngine.Object.DestroyImmediate(o);
 		}
 #endif
 
@@ -474,8 +586,19 @@ namespace UnityEngineEx
 		{
 			if (c != null)
 			{
-				Destroy(c.gameObject);
+				c.gameObject.Destroy();
 			}
+		}
+
+		public static GameObject Replace(this GameObject go, GameObject newGo)
+		{
+			newGo.name = go.name;
+			newGo.transform.parent = go.transform.parent;
+			newGo.transform.position = go.transform.position;
+			newGo.transform.rotation = go.transform.rotation;
+			newGo.transform.localScale = go.transform.localScale;
+			go.Destroy();
+			return newGo;
 		}
 
 		/// <summary>
@@ -485,6 +608,7 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <param name="parameters"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, IDictionary<string, object> parameters) where T : Component
 		{
 			bool a = o.activeSelf;
@@ -503,6 +627,7 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, Action<T> ctor) where T : Component
 		{
 			bool a = o.activeSelf;
@@ -522,6 +647,7 @@ namespace UnityEngineEx
 		/// <param name="o"></param>
 		/// <param name="ctor"></param>
 		/// <returns></returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, ActionContainer ctor) where T : Component
 		{
 			bool a = o.activeSelf;
@@ -530,7 +656,8 @@ namespace UnityEngineEx
 			T c = o.AddComponent<T>();
 
 			object[] prms = new object[ctor.args.Length];
-			for (int ai = 0; ai < ctor.args.Length; ai++) {
+			for (int ai = 0; ai < ctor.args.Length; ai++)
+			{
 				if (ctor.args[ai] != typeof(T))
 					prms[ai] = o.GetComponentOrThis(ctor.args[ai]);
 				else
@@ -552,17 +679,20 @@ namespace UnityEngineEx
 		/// <param name="o">GameObject to add component to.</param>
 		/// <param name="args">Arguments to a constructor.</param>
 		/// <returns>Returns new;y added component.</returns>
+		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
 		public static T AddComponent<T>(this GameObject o, params object[] args) where T : Component, IConstructable
 		{
 			bool a = o.activeSelf;
-			try	{
+			try
+			{
 				o.SetActive(false);
 
 				T c = o.AddComponent<T>();
 				c.Constructor(args);
 				return c;
 			}
-			finally {
+			finally
+			{
 				o.SetActive(a);
 			}
 		}
@@ -653,7 +783,8 @@ namespace UnityEngineEx
 					return;
 
 				var renderer = c.GetComponent<Renderer>();
-				if (renderer != null) {
+				if (renderer != null)
+				{
 					b = b.Extend(renderer.bounds);
 				}
 			});
@@ -669,7 +800,8 @@ namespace UnityEngineEx
 		public static Bounds GetBoundsLocal(this GameObject o)
 		{
 			var renderer = o.GetComponent<Renderer>();
-			if (renderer != null) {
+			if (renderer != null)
+			{
 				return renderer.bounds;
 			}
 
@@ -685,8 +817,10 @@ namespace UnityEngineEx
 		public static GameObject GetRootObject(this GameObject o)
 		{
 			GameObject go = o;
-			while (go != null && go.tag == "SubObject")
+			while (go != null && !go.CompareTag(RootTag))
 				go = go.transform.parent.gameObject;
+
+			Debug.Assert(go != null);
 
 			return go;
 		}
@@ -700,7 +834,8 @@ namespace UnityEngineEx
 		public static GameObject CallRecursive(this GameObject o, Action<GameObject> a)
 		{
 			a(o);
-			foreach (GameObject child in o.GetEnumeratorRecursive()) {
+			foreach (GameObject child in o.GetEnumeratorRecursive())
+			{
 				a(child);
 			}
 
@@ -716,7 +851,8 @@ namespace UnityEngineEx
 		public static GameObject CallRecursive(this GameObject o, Action<GameObject, int> a)
 		{
 			a(o, 0);
-			foreach (var child in o.GetEnumeratorRecursiveWithDepth()) {
+			foreach (var child in o.GetEnumeratorRecursiveWithDepth())
+			{
 				a(child.Item1, child.Item2);
 			}
 
@@ -736,6 +872,28 @@ namespace UnityEngineEx
 				result = 37 * result + oa[i].GetInstanceID();
 
 			return result;
+		}
+
+		public static IEnumerable<TResult> Select<TComponent, TResult>(this GameObject go, Func<TComponent, TResult> func)
+			where TComponent : Component
+		{
+			foreach (var c in go.GetComponents<TComponent>())
+			{
+				yield return func(c);
+			}
+		}
+
+		public static IDisposable EnsureInactive(this GameObject go)
+		{
+			if (go.activeSelf)
+			{
+				go.SetActive(false);
+				return DisposableLock.Lock(() => go.SetActive(true));
+			}
+			else
+			{
+				return DisposableLock.empty;
+			}
 		}
 	}
 }

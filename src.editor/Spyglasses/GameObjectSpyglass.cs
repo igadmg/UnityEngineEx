@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using SystemEx;
@@ -9,22 +8,23 @@ using UnityEngineEx;
 
 
 
-namespace UnityEditorEx
+namespace UnityEditorEx.Spyglasses
 {
 	[Spyglass(typeof(GameObject), true)]
-	public class GameObjectSpyglass : Editor<GameObject>, ISpyglassEditor
+	public class GameObjectSpyglass : ObjectSpyglass<GameObject>, ISpyglassEditor
 	{
 		private string m_Namespace;
 		private string m_ScriptName;
 		private string m_Path;
 
-		public void OnSpyglassGUI()
+		public override void OnSpyglassGUI()
 		{
+			base.OnSpyglassGUI();
+
 			using (EditorGUILayoutEx.Vertical())
 			{
 				ButtonDropWindow.Show("Create Component", () => InitButtonDropWindow(),
-					(position, styles) =>
-					{
+					(position, styles) => {
 						Event e = Event.current;
 						switch (e.type)
 						{
@@ -102,14 +102,26 @@ namespace UnityEditorEx
 				rect = GUILayoutUtility.GetRect(10f, 25f);
 				GUI.Label(rect, "New Script", styles.header);
 
-				GUILayout.Label("Namespace:");
-				m_Namespace = EditorGUILayout.TextField(m_Namespace);
-
 				GUILayout.Label("Name:");
 				m_ScriptName = EditorGUILayout.TextField(m_ScriptName);
 
+				GUILayout.Label("Namespace:");
+				using (GUILayoutEx.Horizontal())
+				{
+					m_Namespace = EditorGUILayout.TextField(m_Namespace);
+					if (GUILayout.Button("S", GUILayout.Width(20)))
+					{
+					}
+				}
+
 				GUILayout.Label("Path:");
-				m_Path = EditorGUILayout.TextField(m_Path);
+				using (GUILayoutEx.Horizontal())
+				{
+					m_Path = EditorGUILayout.TextField(m_Path);
+					if (GUILayout.Button("S", GUILayout.Width(20)))
+					{
+					}
+				}
 
 				string scriptPath = Path.Combine(m_Path, m_ScriptName + ".cs");
 				using (EditorGUIEx.DisabledScopeIf(File.Exists(scriptPath)))

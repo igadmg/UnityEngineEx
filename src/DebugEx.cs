@@ -1,5 +1,4 @@
-﻿using SystemEx;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UnityEngineEx
 {

@@ -8,10 +8,12 @@ namespace UnityEditorEx
 		public static Transform ClearImmediate(this Transform transform)
 		{
 			List<GameObject> objects = new List<GameObject>();
-			foreach (Transform child in transform) {
+			foreach (Transform child in transform)
+			{
 				objects.Add(child.gameObject);
 			}
-			foreach (GameObject o in objects) {
+			foreach (GameObject o in objects)
+			{
 				GameObject.DestroyImmediate(o);
 			}
 
