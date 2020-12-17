@@ -43,6 +43,6 @@ namespace UnityEditorEx
 		public string editorScriptsPath;
 
 		public string GetNamespaceName(string path)
-			=> namespaceName;
+			=> Path.GetDirectoryName(path).Replace('/', '.').Replace('\\', '.');
 	}
 }

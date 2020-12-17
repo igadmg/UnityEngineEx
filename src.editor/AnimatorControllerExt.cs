@@ -53,7 +53,7 @@ namespace UnityEditorEx
 
 		public static void CreateAnimatorControllerScript<TemplateType>(AnimatorController controller, string typeName, string postfix, string scriptPath, bool bNewScript)
 			 where TemplateType : new()
-			=> CreateAnimatorControllerScript<TemplateType>(controller, UnityEditorExSettings.instance.GetNamespaceName(scriptPath), typeName, postfix, scriptPath, bNewScript)
+			=> CreateAnimatorControllerScript<TemplateType>(controller, UnityEditorExSettings.instance.GetNamespaceName(scriptPath), typeName, postfix, scriptPath, bNewScript);
 
 		public static void CreateAnimatorControllerScript<TemplateType>(AnimatorController controller, string namespaceName, string typeName, string postfix, string scriptPath, bool bNewScript)
 			 where TemplateType : new()

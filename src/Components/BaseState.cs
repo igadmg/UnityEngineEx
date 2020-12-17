@@ -4,7 +4,15 @@ using UnityEngine;
 
 namespace UnityEngineEx
 {
-	public class BaseState : StateMachineBehaviour
+	public interface IState
+	{
+		void OnRestore();
+		void OnEnter(float duration);
+		void OnUpdate(float weight);
+		void OnExit(float duration);
+	}
+
+	public class BaseState : StateMachineBehaviour, IState
 	{
 		protected Animator m_Animator;
 		protected BaseStateMachine m_StateMachine;
@@ -16,39 +24,25 @@ namespace UnityEngineEx
 
 		public int stateNameHash { get { return m_StateInfo.shortNameHash; } }
 		public string stateName { get { return m_StateMachine.GetStateName(m_StateInfo.shortNameHash); } }
-	}
 
-	public interface IState
-	{
-		void OnRestore();
-		void OnEnter(float duration);
-		void OnUpdate();
-		void OnExit();
-	}
-
-	public class BaseState<TStateMachine, TController> : BaseState, IState
-		where TStateMachine : BaseStateMachine
-	{
-		protected TController m_Controller;
-
-
-		public new TStateMachine stateMachine { get { return m_StateMachine as TStateMachine; } }
-		public TController controller { get { return m_Controller; } }
-
+		[SerializeField]
+		protected GameObject m_ControllerPrefab;
+		protected GameObject m_Controller;
 
 		public virtual void OnRestore() { }
 		public virtual void OnEnter(float duration) { }
-		public virtual void OnUpdate() { }
-		public virtual void OnExit() { }
+		public virtual void OnUpdate(float weight) { }
+		public virtual void OnExit(float duration) { }
 
 
 		// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 		override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
 			m_Animator = animator;
-			m_StateMachine = m_Animator.gameObject.GetComponent<TStateMachine>();
+			m_StateMachine = m_Animator.gameObject.GetComponent<BaseStateMachine>();
 			m_StateInfo = stateInfo;
-			m_Controller = m_Animator.gameObject.GetComponent<TController>();
+			m_Controller = GameObject.Instantiate(m_ControllerPrefab);
+			m_Controller.transform.SetParent(m_StateMachine.transform);
 
 #if UNITY_EDITOR
 			try
@@ -86,7 +80,7 @@ namespace UnityEngineEx
 		override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
 			weight = m_StateMachine.GetStateWeight(this, m_Animator);
-			OnUpdate();
+			OnUpdate(weight);
 		}
 
 		// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -99,8 +93,8 @@ namespace UnityEngineEx
 			}
 #endif
 
-			weight = m_StateMachine.GetStateWeight(this, m_Animator);			
-			OnExit();
+			weight = m_StateMachine.GetStateWeight(this, m_Animator);
+			OnExit(0);
 
 #if UNITY_EDITOR
 			try
