@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="PeanutButter.DuckTyping" Version="1.2.358" />
+    <PackageReference Include="PeanutButter.DuckTyping" Version="1.2.379" />
   </ItemGroup>
 
   <ItemGroup>
