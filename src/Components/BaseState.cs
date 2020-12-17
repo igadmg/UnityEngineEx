@@ -1,18 +1,11 @@
+using SystemEx;
 using UnityEngine;
 
 
 
 namespace UnityEngineEx
 {
-	public interface IState
-	{
-		void OnRestore();
-		void OnEnter(float duration);
-		void OnUpdate(float weight);
-		void OnExit(float duration);
-	}
-
-	public class BaseState : StateMachineBehaviour, IState
+	public class BaseState : StateMachineBehaviour
 	{
 		protected Animator m_Animator;
 		protected BaseStateMachine m_StateMachine;
@@ -24,10 +17,23 @@ namespace UnityEngineEx
 
 		public int stateNameHash { get { return m_StateInfo.shortNameHash; } }
 		public string stateName { get { return m_StateMachine.GetStateName(m_StateInfo.shortNameHash); } }
+	}
 
-		[SerializeField]
-		protected GameObject m_ControllerPrefab;
-		protected GameObject m_Controller;
+	public interface IState
+	{
+		void OnRestore();
+		void OnEnter(float duration);
+		void OnUpdate(float weight);
+		void OnExit(float duration);
+	}
+
+	public class BaseState<TStateMachine, TController> : BaseState, IState
+		where TStateMachine : BaseStateMachine
+	{
+		protected TController m_Controller;
+
+		public new TStateMachine stateMachine { get { return m_StateMachine as TStateMachine; } }
+		public TController controller { get { return m_Controller; } }
 
 		public virtual TStateMachine GetStateMachine()
 			=> m_Animator.gameObject.GetComponent<TStateMachine>();
@@ -50,9 +56,9 @@ namespace UnityEngineEx
 			m_StateMachine = GetStateMachine();
 			m_Controller = GetController();
 
-// NOTE: Merge
-//			m_Controller = GameObject.Instantiate(m_ControllerPrefab);
-//			m_Controller.transform.SetParent(m_StateMachine.transform);
+			// NOTE: Merge
+			//			m_Controller = GameObject.Instantiate(m_ControllerPrefab);
+			//			m_Controller.transform.SetParent(m_StateMachine.transform);
 
 #if UNITY_EDITOR
 			try
@@ -129,5 +135,16 @@ namespace UnityEngineEx
 		//{
 		//
 		//}
+	}
+
+	public class PrefabBaseState<TStateMachine> : BaseState<TStateMachine, GameObject>
+		where TStateMachine : BaseStateMachine
+	{
+		[SerializeField]
+		protected GameObject m_ControllerPrefab;
+
+		public override GameObject GetController()
+			=> GameObject.Instantiate(m_ControllerPrefab)
+				.Also(c => c.transform.SetParent(m_StateMachine.transform));
 	}
 }
