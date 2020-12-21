@@ -9,19 +9,27 @@ namespace UnityEditorEx
 {
 	public static class HandlesEx
 	{
-		public static void DoPositionHandle(Vector3 position, Quaternion rotation, Action<Vector3> onChanged)
+		public static Vector3 DoPositionHandle(Transform t, Vector3 position)
+			=> t.InverseTransformPoint(Handles.DoPositionHandle(t.TransformPoint(position), t.rotation));
+
+		public static Vector3 DoPositionHandle(Transform t, Vector3 position, Quaternion rotation)
+			=> t.InverseTransformPoint(Handles.DoPositionHandle(t.TransformPoint(position), t.rotation * rotation));
+
+		public static Vector3 DoPositionHandle(Vector3 position, Quaternion rotation, Action<Vector3> onChanged)
 		{
 			using (EditorGUIEx.ChangeCheck(() => onChanged(position)))
 			{
 				position = Handles.DoPositionHandle(position, rotation);
+				return position;
 			}
 		}
 
-		public static void DoRotationHandle(Quaternion rotation, Vector3 position, Action<Quaternion> onChanged)
+		public static Quaternion DoRotationHandle(Quaternion rotation, Vector3 position, Action<Quaternion> onChanged)
 		{
 			using (EditorGUIEx.ChangeCheck(() => onChanged(rotation)))
 			{
 				rotation = Handles.DoRotationHandle(rotation, position);
+				return rotation;
 			}
 		}
 

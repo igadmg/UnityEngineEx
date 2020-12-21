@@ -154,6 +154,18 @@ namespace UnityEngineEx
 			return c.AddComponent<T>();
 		}
 
+		public static C SetParent<C>(this C c, GameObject parent) where C : Component
+		{
+			c.transform.SetParent(parent.transform);
+			return c;
+		}
+
+		public static C SetParent<C>(this C c, Component parent) where C : Component
+		{
+			c.transform.SetParent(parent.transform);
+			return c;
+		}
+
 		/// <summary>
 		/// Finds GameObject by path name. And returns it's Component T if it exists.
 		/// </summary>

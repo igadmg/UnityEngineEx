@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathEx;
+using System;
 using UnityEngine;
 
 namespace UnityEngineEx
@@ -32,6 +33,11 @@ namespace UnityEngineEx
 			{
 				Gizmos.DrawLine(origin, origin + direction);
 			}
+		}
+
+		public static void DrawSphere(Transform t, Vector3 center, float radius)
+		{
+			Gizmos.DrawSphere(t.TransformPoint(center), t.localScale.Min() * radius);
 		}
 	}
 }

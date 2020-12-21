@@ -8,15 +8,33 @@ namespace UnityEditorEx
 {
 	public static class EditorGUIEx
 	{
-		public static IDisposable ChangeCheck(Action action, bool ignore = false)
+		public static IDisposable ChangeCheck(Action OnChange, bool ignore = false)
 		{
 			EditorGUI.BeginChangeCheck();
 			return DisposableLock.Lock(() => {
 				if (!ignore && EditorGUI.EndChangeCheck())
 				{
-					action?.Invoke();
+					OnChange?.Invoke();
 				}
 			});
+		}
+
+		public static void ChangeCheck(Action action, Action OnChange, bool ignore = false)
+		{
+			using (ChangeCheck(OnChange, ignore))
+			{
+				action?.Invoke();
+			}
+		}
+
+		public static T ChangeCheck<T>(Func<T> action, Action<T> OnChange, bool ignore = false)
+		{
+			T r = default;
+			using (ChangeCheck(() => OnChange(r), ignore))
+			{
+				r = action.Invoke();
+			}
+			return r;
 		}
 
 		public static IDisposable DisabledScopeIf(bool isDiasbaled)

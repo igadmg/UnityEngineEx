@@ -12,7 +12,7 @@ namespace UnityEngineEx
 		public override GUIContent toolbarIcon => m_IconContent;
 		public virtual Texture2D Image => null;
 		public virtual string Text => GetType().GetAttribute<EditorToolAttribute>()?.displayName;
-		public virtual string Tooltip => null;
+		public virtual string Tooltip => GetType().GetAttribute<EditorToolAttribute>()?.displayName;
 
 		public new T target => base.target as T;
 
