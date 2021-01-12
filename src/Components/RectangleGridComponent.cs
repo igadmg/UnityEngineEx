@@ -1,5 +1,7 @@
 ﻿using MathEx;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using SystemEx;
 using UnityDissolve;
 using UnityEngine;
@@ -20,13 +22,14 @@ namespace UnityEngineEx
 		[Component]
 		RectangleComponent rectangle;
 
+		public Rect bounds => rectangle.bounds;
 		public GridFillType fillType = GridFillType.DimensionsAreGridSize;
-		public Vector2 dimensions;
-		public UnityEvent onBeforeUpdate;
-		public UnityEvent<Rect> onCell;
+		public vec2 dimensions;
+		public UnityEvent<IEnumerable<aabb2>> onBeforeUpdate;
+		public UnityEvent<aabb2> onCell;
 
 #if UNITY_EDITOR
-		public bool drawGizmoz = true;
+		public bool drawGizmoz = false;
 
 		Rect lastBounds;
 		GridFillType lastFillType = GridFillType.None;
@@ -80,37 +83,63 @@ namespace UnityEngineEx
 		}
 #endif
 
+		public vec2i GridSize {
+			get {
+				switch (fillType)
+				{
+					case GridFillType.DimensionsAreGridSize:
+						return dimensions;
+					case GridFillType.DimensionsAreCellSize:
+						return rectangle.bounds.size / dimensions;
+				}
+
+				return vec2i.empty;
+			}
+		}
+
+		public vec2 CellSize {
+			get {
+				switch (fillType)
+				{
+					case GridFillType.DimensionsAreGridSize:
+						return rectangle.bounds.size / dimensions;
+					case GridFillType.DimensionsAreCellSize:
+						return dimensions;
+				}
+
+				return vec2.empty;
+			}
+		}
+
+		public IEnumerable<aabb2> Cells
+		{
+			get {
+				switch (fillType)
+				{
+					case GridFillType.DimensionsAreGridSize:
+					case GridFillType.DimensionsAreCellSize:
+						return Foreach.Cell(GridSize, CellSize)
+							.Select(cell => cell + rectangle.bounds.center);
+				}
+
+				return Enumerable.Empty<aabb2>();
+			}
+		}
+
 		public void RebuildGrid()
-			=> RebuildGrid(cell => onCell.Invoke(cell.ToRect()));
+			=> RebuildGrid(onCell.GetPersistentEventCount() > 0 ? cell => onCell.Invoke(cell) : (Action<aabb2>)null);
 
 		public void RebuildGrid(Action<aabb2> onCellFn)
 		{
-			onBeforeUpdate?.Invoke();
+			var cells = Cells.ToList();
+			onBeforeUpdate?.Invoke(cells);
 
-			switch (fillType)
+			if (onCellFn != null)
 			{
-				case GridFillType.DimensionsAreGridSize:
-					RebuildFillGrid(onCellFn);
-					break;
-				case GridFillType.DimensionsAreCellSize:
-					RebuildDimensionsGrid(onCellFn);
-					break;
-			}
-		}
-
-		protected void RebuildFillGrid(Action<aabb2> onCellFn)
-		{
-			foreach (var cell in Foreach.Cell(dimensions, rectangle.bounds.size / dimensions))
-			{
-				onCellFn(cell + rectangle.bounds.center);
-			}
-		}
-
-		protected void RebuildDimensionsGrid(Action<aabb2> onCellFn)
-		{
-			foreach (var cell in Foreach.Cell(rectangle.bounds.size / dimensions, dimensions))
-			{
-				onCellFn(cell + rectangle.bounds.center);
+				foreach (var cell in cells)
+				{
+					onCellFn(cell + rectangle.bounds.center);
+				}
 			}
 		}
 	}

@@ -47,9 +47,11 @@ namespace UnityEditorEx
 						{ "namespacename", UnityEditorExSettings.instance.GetNamespaceName(scriptPath) },
 						{ "classname", "#SCRIPTNAME#" },
 						{ "baseclassname", "MonoBehaviour" },
+						{ "isPartial", false },
+						{ "content", "" }
 					}));
 
-			ProjectWindowUtilEx.CreateScriptAsset(templatePath, scriptPath);
+			ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, scriptPath);
 		}
 
 		[MenuItem("Assets/Ignore asmdef fodler")]

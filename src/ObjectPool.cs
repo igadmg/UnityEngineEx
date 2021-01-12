@@ -106,6 +106,12 @@ namespace UnityEngineEx
 			q.Enqueue(instance);
 		}
 
+		public void Return(IEnumerable<T> instances)
+		{
+			foreach (var instance in instances)
+				Return(instance);
+		}
+
 		/// <summary>
 		/// Clear pool.
 		/// </summary>
@@ -228,6 +234,15 @@ namespace UnityEngineEx
 		}
 
 #endregion
+	}
+
+	public class PrefabObjectPool<T> : ObjectPool<T>
+		where T : UnityEngine.Component
+	{
+		public UnityEngine.GameObject prefab;
+
+		protected override T CreateInstance()
+			=> UnityEngine.GameObject.Instantiate(prefab).GetComponent<T>();
 	}
 
 	/// <summary>
