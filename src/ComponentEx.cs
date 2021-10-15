@@ -13,6 +13,27 @@ namespace UnityEngineEx
 	/// </summary>
 	public static class ComponentEx
 	{
+		public static T CopyComponentTo<T>(this Component original, T destination) where T : Component
+		{
+			Type type = original.GetType();
+
+			var fields = type.GetFields();
+			foreach (var field in fields)
+			{
+				if (field.IsStatic) continue;
+				field.SetValue(destination, field.GetValue(original));
+			}
+
+			var props = type.GetProperties();
+			foreach (var prop in props)
+			{
+				if (!prop.CanWrite || !prop.CanWrite || prop.Name == "name") continue;
+				prop.SetValue(destination, prop.GetValue(original, null), null);
+			}
+
+			return destination;
+		}
+
 		/// <summary>
 		/// Construct prefab of given component type.
 		/// </summary>

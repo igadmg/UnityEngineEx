@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace UnityEngineEx
 {
-	public class TerrainHeightSampler : MonoBehaviour, IHeightSampler
+	public class TerrainHeightSampler : MonoBehaviour, IGridSampler
 	{
 		public Terrain terrain;
 
-		public Vector3 SampleHeight(Vector2 position)
+		public Vector3 SampleGrid(Vector2 position)
 			=> position.xzy(terrain.SampleHeight(position.xzy(0)));
 
 
