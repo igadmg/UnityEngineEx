@@ -1,5 +1,6 @@
 ﻿using MathEx;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityEngineEx
@@ -32,6 +33,22 @@ namespace UnityEngineEx
 			using (Color(color))
 			{
 				Gizmos.DrawLine(origin, origin + direction);
+			}
+		}
+
+		public static void DrawMultiLine(Vector3[] points)
+		{
+			for (int i = 1; i < points.Length; i++)
+			{
+				Gizmos.DrawLine(points[i - 1], points[i]);
+			}
+		}
+
+		public static void DrawMultiLine(List<Vector3> points)
+		{
+			for (int i = 1; i < points.Count; i++)
+			{
+				Gizmos.DrawLine(points[i - 1], points[i]);
 			}
 		}
 

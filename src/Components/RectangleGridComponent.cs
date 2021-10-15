@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SystemEx;
+using UniRx;
 using UnityDissolve;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,8 +26,29 @@ namespace UnityEngineEx
 		public Rect bounds => rectangle.bounds;
 		public GridFillType fillType = GridFillType.DimensionsAreGridSize;
 		public vec2 dimensions;
+
 		public UnityEvent<IEnumerable<aabb2>> onBeforeUpdate;
 		public UnityEvent<aabb2> onCell;
+
+		[NonSerialized]
+		Subject<IEnumerable<aabb2>> observeBeforeUpdate_ = null;
+		Subject<IEnumerable<aabb2>> observeBeforeUpdate => onBeforeUpdate.GetPersistentEventCount() > 0 ? (Subject<IEnumerable<aabb2>>)ObserveBeforeUpdate() : observeBeforeUpdate_;
+		public IObservable<IEnumerable<aabb2>> ObserveBeforeUpdate()
+		{
+			return observeBeforeUpdate_ ??= new Subject<IEnumerable<aabb2>>()
+				.Also(s => s.Subscribe(cells => onBeforeUpdate?.Invoke(cells)));
+		}
+
+		[NonSerialized]
+		Subject<aabb2> observeCell_ = null;
+		Subject<aabb2> observeCell => onCell.GetPersistentEventCount() > 0 ? (Subject<aabb2>)ObserveCell() : observeCell_;
+		public IObservable<aabb2> ObserveCell()
+		{
+			return observeCell_ ??= new Subject<aabb2>()
+				.Also(s => s.Subscribe(cell => onCell?.Invoke(cell)));
+		}
+
+
 
 #if UNITY_EDITOR
 		public bool drawGizmoz = false;
@@ -127,18 +149,18 @@ namespace UnityEngineEx
 		}
 
 		public void RebuildGrid()
-			=> RebuildGrid(onCell.GetPersistentEventCount() > 0 ? cell => onCell.Invoke(cell) : (Action<aabb2>)null);
+			=> RebuildGrid(observeCell != null ? cell => observeCell?.OnNext(cell) : (Action<aabb2>)null);
 
 		public void RebuildGrid(Action<aabb2> onCellFn)
 		{
 			var cells = Cells.ToList();
-			onBeforeUpdate?.Invoke(cells);
+			observeBeforeUpdate?.OnNext(cells);
 
 			if (onCellFn != null)
 			{
 				foreach (var cell in cells)
 				{
-					onCellFn(cell + rectangle.bounds.center);
+					onCellFn(cell);
 				}
 			}
 		}
