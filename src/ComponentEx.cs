@@ -273,7 +273,7 @@ namespace UnityEngineEx
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IfIsPartOfCurrentPrefab(this Component c, Action action)
 		{
-			if (UnityEditor.Experimental.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().Elvis(cps => cps.IsPartOfPrefabContents(c.gameObject)))
+			if (UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().Elvis(cps => cps.IsPartOfPrefabContents(c.gameObject)))
 				action();
 		}
 #endif
