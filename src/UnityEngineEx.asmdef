@@ -6,7 +6,8 @@
         "MathEx",
         "MathEx.UnityEngine",
         "UnityDissolve",
-        "UniRx"
+        "UniRx",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
