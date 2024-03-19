@@ -895,5 +895,11 @@ namespace UnityEngineEx
 				return DisposableLock.empty;
 			}
 		}
+
+		public static void SetLayerRecursive(this GameObject go, string name)
+		{
+			var layer = LayerMask.NameToLayer(name);
+			go.CallRecursive(go => go.layer = layer);
+		}
 	}
 }

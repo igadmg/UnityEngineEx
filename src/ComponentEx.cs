@@ -175,15 +175,20 @@ namespace UnityEngineEx
 			return c.AddComponent<T>();
 		}
 
-		public static C SetParent<C>(this C c, GameObject parent) where C : Component
-		{
-			c.transform.SetParent(parent.transform);
+		public static C DetachParent<C>(this C c, bool worldPositionStays = true) where C : Component {
+			c.transform.SetParent(null, worldPositionStays);
 			return c;
 		}
 
-		public static C SetParent<C>(this C c, Component parent) where C : Component
+		public static C SetParent<C>(this C c, GameObject parent, bool worldPositionStays = true) where C : Component
 		{
-			c.transform.SetParent(parent.transform);
+			c.transform.SetParent(parent.transform, worldPositionStays);
+			return c;
+		}
+
+		public static C SetParent<C>(this C c, Component parent, bool worldPositionStays = true) where C : Component
+		{
+			c.transform.SetParent(parent.transform, worldPositionStays);
 			return c;
 		}
 
