@@ -188,7 +188,7 @@ namespace UnityEngineEx
 			=> instance.Construct(parent.gameObject);
 
 		public static GameObject Construct(this GameObject instance, GameObject parent)
-			=> instance.Construct(_.a((Transform t) => { parent.Add(t); }));
+			=> instance.Construct(Containers.a((Transform t) => { parent.Add(t); }));
 
 		public static GameObject Construct(this GameObject instance, Component parent, params ActionContainer[] initializers)
 			=> instance.Construct(parent.gameObject, initializers);
@@ -196,7 +196,7 @@ namespace UnityEngineEx
 		public static GameObject Construct(this GameObject instance, GameObject parent, params ActionContainer[] initializers)
 			=> instance.Construct(
 				ArrayEx.Concat(
-					_.a((Transform t) => { parent.Add(t); })
+					Containers.a((Transform t) => { parent.Add(t); })
 					, initializers));
 
 		public static GameObject Construct(this GameObject instance, params Tuple<Type, object>[] initializers)
@@ -396,7 +396,7 @@ namespace UnityEngineEx
 		{
 			return instance.New(
 				ArrayEx.Concat(
-					_.a((Transform t) => { t.SetParent(parent.transform); })
+					Containers.a((Transform t) => { t.SetParent(parent.transform); })
 					, initializers));
 		}
 
@@ -405,7 +405,7 @@ namespace UnityEngineEx
 		{
 			return instance.New(
 				ArrayEx.Concat(
-					_.a((Transform t) => { t.SetParent(parent.transform); t.localPosition = po; })
+					Containers.a((Transform t) => { t.SetParent(parent.transform); t.localPosition = po; })
 					, initializers));
 		}
 
