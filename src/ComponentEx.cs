@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using SystemEx;
@@ -6,27 +7,22 @@ using UnityEngine;
 
 
 
-namespace UnityEngineEx
-{
+namespace UnityEngineEx {
 	/// <summary>
 	/// Component extension functions.
 	/// </summary>
-	public static class ComponentEx
-	{
-		public static T CopyComponentTo<T>(this Component original, T destination) where T : Component
-		{
+	public static class ComponentEx {
+		public static T CopyComponentTo<T>(this Component original, T destination) where T : Component {
 			Type type = original.GetType();
 
 			var fields = type.GetFields();
-			foreach (var field in fields)
-			{
+			foreach (var field in fields) {
 				if (field.IsStatic) continue;
 				field.SetValue(destination, field.GetValue(original));
 			}
 
 			var props = type.GetProperties();
-			foreach (var prop in props)
-			{
+			foreach (var prop in props) {
 				if (!prop.CanWrite || !prop.CanWrite || prop.Name == "name") continue;
 				prop.SetValue(destination, prop.GetValue(original, null), null);
 			}
@@ -41,8 +37,7 @@ namespace UnityEngineEx
 		/// <param name="prefab"></param>
 		/// <returns></returns>
 		public static C Construct<C>(this C prefab)
-			where C : Component
-		{
+			where C : Component {
 			GameObject go = prefab.gameObject.Construct();
 			return (C)go.GetComponent(prefab.GetType());
 		}
@@ -52,8 +47,7 @@ namespace UnityEngineEx
 			=> prefab.Construct(parent.gameObject);
 
 		public static C Construct<C>(this C prefab, GameObject parent)
-			where C : Component
-		{
+			where C : Component {
 			GameObject go = prefab.gameObject.Construct(parent);
 			return (C)go.GetComponent(prefab.GetType());
 		}
@@ -63,8 +57,7 @@ namespace UnityEngineEx
 			=> prefab.Construct(parent.gameObject, initializers);
 
 		public static C Construct<C>(this C prefab, GameObject parent, params ActionContainer[] initializers)
-			where C : Component
-		{
+			where C : Component {
 			GameObject go = prefab.gameObject.Construct(parent, initializers);
 			return (C)go.GetComponent(prefab.GetType());
 		}
@@ -78,8 +71,7 @@ namespace UnityEngineEx
 		/// <param name="initializer"></param>
 		/// <returns></returns>
 		public static C Construct<C>(this C prefab, object initializer)
-			where C : Component
-		{
+			where C : Component {
 			GameObject go = prefab.gameObject.Construct(Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
 		}
@@ -89,8 +81,7 @@ namespace UnityEngineEx
 			=> prefab.Construct(parent.gameObject, initializer);
 
 		public static C Construct<C>(this C prefab, GameObject parent, object initializer)
-			where C : Component
-		{
+			where C : Component {
 			GameObject go = prefab.gameObject.Construct(parent, Tuple.Create(typeof(C), initializer));
 			return (C)go.GetComponent(prefab.GetType());
 		}
@@ -103,8 +94,7 @@ namespace UnityEngineEx
 		/// <param name="parent"></param>
 		/// <param name="o"></param>
 		/// <returns></returns>
-		public static GameObject Add(this Component parent, GameObject o)
-		{
+		public static GameObject Add(this Component parent, GameObject o) {
 			return parent.transform.Add(o).gameObject;
 		}
 
@@ -116,14 +106,12 @@ namespace UnityEngineEx
 		/// <param name="parent"></param>
 		/// <param name="o"></param>
 		/// <returns></returns>
-		public static GameObject Add(this Component parent, Component o)
-		{
+		public static GameObject Add(this Component parent, Component o) {
 			return parent.Add(o.gameObject);
 		}
 
 
-		public static T AddComponent<T>(this Component c) where T : Component
-		{
+		public static T AddComponent<T>(this Component c) where T : Component {
 			return c.gameObject.AddComponent<T>();
 		}
 
@@ -135,8 +123,7 @@ namespace UnityEngineEx
 		/// <param name="parameters"></param>
 		/// <returns></returns>
 		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
-		public static T AddComponent<T>(this Component c, IDictionary<string, object> parameters) where T : Component
-		{
+		public static T AddComponent<T>(this Component c, IDictionary<string, object> parameters) where T : Component {
 			return c.gameObject.AddComponent<T>(parameters);
 		}
 
@@ -148,8 +135,7 @@ namespace UnityEngineEx
 		/// <param name="ctor"></param>
 		/// <returns></returns>
 		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
-		public static T AddComponent<T>(this Component c, Action<T> ctor) where T : Component
-		{
+		public static T AddComponent<T>(this Component c, Action<T> ctor) where T : Component {
 			return c.gameObject.AddComponent<T>(ctor);
 		}
 
@@ -161,13 +147,11 @@ namespace UnityEngineEx
 		/// <param name="ctor"></param>
 		/// <returns></returns>
 		[Obsolete("Do not use this. Use AddComponent on inactive gameObject instead.")]
-		public static T AddComponent<T>(this Component c, ActionContainer ctor) where T : Component
-		{
+		public static T AddComponent<T>(this Component c, ActionContainer ctor) where T : Component {
 			return c.gameObject.AddComponent<T>(ctor);
 		}
 
-		public static T GetOrAddComponent<T>(this Component c) where T : Component
-		{
+		public static T GetOrAddComponent<T>(this Component c) where T : Component {
 			var r = c.GetComponent<T>();
 			if (r != null)
 				return r;
@@ -180,14 +164,12 @@ namespace UnityEngineEx
 			return c;
 		}
 
-		public static C SetParent<C>(this C c, GameObject parent, bool worldPositionStays = true) where C : Component
-		{
+		public static C SetParent<C>(this C c, GameObject parent, bool worldPositionStays = true) where C : Component {
 			c.transform.SetParent(parent.transform, worldPositionStays);
 			return c;
 		}
 
-		public static C SetParent<C>(this C c, Component parent, bool worldPositionStays = true) where C : Component
-		{
+		public static C SetParent<C>(this C c, Component parent, bool worldPositionStays = true) where C : Component {
 			c.transform.SetParent(parent.transform, worldPositionStays);
 			return c;
 		}
@@ -199,24 +181,20 @@ namespace UnityEngineEx
 		/// <param name="c"></param>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public static T Find<T>(this Component c, string name) where T : Component
-		{
+		public static T Find<T>(this Component c, string name) where T : Component {
 			return c.transform.Find<T>(name);
 		}
 
-		public static GameObject FindGameObject(this Component c, string name)
-		{
+		public static GameObject FindGameObject(this Component c, string name) {
 			return c.transform.FindGameObject(name);
 		}
 
-		public static Component SetActive(this Component c, bool flag)
-		{
+		public static Component SetActive(this Component c, bool flag) {
 			c.gameObject.SetActive(flag);
 			return c;
 		}
 
-		public static Bounds GetBounds(this Component c)
-		{
+		public static Bounds GetBounds(this Component c) {
 			return c.gameObject.GetBounds();
 		}
 
@@ -229,27 +207,30 @@ namespace UnityEngineEx
 			UnityEngine.Object.Destroy(c);
 		}
 #else
-		public static void Destroy(this Component c)
-		{
+		public static void Destroy(this Component c, bool onValidOrCallback = false) {
 			if (c == null)
 				return;
 
 			if (UnityEditor.EditorApplication.isPlaying)
 				UnityEngine.Object.Destroy(c);
+			else if (onValidOrCallback) {
+				IEnumerator DeleteCoro() {
+					yield return null;
+					UnityEngine.Object.DestroyImmediate(c);
+				}
+				CorotineEx.StartCoroutine(DeleteCoro());
+			}
 			else
 				UnityEngine.Object.DestroyImmediate(c);
 		}
 #endif
 
-		public static IDisposable EnsureDisabled(this Behaviour c)
-		{
-			if (c.enabled)
-			{
+		public static IDisposable EnsureDisabled(this Behaviour c) {
+			if (c.enabled) {
 				c.enabled = false;
 				return DisposableLock.Lock(() => c.enabled = true);
 			}
-			else
-			{
+			else {
 				return DisposableLock.empty;
 			}
 		}
@@ -262,22 +243,19 @@ namespace UnityEngineEx
 		}
 #else
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void IfGameIsPlaying(this Component c, Action action)
-		{
+		public static void IfGameIsPlaying(this Component c, Action action) {
 			if (UnityEditor.EditorApplication.isPlaying)
 				action();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void IfGameIsNotPlaying(this Component c, Action action)
-		{
+		public static void IfGameIsNotPlaying(this Component c, Action action) {
 			if (!UnityEditor.EditorApplication.isPlaying)
 				action();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void IfIsPartOfCurrentPrefab(this Component c, Action action)
-		{
+		public static void IfIsPartOfCurrentPrefab(this Component c, Action action) {
 			if (UnityEditor.SceneManagement.PrefabStageUtility.GetCurrentPrefabStage().Elvis(cps => cps.IsPartOfPrefabContents(c.gameObject)))
 				action();
 		}

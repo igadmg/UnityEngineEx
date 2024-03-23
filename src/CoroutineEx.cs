@@ -1,26 +1,32 @@
+using System;
 using System.Collections;
+using SystemEx;
 using UnityEngine;
 
 namespace UnityEngineEx
 {
-	public static class CorotineEx
-	{
-		static IEnumerator CoroutineWrapper(IEnumerator coroutine, GameObject controller)
-		{
-			while (coroutine.MoveNext())
-			{
-				yield return true;
+	[ExecuteInEditMode]
+	class CoroutineHelperBehaviour : MonoBehaviour {
+		static CoroutineHelperBehaviour _instance;
+		public static CoroutineHelperBehaviour instance {
+			get {
+				_instance = _instance.Or(() => {
+					var chb = FindAnyObjectByType<CoroutineHelperBehaviour>();
+					if (chb == null) {
+						chb = new GameObject("Coroutine Helper").AddComponent<CoroutineHelperBehaviour>();
+						chb.gameObject.hideFlags = HideFlags.HideAndDontSave;
+					}
+					return chb;
+				});
+				return _instance;
 			}
-
-			GameObject.Destroy(controller);
-			yield break;
 		}
+	}
 
-		public static GameObject StartCoroutine(IEnumerator coroutine)
+	public static class CorotineEx {
+		public static void StartCoroutine(IEnumerator coroutine)
 		{
-			GameObject go = new GameObject();
-			go.AddComponent<MonoBehaviour>().StartCoroutine(CoroutineWrapper(coroutine, go));
-			return go;
+			CoroutineHelperBehaviour.instance.StartCoroutine(coroutine);
 		}
 	}
 }
