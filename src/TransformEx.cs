@@ -5,13 +5,11 @@ using UnityEngine;
 
 
 
-namespace UnityEngineEx
-{
+namespace UnityEngineEx {
 	/// <summary>
 	/// Transfrom extensionf functions.
 	/// </summary>
-	public static class TransformEx
-	{
+	public static class TransformEx {
 		/// <summary>
 		/// Align transform with otherTransform.
 		/// Synchronize transfrom positions and rotations.
@@ -19,8 +17,7 @@ namespace UnityEngineEx
 		/// <param name="transform"></param>
 		/// <param name="otherTransform"></param>
 		/// <returns></returns>
-		public static Transform Align(this Transform transform, Transform otherTransform)
-		{
+		public static Transform Align(this Transform transform, Transform otherTransform) {
 			transform.position = otherTransform.position;
 			transform.rotation = otherTransform.rotation;
 			return transform;
@@ -33,8 +30,7 @@ namespace UnityEngineEx
 		/// <param name="transform"></param>
 		/// <param name="child"></param>
 		/// <returns></returns>
-		public static Transform Add(this Transform transform, GameObject child)
-		{
+		public static Transform Add(this Transform transform, GameObject child) {
 			var po = child.transform.position;
 			var ro = child.transform.rotation;
 			var sc = child.transform.localScale;
@@ -52,8 +48,7 @@ namespace UnityEngineEx
 		/// <param name="transform"></param>
 		/// <param name="child"></param>
 		/// <returns></returns>
-		public static Transform Add(this Transform transform, Component child)
-		{
+		public static Transform Add(this Transform transform, Component child) {
 			return transform.Add(child.gameObject);
 		}
 
@@ -64,8 +59,7 @@ namespace UnityEngineEx
 		/// <param name="transform"></param>
 		/// <param name="child"></param>
 		/// <returns></returns>
-		public static Transform Add(this Transform transform, Transform child)
-		{
+		public static Transform Add(this Transform transform, Transform child) {
 			var po = child.position;
 			var ro = child.rotation;
 			var sc = child.localScale;
@@ -76,26 +70,22 @@ namespace UnityEngineEx
 			return transform;
 		}
 
-		public static Transform SetParent(this Transform transform, GameObject parent)
-		{
+		public static Transform SetParent(this Transform transform, GameObject parent) {
 			transform.SetParent(parent.transform);
 			return transform;
 		}
 
-		public static Transform SetParent<C>(this Transform transform, C parent) where C : Component
-		{
+		public static Transform SetParent<C>(this Transform transform, C parent) where C : Component {
 			transform.SetParent(parent.transform);
 			return transform;
 		}
 
-		public static Transform SetParent(this Transform transform, GameObject parent, bool worldPositionStays)
-		{
+		public static Transform SetParent(this Transform transform, GameObject parent, bool worldPositionStays) {
 			transform.SetParent(parent.transform, worldPositionStays);
 			return transform;
 		}
 
-		public static Transform SetParent<C>(this Transform transform, C parent, bool worldPositionStays) where C : Component
-		{
+		public static Transform SetParent<C>(this Transform transform, C parent, bool worldPositionStays) where C : Component {
 			transform.SetParent(parent.transform, worldPositionStays);
 			return transform;
 		}
@@ -105,26 +95,21 @@ namespace UnityEngineEx
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <returns></returns>
-		public static Transform Clear(this Transform transform)
-		{
+		public static Transform Clear(this Transform transform) {
 #if UNITY_EDITOR
-			if (!UnityEditor.EditorApplication.isPlaying)
-			{
+			if (!UnityEditor.EditorApplication.isPlaying) {
 				List<GameObject> objects = new List<GameObject>();
-				foreach (Transform child in transform)
-				{
+				foreach (Transform child in transform) {
 					objects.Add(child.gameObject);
 				}
-				foreach (GameObject o in objects)
-				{
+				foreach (GameObject o in objects) {
 					GameObjectEx.Destroy(o);
 				}
 			}
 			else
 #endif
 			{
-				foreach (Transform child in transform)
-				{
+				foreach (Transform child in transform) {
 					GameObjectEx.Destroy(child.gameObject);
 				}
 			}
@@ -138,26 +123,21 @@ namespace UnityEngineEx
 		/// <param name="transform"></param>
 		/// <param name = "f"></param>
 		/// <returns></returns>
-		public static Transform Clear(this Transform transform, Func<Transform, bool> f)
-		{
+		public static Transform Clear(this Transform transform, Func<Transform, bool> f) {
 #if UNITY_EDITOR
-			if (!UnityEditor.EditorApplication.isPlaying)
-			{
+			if (!UnityEditor.EditorApplication.isPlaying) {
 				List<GameObject> objects = new List<GameObject>();
-				foreach (Transform child in transform.Find(f))
-				{
+				foreach (Transform child in transform.Find(f)) {
 					objects.Add(child.gameObject);
 				}
-				foreach (GameObject o in objects)
-				{
+				foreach (GameObject o in objects) {
 					GameObjectEx.Destroy(o);
 				}
 			}
 			else
 #endif
 			{
-				foreach (Transform child in transform.Find(f))
-				{
+				foreach (Transform child in transform.Find(f)) {
 					GameObjectEx.Destroy(child.gameObject);
 				}
 			}
@@ -169,24 +149,20 @@ namespace UnityEngineEx
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <returns></returns>
-		public static Transform Unlink(this Transform transform)
-		{
-			foreach (Transform child in transform)
-			{
+		public static Transform Unlink(this Transform transform) {
+			foreach (Transform child in transform) {
 				child.SetParent(null);
 			}
 
 			return transform;
 		}
 
-		public static Transform SetActive(this Transform transform, bool flag)
-		{
+		public static Transform SetActive(this Transform transform, bool flag) {
 			transform.gameObject.SetActive(flag);
 			return transform;
 		}
 
-		public static Transform Reset(this Transform transform)
-		{
+		public static Transform Reset(this Transform transform) {
 			transform.localPosition = Vector3.zero;
 			transform.localRotation = Quaternion.identity;
 			transform.localScale = Vector3.one;
@@ -200,8 +176,7 @@ namespace UnityEngineEx
 		/// <param name="transform"></param>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public static T Find<T>(this Transform transform, string name) where T : Component
-		{
+		public static T Find<T>(this Transform transform, string name) where T : Component {
 			var t = transform.Find(name);
 
 			if (t != null)
@@ -212,8 +187,7 @@ namespace UnityEngineEx
 			return null;
 		}
 
-		public static GameObject FindGameObject(this Transform transform, string name)
-		{
+		public static GameObject FindGameObject(this Transform transform, string name) {
 			var t = name != null ? transform.Find(name) : transform;
 
 			if (t != null)
@@ -224,8 +198,7 @@ namespace UnityEngineEx
 			return null;
 		}
 
-		public static object Find(this Transform transform, string name, Type type)
-		{
+		public static object Find(this Transform transform, string name, Type type) {
 			var t = name != null ? transform.Find(name) : transform;
 
 			if (t != null)
@@ -236,15 +209,11 @@ namespace UnityEngineEx
 			return null;
 		}
 
-		public static IEnumerable<Transform> Find(this Transform transform, Func<Transform, bool> f)
-		{
-			foreach (Transform child in transform)
-			{
+		public static IEnumerable<Transform> Find(this Transform transform, Func<Transform, bool> f) {
+			foreach (Transform child in transform) {
 				if (f(child))
 					yield return child;
 			}
-
-			yield break;
 		}
 	}
 }

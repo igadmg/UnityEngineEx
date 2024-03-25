@@ -3,8 +3,7 @@ using System.Collections;
 using SystemEx;
 using UnityEngine;
 
-namespace UnityEngineEx
-{
+namespace UnityEngineEx {
 	[ExecuteInEditMode]
 	class CoroutineHelperBehaviour : MonoBehaviour {
 		static CoroutineHelperBehaviour _instance;
@@ -24,8 +23,7 @@ namespace UnityEngineEx
 	}
 
 	public static class CorotineEx {
-		public static void StartCoroutine(IEnumerator coroutine)
-		{
+		public static void StartCoroutine(IEnumerator coroutine) {
 			CoroutineHelperBehaviour.instance.StartCoroutine(coroutine);
 		}
 

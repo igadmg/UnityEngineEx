@@ -2,15 +2,12 @@ using UnityEngine;
 
 
 
-namespace UnityEngineEx
-{
+namespace UnityEngineEx {
 	/// <summary>
 	/// RaycastHit extension methods.
 	/// </summary>
-	public static class RaycastHitEx
-	{
-		public static bool IsHit(this RaycastHit hit)
-		{
+	public static class RaycastHitEx {
+		public static bool IsHit(this RaycastHit hit) {
 			return hit.transform != null;
 		}
 
@@ -19,8 +16,7 @@ namespace UnityEngineEx
 		/// </summary>
 		/// <param name="hit"></param>
 		/// <returns></returns>
-		public static GameObject GetGameObject(this RaycastHit hit)
-		{
+		public static GameObject GetGameObject(this RaycastHit hit) {
 			if (hit.transform == null || hit.transform.gameObject == null)
 				return null;
 
@@ -33,8 +29,7 @@ namespace UnityEngineEx
 		/// </summary>
 		/// <param name="hit"></param>
 		/// <returns></returns>
-		public static GameObject GetRootGameObject(this RaycastHit hit)
-		{
+		public static GameObject GetRootGameObject(this RaycastHit hit) {
 			if (hit.transform == null || hit.transform.gameObject == null)
 				return null;
 
@@ -47,8 +42,7 @@ namespace UnityEngineEx
 		/// <typeparam name="C"></typeparam>
 		/// <param name="hit"></param>
 		/// <returns></returns>
-		public static C GetComponent<C>(this RaycastHit hit)
-		{
+		public static C GetComponent<C>(this RaycastHit hit) {
 			if (hit.transform == null || hit.transform.gameObject == null)
 				return default(C);
 
@@ -63,8 +57,7 @@ namespace UnityEngineEx
 		/// <typeparam name="C"></typeparam>
 		/// <param name="hit"></param>
 		/// <returns></returns>
-		public static C GetRootComponent<C>(this RaycastHit hit)
-		{
+		public static C GetRootComponent<C>(this RaycastHit hit) {
 			if (hit.transform == null)
 				return default(C);
 

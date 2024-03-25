@@ -1,16 +1,13 @@
 using UnityEngine;
 
-namespace UnityEngineEx
-{
-	public static class TextAnchorEx
-	{
+namespace UnityEngineEx {
+	public static class TextAnchorEx {
 		/// <summary>
 		/// Converts TextAnchor to a Sprite pivot.
 		/// </summary>
 		/// <param name="anchor"></param>
 		/// <returns></returns>
-		public static Vector2 ToPivot(this TextAnchor anchor)
-		{
+		public static Vector2 ToPivot(this TextAnchor anchor) {
 			float pivotx, pivoty;
 			if (anchor < TextAnchor.MiddleLeft)
 				pivoty = 1.0f;

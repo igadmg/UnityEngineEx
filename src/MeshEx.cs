@@ -2,21 +2,17 @@ using MathEx;
 using System;
 using UnityEngine;
 
-namespace UnityEngineEx
-{
-	public static class MeshEx
-	{
+namespace UnityEngineEx {
+	public static class MeshEx {
 		/// <summary>
 		/// Translate all vertices of a Mesh.
 		/// </summary>
 		/// <param name="mesh"></param>
 		/// <param name="Translation"></param>
 		/// <returns></returns>
-		public static Mesh Translate(this Mesh mesh, Vector3 Translation)
-		{
+		public static Mesh Translate(this Mesh mesh, Vector3 Translation) {
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertexCount; i++)
-			{
+			for (int i = 0; i < mesh.vertexCount; i++) {
 				vertices[i] = mesh.vertices[i] + Translation;
 			}
 
@@ -31,17 +27,14 @@ namespace UnityEngineEx
 		/// <param name="mesh"></param>
 		/// <param name="Rotation"></param>
 		/// <returns></returns>
-		public static Mesh Rotate(this Mesh mesh, Quaternion Rotation)
-		{
+		public static Mesh Rotate(this Mesh mesh, Quaternion Rotation) {
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertexCount; i++)
-			{
+			for (int i = 0; i < mesh.vertexCount; i++) {
 				vertices[i] = Rotation * mesh.vertices[i];
 			}
 
 			Vector3[] normals = new Vector3[mesh.normals.Length];
-			for (int i = 0; i < mesh.normals.Length; i++)
-			{
+			for (int i = 0; i < mesh.normals.Length; i++) {
 				normals[i] = Rotation * mesh.normals[i];
 			}
 
@@ -51,12 +44,10 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh Twist(this Mesh mesh, float dA)
-		{
+		public static Mesh Twist(this Mesh mesh, float dA) {
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
 			Vector3[] normals = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertices.Length; i++)
-			{
+			for (int i = 0; i < mesh.vertices.Length; i++) {
 				float a = mesh.vertices[i].z * dA;
 				vertices[i] = mesh.vertices[i].Rotate(new Vector3(0, 0, a));
 				normals[i] = mesh.normals[i].Rotate(new Vector3(0, 0, a));
@@ -68,12 +59,10 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh Twist(this Mesh mesh, Vector3 x, float dA)
-		{
+		public static Mesh Twist(this Mesh mesh, Vector3 x, float dA) {
 			Vector3[] vertices = new Vector3[mesh.vertexCount];
 			Vector3[] normals = new Vector3[mesh.vertexCount];
-			for (int i = 0; i < mesh.vertices.Length; i++)
-			{
+			for (int i = 0; i < mesh.vertices.Length; i++) {
 				float a = Vector3.Project(mesh.vertices[i], x).z * dA;
 				vertices[i] = mesh.vertices[i].Rotate(x * a);
 				normals[i] = mesh.normals[i].Rotate(x * a);
@@ -85,8 +74,7 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh Color(this Mesh mesh, Color color)
-		{
+		public static Mesh Color(this Mesh mesh, Color color) {
 			Color[] colors = new Color[mesh.vertexCount];
 			for (int i = 0; i < colors.Length; i++)
 				colors[i] = color;
@@ -96,13 +84,11 @@ namespace UnityEngineEx
 
 		#region UV Mapping
 
-		public static Mesh ShiftUV(this Mesh mesh, Rect uv)
-		{
+		public static Mesh ShiftUV(this Mesh mesh, Rect uv) {
 			Vector2 shift = new Vector2(uv.xMin, uv.yMin);
 			Vector2 scale = new Vector2(uv.width, uv.height);
 			Vector2[] uvs = new Vector2[mesh.uv.Length];
-			for (int i = 0; i < mesh.uv.Length; i++)
-			{
+			for (int i = 0; i < mesh.uv.Length; i++) {
 				uvs[i] = shift + mesh.uv[i].Mul(scale);
 			}
 
@@ -111,19 +97,16 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh ProjectionUVMap(this Mesh mesh)
-		{
+		public static Mesh ProjectionUVMap(this Mesh mesh) {
 			Vector2[] uvs = new Vector2[mesh.vertexCount];
 
 			Rect bound = RectEx.Empty;
-			for (int i = 0; i < uvs.Length; i++)
-			{
+			for (int i = 0; i < uvs.Length; i++) {
 				uvs[i] = mesh.vertices[i].xy();
 				bound = bound.Extend(uvs[i]);
 			}
 
-			for (int i = 0; i < uvs.Length; i++)
-			{
+			for (int i = 0; i < uvs.Length; i++) {
 				uvs[i] = bound.Normalize(uvs[i]);
 			}
 
@@ -132,13 +115,11 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh CylindricalUVMap(this Mesh mesh)
-		{
+		public static Mesh CylindricalUVMap(this Mesh mesh) {
 			Vector2[] uvs = new Vector2[mesh.vertexCount];
 
 			Rect bound = RectEx.Empty;
-			for (int i = 0; i < uvs.Length; i++)
-			{
+			for (int i = 0; i < uvs.Length; i++) {
 				CylinderVector3 cv = mesh.vertices[i];
 				uvs[i] = new Vector2(cv.e, cv.n);
 				bound = bound.Extend(uvs[i]);
@@ -148,8 +129,7 @@ namespace UnityEngineEx
 			bound = bound.Extend(new Vector2(+Mathf.PI, bound.yMin));
 
 			Debug.Log(bound);
-			for (int i = 0; i < uvs.Length; i++)
-			{
+			for (int i = 0; i < uvs.Length; i++) {
 				uvs[i] = bound.Normalize(uvs[i]);
 				Debug.Log(uvs[i].ToString());
 			}
@@ -162,8 +142,7 @@ namespace UnityEngineEx
 
 		#endregion
 
-		public static Mesh Add(this Mesh mesh, Mesh add)
-		{
+		public static Mesh Add(this Mesh mesh, Mesh add) {
 			Vector3[] vs = new Vector3[mesh.vertices.Length + add.vertices.Length];
 			Array.Copy(mesh.vertices, vs, mesh.vertices.Length); Array.Copy(add.vertices, 0, vs, mesh.vertices.Length, add.vertices.Length);
 			Vector3[] ns = new Vector3[mesh.normals.Length + add.normals.Length];
@@ -185,31 +164,26 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh Apply(this Mesh mesh)
-		{
+		public static Mesh Apply(this Mesh mesh) {
 			mesh.RecalculateBounds();
 			return mesh;
 		}
 
 		#region Primitive
 
-		public static Mesh Recangle(this Mesh mesh)
-		{
+		public static Mesh Recangle(this Mesh mesh) {
 			return mesh.Recangle(Vector2.one, Vector2.one);
 		}
 
-		public static Mesh Recangle(this Mesh mesh, float width)
-		{
+		public static Mesh Recangle(this Mesh mesh, float width) {
 			return mesh.Recangle(new Vector2(width, 1.0f), Vector2.one);
 		}
 
-		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions)
-		{
+		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions) {
 			return mesh.Recangle(Dimensions, Vector2.one);
 		}
 
-		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions, Matrix4x4 transform)
-		{
+		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions, Matrix4x4 transform) {
 			return mesh.Recangle(Dimensions, Vector2.one, transform);
 		}
 
@@ -219,13 +193,11 @@ namespace UnityEngineEx
 		/// <param name="mesh">Mesh.</param>
 		/// <param name="Dimensions">Dimensions. X - Width. Y - Height.</param>
 		/// <param name="Grid">Grid.</param>
-		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions, Vector2 Grid)
-		{
+		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions, Vector2 Grid) {
 			return mesh.Recangle(Dimensions, Grid, Matrix4x4.identity);
 		}
 
-		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions, Vector2 Grid, Matrix4x4 transform)
-		{
+		public static Mesh Recangle(this Mesh mesh, Vector2 Dimensions, Vector2 Grid, Matrix4x4 transform) {
 			Vector2 dV = Dimensions.Div(Grid);
 			int Columns = (int)(Grid.x + 1);
 			int Rows = (int)(Grid.y + 1);
@@ -240,12 +212,10 @@ namespace UnityEngineEx
 			Vector2[] uvs = new Vector2[Vertices];
 
 			Vector3 v;
-			for (int i = 0; i < Columns; i++)
-			{
+			for (int i = 0; i < Columns; i++) {
 				v = i * Vector3.right * dV.x - Vector3.right * Dimensions.x / 2;
 				v -= Vector3.forward * Dimensions.y / 2;
-				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y)
-				{
+				for (int j = 0; j < Rows; j++, v += Vector3.forward * dV.y) {
 					vs[vi++] = transform * v;
 					ns[ni++] = transform * Vector3.up;
 					uvs[uvi++] = new Vector2(i / Grid.x, j / Grid.y);
@@ -255,8 +225,7 @@ namespace UnityEngineEx
 			vi = 0;
 			int ti = 0;
 			int[] triangles = new int[Triangles * 3];
-			for (int i = 0; i < Triangles / 2; i++, vi++)
-			{
+			for (int i = 0; i < Triangles / 2; i++, vi++) {
 				if (((vi + 1) % Rows) == 0)
 					vi++;
 
@@ -276,13 +245,11 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh Cube(this Mesh mesh, Vector3 Dimensions)
-		{
+		public static Mesh Cube(this Mesh mesh, Vector3 Dimensions) {
 			return mesh.Cube(Dimensions, Matrix4x4.identity);
 		}
 
-		public static Mesh Cube(this Mesh mesh, Vector3 Dimensions, Matrix4x4 transform)
-		{
+		public static Mesh Cube(this Mesh mesh, Vector3 Dimensions, Matrix4x4 transform) {
 			//Vector3 dV = Dimensions.Div(Grid);
 			Vector3 hD = Dimensions / 2;
 			int Width = 2; //(int)(Grid.x + 1);
@@ -381,8 +348,7 @@ namespace UnityEngineEx
 			return mesh;
 		}
 
-		public static Mesh Cylinder(this Mesh mesh, float Radius, Vector2 Grid)
-		{
+		public static Mesh Cylinder(this Mesh mesh, float Radius, Vector2 Grid) {
 			return mesh.Cylinder(new Vector2(Radius, 1.0f), Grid);
 		}
 
@@ -392,8 +358,7 @@ namespace UnityEngineEx
 		/// <param name="mesh">Mesh.</param>
 		/// <param name="Dimensions">Dimensions. X - radius. Y - Length.</param>
 		/// <param name="Grid">Grid.</param>
-		public static Mesh Cylinder(this Mesh mesh, Vector2 Dimensions, Vector2 Grid)
-		{
+		public static Mesh Cylinder(this Mesh mesh, Vector2 Dimensions, Vector2 Grid) {
 			int Columns = (int)(Grid.x);
 			int Rows = (int)(Grid.y + 1);
 			int Vertices = Columns * Rows + Rows;
@@ -410,12 +375,10 @@ namespace UnityEngineEx
 			float a = 0;
 			float dA = 2 * Mathf.PI / Columns;
 			float dH = Dimensions.y / Grid.y;
-			for (int i = 0; i < Columns; i++, a += dA)
-			{
+			for (int i = 0; i < Columns; i++, a += dA) {
 				float x = Mathf.Cos(a);
 				float y = Mathf.Sin(a);
-				for (int j = 0; j < Rows; j++)
-				{
+				for (int j = 0; j < Rows; j++) {
 					vs[vi++] = new Vector3(x * Dimensions.x, y * Dimensions.x, j * dH);
 					ns[ni++] = new Vector3(x, y, 0);
 					uvs[uvi++] = new Vector2(i / (float)(Columns), j / Grid.y);
@@ -425,8 +388,7 @@ namespace UnityEngineEx
 				a = 0;
 				float x = Mathf.Cos(a);
 				float y = Mathf.Sin(a);
-				for (int j = 0; j < Rows; j++)
-				{
+				for (int j = 0; j < Rows; j++) {
 					vs[vi++] = new Vector3(x * Dimensions.x, y * Dimensions.x, j * dH);
 					ns[ni++] = new Vector3(x, y, 0);
 					uvs[uvi++] = new Vector2(1.0f, j / Grid.y);
@@ -437,8 +399,7 @@ namespace UnityEngineEx
 			vi = 0;
 			int ti = 0;
 			int[] triangles = new int[Triangles * 3];
-			for (int i = 0; i < Triangles / 2; i++, vi++)
-			{
+			for (int i = 0; i < Triangles / 2; i++, vi++) {
 				if (((vi + 1) % Rows) == 0)
 					vi++;
 
@@ -460,13 +421,11 @@ namespace UnityEngineEx
 
 		#region Platonic solids
 
-		public static Mesh Tetrahedron(this Mesh mesh)
-		{
+		public static Mesh Tetrahedron(this Mesh mesh) {
 			return mesh;
 		}
 
-		public static Mesh Icosahedron(this Mesh mesh)
-		{
+		public static Mesh Icosahedron(this Mesh mesh) {
 			float g = (1 + Mathf.Sqrt(5)) / 2;
 
 			Vector3[] vs = {
@@ -485,8 +444,7 @@ namespace UnityEngineEx
 			};
 
 			Vector3[] ns = new Vector3[vs.Length];
-			for (int i = 0; i < ns.Length; i++)
-			{
+			for (int i = 0; i < ns.Length; i++) {
 				ns[i] = vs[i].normalized;
 			}
 
@@ -526,8 +484,7 @@ namespace UnityEngineEx
 
 		#endregion
 
-		public static Mesh Box(this Mesh mesh, Vector3 Dimensions, Vector3 Grid)
-		{
+		public static Mesh Box(this Mesh mesh, Vector3 Dimensions, Vector3 Grid) {
 			mesh.Recangle(Dimensions.xy(), Grid.xy()).Translate(Vector3.forward * Dimensions.z / 2).ShiftUV(new Rect(0.5f, 0, 0.5f, 0.25f)).Add(
 				new Mesh().Recangle(Dimensions.xz(), Grid.xz()).Rotate(Quaternion.Euler(new Vector3(90, 0, 0))).Translate(-Vector3.up * Dimensions.y / 2).ShiftUV(new Rect(0, 0.25f, 0.5f, 0.25f))).Add(
 				new Mesh().Recangle(Dimensions.zy(), Grid.zy()).Rotate(Quaternion.Euler(new Vector3(0, 270, 0))).Translate(Vector3.right * Dimensions.x / 2).ShiftUV(new Rect(0, 0.5f, 0.5f, 0.25f))).Add(

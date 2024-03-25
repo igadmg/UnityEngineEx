@@ -1,20 +1,16 @@
 using UnityEngine;
 
-namespace UnityEngineEx
-{
-	public static class AnimationEx
-	{
+namespace UnityEngineEx {
+	public static class AnimationEx {
 		/// <summary>
 		/// Get AnimationState of Animation by index.
 		/// </summary>
 		/// <param name="animation"></param>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		public static AnimationState GetState(this Animation animation, int index)
-		{
+		public static AnimationState GetState(this Animation animation, int index) {
 			int i = 0;
-			foreach (AnimationState state in animation)
-			{
+			foreach (AnimationState state in animation) {
 				if (i == index)
 					return state;
 				i++;
@@ -30,8 +26,7 @@ namespace UnityEngineEx
 		/// <param name="clip"></param>
 		/// <param name="normalizedTime"></param>
 		/// <returns></returns>
-		public static Animation SampleFrame(this Animation animation, AnimationClip clip, float normalizedTime)
-		{
+		public static Animation SampleFrame(this Animation animation, AnimationClip clip, float normalizedTime) {
 			AnimationState state = animation[clip.name];
 			state.enabled = true;
 			state.normalizedTime = normalizedTime;
@@ -50,13 +45,11 @@ namespace UnityEngineEx
 		/// <param name="clip"></param>
 		/// <param name="speed"></param>
 		/// <returns></returns>
-		public static Animation PlayDirection(this Animation animation, AnimationClip clip, float speed)
-		{
+		public static Animation PlayDirection(this Animation animation, AnimationClip clip, float speed) {
 			AnimationState state = animation[clip.name];
 
 			state.speed = speed;
-			if (!state.enabled)
-			{
+			if (!state.enabled) {
 				if (speed > 0)
 					state.Forward();
 				else

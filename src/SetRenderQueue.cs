@@ -11,18 +11,14 @@
 
 using UnityEngine;
 
-namespace UnityEngineEx
-{
+namespace UnityEngineEx {
 	[AddComponentMenu("Rendering/SetRenderQueue")]
-	public class SetRenderQueue : MonoBehaviour
-	{
+	public class SetRenderQueue : MonoBehaviour {
 		[SerializeField] protected int[] m_queues = new int[] { 3000 };
 
-		protected void Awake()
-		{
+		protected void Awake() {
 			Material[] materials = GetComponent<Renderer>().materials;
-			for (int i = 0; i < materials.Length && i < m_queues.Length; ++i)
-			{
+			for (int i = 0; i < materials.Length && i < m_queues.Length; ++i) {
 				materials[i].renderQueue = m_queues[i];
 			}
 		}
