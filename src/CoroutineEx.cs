@@ -28,6 +28,22 @@ namespace UnityEngineEx
 		{
 			CoroutineHelperBehaviour.instance.StartCoroutine(coroutine);
 		}
+
+		public static void RunAtEndOfFrameEditor(Action fn) {
+			IEnumerator RunAtEnfOfFrameFn() {
+				yield return null;
+				fn();
+			}
+			StartCoroutine(RunAtEnfOfFrameFn());
+		}
+
+		public static void RunAtEndOfFrame(this MonoBehaviour mbh, Action fn) {
+			IEnumerator RunAtEnfOfFrameFn() {
+				yield return new WaitForEndOfFrame();
+				fn();
+			}
+			mbh.StartCoroutine(RunAtEnfOfFrameFn());
+		}
 	}
 }
 

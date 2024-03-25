@@ -213,13 +213,8 @@ namespace UnityEngineEx {
 
 			if (UnityEditor.EditorApplication.isPlaying)
 				UnityEngine.Object.Destroy(c);
-			else if (onValidOrCallback) {
-				IEnumerator DeleteCoro() {
-					yield return null;
-					UnityEngine.Object.DestroyImmediate(c);
-				}
-				CorotineEx.StartCoroutine(DeleteCoro());
-			}
+			else if (onValidOrCallback)
+				CorotineEx.RunAtEndOfFrameEditor(() => UnityEngine.Object.DestroyImmediate(c));
 			else
 				UnityEngine.Object.DestroyImmediate(c);
 		}

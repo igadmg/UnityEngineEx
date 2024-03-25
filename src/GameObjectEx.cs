@@ -536,13 +536,8 @@ namespace UnityEngineEx {
 
 			if (UnityEditor.EditorApplication.isPlaying)
 				UnityEngine.Object.Destroy(go);
-			else if (onValidOrCallback) {
-				IEnumerator DeleteCoro() {
-					yield return null;
-					UnityEngine.Object.DestroyImmediate(go);
-				}
-				CorotineEx.StartCoroutine(DeleteCoro());
-			}
+			else if (onValidOrCallback)
+				CorotineEx.RunAtEndOfFrameEditor(() => UnityEngine.Object.DestroyImmediate(go));
 			else
 				UnityEngine.Object.DestroyImmediate(go);
 		}
