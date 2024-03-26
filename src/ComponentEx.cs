@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using SystemEx;
 using UnityEngine;
 
@@ -49,6 +49,12 @@ namespace UnityEngineEx {
 		public static C Construct<C>(this C prefab, GameObject parent)
 			where C : Component {
 			GameObject go = prefab.gameObject.Construct(parent);
+			return (C)go.GetComponent(prefab.GetType());
+		}
+
+		public static C Construct<C>(this C prefab, params ActionContainer[] initializers)
+			where C : Component {
+			GameObject go = prefab.gameObject.Construct(initializers);
 			return (C)go.GetComponent(prefab.GetType());
 		}
 
@@ -236,11 +242,22 @@ namespace UnityEngineEx {
 		{
 			action();
 		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static async Task IfGameIsPlayingAsync(this Component c, Func<Task> action) {
+			await action();
+		}
 #else
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IfGameIsPlaying(this Component c, Action action) {
 			if (UnityEditor.EditorApplication.isPlaying)
 				action();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static async Task IfGameIsPlayingAsync(this Component c, Func<Task> action) {
+			if (UnityEditor.EditorApplication.isPlaying)
+				await action();
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
