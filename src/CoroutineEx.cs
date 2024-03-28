@@ -42,6 +42,14 @@ namespace UnityEngineEx {
 			}
 			mbh.StartCoroutine(RunAtEnfOfFrameFn());
 		}
+
+		public static void RunAtEndOfFrameEditor(this MonoBehaviour mbh, Action fn) {
+			IEnumerator RunAtEnfOfFrameFn() {
+				yield return null;
+				fn();
+			}
+			mbh.StartCoroutine(RunAtEnfOfFrameFn());
+		}
 	}
 }
 
